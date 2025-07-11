@@ -25,6 +25,7 @@ namespace MaxiKiosco
 
         private void frmUsuario_Load(object sender, EventArgs e)
         {
+            dgvdata.RowHeadersVisible = false;
             cboestado.Items.Add(new OpcionCombo() { Valor = 1, texto = "Activo" });
             cboestado.Items.Add(new OpcionCombo() { Valor = 0, texto = "No Activo" });
             cboestado.DisplayMember = "Texto";
@@ -269,6 +270,11 @@ namespace MaxiKiosco
             {
                 row.Visible = true;
             }
+        }
+
+        private void btnlimpiar_Click(object sender, EventArgs e)
+        {
+            Limpiar();
         }
     }
 }
