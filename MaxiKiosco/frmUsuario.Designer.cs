@@ -306,6 +306,7 @@
             btnlimpiar.TextAlign = ContentAlignment.MiddleRight;
             btnlimpiar.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnlimpiar.UseVisualStyleBackColor = false;
+            btnlimpiar.Click += btnlimpiar_Click;
             // 
             // btneliminar
             // 
@@ -361,7 +362,7 @@
             dataGridViewCellStyle2.SelectionBackColor = Color.White;
             dataGridViewCellStyle2.SelectionForeColor = Color.Black;
             dgvdata.RowsDefaultCellStyle = dataGridViewCellStyle2;
-            dgvdata.Size = new Size(1114, 554);
+            dgvdata.Size = new Size(1079, 554);
             dgvdata.TabIndex = 25;
             dgvdata.CellContentClick += dgvdata_CellContentClick;
             dgvdata.CellPainting += dgvdata_CellPainting;
@@ -480,7 +481,7 @@
             label12.Font = new Font("Segoe UI", 15F);
             label12.Location = new Point(511, 45);
             label12.Name = "label12";
-            label12.Size = new Size(1114, 79);
+            label12.Size = new Size(1079, 79);
             label12.TabIndex = 26;
             label12.Text = "Lista de Usuarios";
             label12.TextAlign = ContentAlignment.MiddleLeft;
@@ -574,7 +575,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaptionText;
-            ClientSize = new Size(1621, 826);
+            ClientSize = new Size(1722, 826);
             Controls.Add(txtindice);
             Controls.Add(btnlimpiarbuscador);
             Controls.Add(btnbuscar);
