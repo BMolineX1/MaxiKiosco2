@@ -10,5 +10,9 @@ namespace MaxiKiosco.Utilidades
     {
         public string texto { get; set; }
         public object Valor { get; set; }
+        public override string ToString()
+        {
+            return texto;
+        }
     }
 }

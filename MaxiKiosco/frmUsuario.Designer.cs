@@ -343,6 +343,7 @@
             // dgvdata
             // 
             dgvdata.AllowUserToAddRows = false;
+            dgvdata.BackgroundColor = SystemColors.ButtonHighlight;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = SystemColors.Control;
             dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
@@ -354,6 +355,7 @@
             dgvdata.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvdata.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvdata.Columns.AddRange(new DataGridViewColumn[] { btnseleccionar, id, Documento, Nombre, Apellido, Correo, NombreCuenta, Clave, Rol, idrol, Telefono, EstadoValor, Estado });
+            dgvdata.GridColor = SystemColors.HighlightText;
             dgvdata.Location = new Point(511, 142);
             dgvdata.MultiSelect = false;
             dgvdata.Name = "dgvdata";
@@ -499,7 +501,7 @@
             // 
             label13.AutoSize = true;
             label13.BackColor = SystemColors.ButtonHighlight;
-            label13.Location = new Point(859, 79);
+            label13.Location = new Point(940, 79);
             label13.Name = "label13";
             label13.Size = new Size(80, 20);
             label13.TabIndex = 28;
@@ -509,14 +511,14 @@
             // 
             cbobusqueda.DropDownStyle = ComboBoxStyle.DropDownList;
             cbobusqueda.FormattingEnabled = true;
-            cbobusqueda.Location = new Point(945, 77);
+            cbobusqueda.Location = new Point(1026, 77);
             cbobusqueda.Name = "cbobusqueda";
             cbobusqueda.Size = new Size(204, 28);
             cbobusqueda.TabIndex = 29;
             // 
             // txtbusqueda
             // 
-            txtbusqueda.Location = new Point(1169, 77);
+            txtbusqueda.Location = new Point(1250, 77);
             txtbusqueda.Name = "txtbusqueda";
             txtbusqueda.Size = new Size(203, 27);
             txtbusqueda.TabIndex = 30;
@@ -532,7 +534,7 @@
             btnlimpiarbuscador.IconColor = Color.Black;
             btnlimpiarbuscador.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnlimpiarbuscador.IconSize = 16;
-            btnlimpiarbuscador.Location = new Point(1438, 75);
+            btnlimpiarbuscador.Location = new Point(1519, 75);
             btnlimpiarbuscador.Name = "btnlimpiarbuscador";
             btnlimpiarbuscador.Size = new Size(38, 29);
             btnlimpiarbuscador.TabIndex = 32;
@@ -552,7 +554,7 @@
             btnbuscar.IconColor = Color.Black;
             btnbuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnbuscar.IconSize = 16;
-            btnbuscar.Location = new Point(1394, 74);
+            btnbuscar.Location = new Point(1475, 74);
             btnbuscar.Name = "btnbuscar";
             btnbuscar.Size = new Size(38, 29);
             btnbuscar.TabIndex = 31;

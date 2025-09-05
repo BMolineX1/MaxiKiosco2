@@ -150,7 +150,7 @@
             label11.AutoSize = true;
             label11.BackColor = SystemColors.ControlLightLight;
             label11.Font = new Font("Segoe UI", 15F);
-            label11.Location = new Point(13, 9);
+            label11.Location = new Point(43, 9);
             label11.Name = "label11";
             label11.Size = new Size(206, 35);
             label11.TabIndex = 58;

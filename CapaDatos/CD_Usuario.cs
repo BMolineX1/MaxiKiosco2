@@ -91,6 +91,7 @@ namespace CapaDatos
                     cmd.ExecuteNonQuery();
                     idusuariogenerado = Convert.ToInt32(cmd.Parameters["idusuarioresultado"].Value);
                     Mensaje = cmd.Parameters["Mensaje"].Value.ToString();
+                    
                 }
 
             }

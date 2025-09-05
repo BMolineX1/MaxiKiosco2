@@ -37,7 +37,6 @@ namespace MaxiKiosco
             this.WindowState = FormWindowState.Maximized;
 
             List<Permiso> ListaPermisos = new CN_Permiso().Listar(usuarioActual.idusuario);
-            MessageBox.Show("Permisos encontrados: " + ListaPermisos.Count);
             foreach (IconMenuItem iconmenu in menu.Items)
             {
                 bool encontrado = ListaPermisos.Any(m => m.nombremenu.Trim().ToLower() == iconmenu.Name);
