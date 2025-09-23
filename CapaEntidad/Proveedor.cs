@@ -12,6 +12,7 @@ namespace CapaEntidad
         public string nombre { get; set; }
         public string cuit { get; set; }
         public string telefono { get; set; }
+        public string razonsocial { get; set; }   // <--- NUEVO
         public string direccion {  get; set; }
         public string email { get; set; }
         public bool estado { get; set; }

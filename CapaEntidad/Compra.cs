@@ -11,7 +11,7 @@ namespace CapaEntidad
         public int Id { get; set; }
         public string fecha_hora {  get; set; }
         public decimal total { get; set;}
-        public Usuario ousuario { get; set; }
+        public Proveedor ousuario { get; set; }
         public Proveedor oproveedor { get; set; }
 
     }

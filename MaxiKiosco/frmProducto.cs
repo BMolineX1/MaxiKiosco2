@@ -22,7 +22,7 @@ namespace MaxiKiosco
         }
         private void frmProducto_Load(object sender, EventArgs e)
         {
-       
+
 
 
             dgvdata.RowHeadersVisible = false;
@@ -35,9 +35,10 @@ namespace MaxiKiosco
             List<Categoria> listaCategoria = new CN_Categoria().Listar();
             foreach (var item in listaCategoria)
             {
-                
-                cboproductos.Items.Add(new OpcionCombo() { Valor = item.Id, texto = item.nombre_categoria });
+
+                cbocategoria.Items.Add(new OpcionCombo() { Valor = item.Id, texto = item.nombre_categoria });
             }
+            
             cboproductos.Items.Add(new OpcionCombo() { Valor = "", texto = "Elija una opcion" });
             cboproductos.DisplayMember = "texto";
             cboproductos.ValueMember = "Valor";
@@ -47,7 +48,7 @@ namespace MaxiKiosco
             {
                 if (column.Visible == true && column.Name != "btnseleccionar")
                 {
-                    
+
                     cbobusqueda.Items.Add(new OpcionCombo() { Valor = column.Name, texto = column.HeaderText });
                 }
             }
@@ -67,7 +68,7 @@ namespace MaxiKiosco
             item.Id,
             item.nombre,
             item.codigo,
-            
+
             item.preciocompra,
             item.precioventa,
             item.descripcion,
@@ -115,7 +116,7 @@ namespace MaxiKiosco
                 Id = Convert.ToInt32(txtidproducto.Text),
                 nombre = txtnombre.Text,
                 codigo = txtcodigo.Text,
-                
+
                 precioventa = Convert.ToDecimal(txtprecioventa.Text),
                 preciocompra = Convert.ToDecimal(txtpreciocompra.Text),
                 descripcion = txtdescripcion.Text,
@@ -136,7 +137,7 @@ namespace MaxiKiosco
                     idusuariogenerado,
                     txtnombre.Text,
                     txtcodigo.Text,
-                    
+
                     txtprecioventa.Text,
                     txtpreciocompra.Text,
                     txtdescripcion.Text,
@@ -167,7 +168,7 @@ namespace MaxiKiosco
                     row.Cells["id"].Value = txtid.Text;
                     row.Cells["Nombre"].Value = txtnombre.Text;
                     row.Cells["Codigo"].Value = txtcodigo.Text;
-                    
+
                     row.Cells["PrecioDeCompra"].Value = txtpreciocompra.Text;
                     row.Cells["PrecioDeVenta"].Value = txtprecioventa.Text;
                     row.Cells["Descripcion"].Value = txtdescripcion.Text;
@@ -247,7 +248,7 @@ namespace MaxiKiosco
                     txtid.Text = dgvdata.Rows[indice].Cells["id"].Value.ToString();
                     txtnombre.Text = dgvdata.Rows[indice].Cells["Nombre"].Value.ToString();
                     txtcodigo.Text = dgvdata.Rows[indice].Cells["Codigo"].Value.ToString();
-                    
+
                     txtdescripcion.Text = dgvdata.Rows[indice].Cells["Descripcion"].Value.ToString();
                     txtpreciocompra.Text = dgvdata.Rows[indice].Cells["PrecioDeCompra"].Value.ToString();
                     txtprecioventa.Text = dgvdata.Rows[indice].Cells["PrecioDeVenta"].Value.ToString();
@@ -352,6 +353,11 @@ namespace MaxiKiosco
         }
 
         private void txtbusquedaproducto_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cbocategoria_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

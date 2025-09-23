@@ -19,8 +19,8 @@ namespace MaxiKiosco
         private static Form FormularioActivo = null;
         public Inicio(Usuario objusuario)
         {
-                usuarioActual = objusuario;
-            
+            usuarioActual = objusuario;
+
             InitializeComponent();
 
             //titulo.ForeColor = Color.White; // Cambia el color del texto a blanco
@@ -46,7 +46,7 @@ namespace MaxiKiosco
                 }
 
             }
-            
+
             /*foreach (ToolStripMenuItem item in menu.Items)
             {
                 if (item is IconMenuItem iconMenuItem)
@@ -122,7 +122,12 @@ namespace MaxiKiosco
 
         private void submenuregistrarcompra_Click(object sender, EventArgs e)
         {
-            AbrirFormulario(menucompras, new frmCompras());
+            AbrirFormulario(menucompras, new frmCompras(usuarioActual));
+        }
+        private void menuproveedores_Click(object sender, EventArgs e)
+        {
+            // Ejemplo: abrir el formulario de proveedores
+            AbrirFormulario(menuproveedores, new frmProveedores());
         }
 
         private void submenuverdetallecompra_Click(object sender, EventArgs e)
@@ -135,9 +140,9 @@ namespace MaxiKiosco
             AbrirFormulario((IconMenuItem)sender, new frmClientes());
         }
 
-        private void menuproveedores_Click(object sender, EventArgs e)
+        private void menuUsuarioes_Click(object sender, EventArgs e)
         {
-            AbrirFormulario((IconMenuItem)sender, new frmProveedores());
+            AbrirFormulario((IconMenuItem)sender, new frmUsuario());
         }
 
         private void menureportes_Click(object sender, EventArgs e)
@@ -158,6 +163,11 @@ namespace MaxiKiosco
         private void contenedor_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void submenunegocio_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(menumantenedor, new frmNegocio());
         }
     }
 }

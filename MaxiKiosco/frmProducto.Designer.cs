@@ -39,6 +39,18 @@
             txtid = new TextBox();
             label12 = new Label();
             dgvdata = new DataGridView();
+            btnseleccionar = new DataGridViewButtonColumn();
+            id = new DataGridViewTextBoxColumn();
+            Nombre = new DataGridViewTextBoxColumn();
+            Codigo = new DataGridViewTextBoxColumn();
+            PrecioDeCompra = new DataGridViewTextBoxColumn();
+            PrecioDeVenta = new DataGridViewTextBoxColumn();
+            Descripcion = new DataGridViewTextBoxColumn();
+            Categoria = new DataGridViewTextBoxColumn();
+            idcategoria = new DataGridViewTextBoxColumn();
+            Stock = new DataGridViewTextBoxColumn();
+            EstadoValor = new DataGridViewTextBoxColumn();
+            Estado = new DataGridViewTextBoxColumn();
             label11 = new Label();
             btneliminar = new FontAwesome.Sharp.IconButton();
             btnlimpiar = new FontAwesome.Sharp.IconButton();
@@ -73,18 +85,6 @@
             label = new Label();
             iconButton3 = new FontAwesome.Sharp.IconButton();
             btnExportar = new FontAwesome.Sharp.IconButton();
-            btnseleccionar = new DataGridViewButtonColumn();
-            id = new DataGridViewTextBoxColumn();
-            Nombre = new DataGridViewTextBoxColumn();
-            Codigo = new DataGridViewTextBoxColumn();
-            PrecioDeCompra = new DataGridViewTextBoxColumn();
-            PrecioDeVenta = new DataGridViewTextBoxColumn();
-            Descripcion = new DataGridViewTextBoxColumn();
-            Categoria = new DataGridViewTextBoxColumn();
-            idcategoria = new DataGridViewTextBoxColumn();
-            Stock = new DataGridViewTextBoxColumn();
-            EstadoValor = new DataGridViewTextBoxColumn();
-            Estado = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dgvdata).BeginInit();
             SuspendLayout();
             // 
@@ -208,6 +208,105 @@
             dgvdata.CellContentClick += dgvdata_CellContentClick;
             dgvdata.CellPainting += dgvdata_CellPainting_1;
             // 
+            // btnseleccionar
+            // 
+            btnseleccionar.HeaderText = "";
+            btnseleccionar.MinimumWidth = 6;
+            btnseleccionar.Name = "btnseleccionar";
+            btnseleccionar.ReadOnly = true;
+            btnseleccionar.Width = 50;
+            // 
+            // id
+            // 
+            id.HeaderText = "id";
+            id.MinimumWidth = 6;
+            id.Name = "id";
+            id.ReadOnly = true;
+            id.Visible = false;
+            id.Width = 125;
+            // 
+            // Nombre
+            // 
+            Nombre.HeaderText = "Nombre";
+            Nombre.MinimumWidth = 6;
+            Nombre.Name = "Nombre";
+            Nombre.ReadOnly = true;
+            Nombre.Width = 125;
+            // 
+            // Codigo
+            // 
+            Codigo.HeaderText = "Codigo";
+            Codigo.MinimumWidth = 6;
+            Codigo.Name = "Codigo";
+            Codigo.ReadOnly = true;
+            Codigo.Width = 125;
+            // 
+            // PrecioDeCompra
+            // 
+            PrecioDeCompra.HeaderText = "Precio de Compra";
+            PrecioDeCompra.MinimumWidth = 6;
+            PrecioDeCompra.Name = "PrecioDeCompra";
+            PrecioDeCompra.ReadOnly = true;
+            PrecioDeCompra.Width = 150;
+            // 
+            // PrecioDeVenta
+            // 
+            PrecioDeVenta.HeaderText = "Precio de Venta";
+            PrecioDeVenta.MinimumWidth = 6;
+            PrecioDeVenta.Name = "PrecioDeVenta";
+            PrecioDeVenta.ReadOnly = true;
+            PrecioDeVenta.Width = 125;
+            // 
+            // Descripcion
+            // 
+            Descripcion.HeaderText = "Descripcion";
+            Descripcion.MinimumWidth = 6;
+            Descripcion.Name = "Descripcion";
+            Descripcion.ReadOnly = true;
+            Descripcion.Width = 125;
+            // 
+            // Categoria
+            // 
+            Categoria.HeaderText = "Categoria";
+            Categoria.MinimumWidth = 6;
+            Categoria.Name = "Categoria";
+            Categoria.ReadOnly = true;
+            Categoria.Width = 125;
+            // 
+            // idcategoria
+            // 
+            idcategoria.HeaderText = "IdCategoria";
+            idcategoria.MinimumWidth = 6;
+            idcategoria.Name = "idcategoria";
+            idcategoria.ReadOnly = true;
+            idcategoria.Visible = false;
+            idcategoria.Width = 125;
+            // 
+            // Stock
+            // 
+            Stock.HeaderText = "Stock";
+            Stock.MinimumWidth = 6;
+            Stock.Name = "Stock";
+            Stock.ReadOnly = true;
+            Stock.Width = 125;
+            // 
+            // EstadoValor
+            // 
+            EstadoValor.HeaderText = "EstadoValor";
+            EstadoValor.MinimumWidth = 6;
+            EstadoValor.Name = "EstadoValor";
+            EstadoValor.ReadOnly = true;
+            EstadoValor.Visible = false;
+            EstadoValor.Width = 125;
+            // 
+            // Estado
+            // 
+            Estado.HeaderText = "Estado";
+            Estado.MinimumWidth = 6;
+            Estado.Name = "Estado";
+            Estado.ReadOnly = true;
+            Estado.Width = 125;
+            // 
             // label11
             // 
             label11.AutoSize = true;
@@ -300,6 +399,7 @@
             cbocategoria.Name = "cbocategoria";
             cbocategoria.Size = new Size(231, 28);
             cbocategoria.TabIndex = 51;
+            cbocategoria.SelectedIndexChanged += cbocategoria_SelectedIndexChanged;
             // 
             // cboestado
             // 
@@ -594,105 +694,6 @@
             btnExportar.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnExportar.UseVisualStyleBackColor = false;
             btnExportar.Click += btnExportar_Click;
-            // 
-            // btnseleccionar
-            // 
-            btnseleccionar.HeaderText = "";
-            btnseleccionar.MinimumWidth = 6;
-            btnseleccionar.Name = "btnseleccionar";
-            btnseleccionar.ReadOnly = true;
-            btnseleccionar.Width = 50;
-            // 
-            // id
-            // 
-            id.HeaderText = "id";
-            id.MinimumWidth = 6;
-            id.Name = "id";
-            id.ReadOnly = true;
-            id.Visible = false;
-            id.Width = 125;
-            // 
-            // Nombre
-            // 
-            Nombre.HeaderText = "Nombre";
-            Nombre.MinimumWidth = 6;
-            Nombre.Name = "Nombre";
-            Nombre.ReadOnly = true;
-            Nombre.Width = 125;
-            // 
-            // Codigo
-            // 
-            Codigo.HeaderText = "Codigo";
-            Codigo.MinimumWidth = 6;
-            Codigo.Name = "Codigo";
-            Codigo.ReadOnly = true;
-            Codigo.Width = 125;
-            // 
-            // PrecioDeCompra
-            // 
-            PrecioDeCompra.HeaderText = "Precio de Compra";
-            PrecioDeCompra.MinimumWidth = 6;
-            PrecioDeCompra.Name = "PrecioDeCompra";
-            PrecioDeCompra.ReadOnly = true;
-            PrecioDeCompra.Width = 150;
-            // 
-            // PrecioDeVenta
-            // 
-            PrecioDeVenta.HeaderText = "Precio de Venta";
-            PrecioDeVenta.MinimumWidth = 6;
-            PrecioDeVenta.Name = "PrecioDeVenta";
-            PrecioDeVenta.ReadOnly = true;
-            PrecioDeVenta.Width = 125;
-            // 
-            // Descripcion
-            // 
-            Descripcion.HeaderText = "Descripcion";
-            Descripcion.MinimumWidth = 6;
-            Descripcion.Name = "Descripcion";
-            Descripcion.ReadOnly = true;
-            Descripcion.Width = 125;
-            // 
-            // Categoria
-            // 
-            Categoria.HeaderText = "Categoria";
-            Categoria.MinimumWidth = 6;
-            Categoria.Name = "Categoria";
-            Categoria.ReadOnly = true;
-            Categoria.Width = 125;
-            // 
-            // idcategoria
-            // 
-            idcategoria.HeaderText = "IdCategoria";
-            idcategoria.MinimumWidth = 6;
-            idcategoria.Name = "idcategoria";
-            idcategoria.ReadOnly = true;
-            idcategoria.Visible = false;
-            idcategoria.Width = 125;
-            // 
-            // Stock
-            // 
-            Stock.HeaderText = "Stock";
-            Stock.MinimumWidth = 6;
-            Stock.Name = "Stock";
-            Stock.ReadOnly = true;
-            Stock.Width = 125;
-            // 
-            // EstadoValor
-            // 
-            EstadoValor.HeaderText = "EstadoValor";
-            EstadoValor.MinimumWidth = 6;
-            EstadoValor.Name = "EstadoValor";
-            EstadoValor.ReadOnly = true;
-            EstadoValor.Visible = false;
-            EstadoValor.Width = 125;
-            // 
-            // Estado
-            // 
-            Estado.HeaderText = "Estado";
-            Estado.MinimumWidth = 6;
-            Estado.Name = "Estado";
-            Estado.ReadOnly = true;
-            Estado.Width = 125;
             // 
             // frmProducto
             // 

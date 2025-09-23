@@ -244,6 +244,7 @@ namespace MaxiKiosco
                         MessageBox.Show(mensaje, "mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
                 }
+                Limpiar();
             }
         }
 
