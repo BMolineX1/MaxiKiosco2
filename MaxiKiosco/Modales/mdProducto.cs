@@ -25,9 +25,6 @@ namespace MaxiKiosco.Modales
 
         private void mdProducto_Load(object sender, EventArgs e)
         {
-
-
-            //mostrar todos los productos
             dgvdata.Rows.Clear(); // Limpia la grilla
             try
             {
@@ -35,44 +32,54 @@ namespace MaxiKiosco.Modales
                 foreach (Producto item in listaProducto)
                 {
                     dgvdata.Rows.Add(new object[] {
-            item.Id,
-            item.codigo,
-            item.nombre,
-            
-            
-            item.preciocompra,
-            item.precioventa,
-            item.ocategoria.nombre_categoria,
-            item.stock
-            
-                  });
+                item.Id,                          // 0 → Id
+                item.nombre,                      // 1 → Nombre
+                item.codigo,                      // 2 → Código
+                item.ocategoria.nombre_categoria, // 3 → Categoría
+                item.preciocompra,                // 4 → Precio de compra
+                item.precioventa,                 // 5 → Precio de venta
+                item.stock                        // 6 → Stock
+            });
                 }
             }
             catch (Exception ex)
             {
+                MessageBox.Show("Error al cargar productos: " + ex.Message);
             }
         }
 
         private void dgvdata_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             int iRow = e.RowIndex;
-            int iColum = e.ColumnIndex;
 
-            if (iRow >= 0 && iColum > 0)
+            if (iRow >= 0)
             {
+                // Variables seguras para conversión
+                decimal precioCompra = decimal.TryParse(dgvdata.Rows[iRow].Cells[4].Value?.ToString(), out var pc) ? pc : 0;
+                decimal precioVenta = decimal.TryParse(dgvdata.Rows[iRow].Cells[5].Value?.ToString(), out var pv) ? pv : 0;
+                int stock = int.TryParse(dgvdata.Rows[iRow].Cells[6].Value?.ToString(), out var s) ? s : 0;
+
+                // Crear objeto Producto
                 _Producto = new Producto()
                 {
                     Id = Convert.ToInt32(dgvdata.Rows[iRow].Cells[0].Value),
-                    nombre = dgvdata.Rows[iRow].Cells[1].Value.ToString(),
-                    codigo = dgvdata.Rows[iRow].Cells[2].Value.ToString(),
-                    precioventa = Convert.ToDecimal(dgvdata.Rows[iRow].Cells[3].Value),
-                    preciocompra = Convert.ToDecimal(dgvdata.Rows[iRow].Cells[4].Value),
-                    stock = Convert.ToInt16(dgvdata.Rows[iRow].Cells[5].Value)
+                    nombre = dgvdata.Rows[iRow].Cells[1].Value?.ToString(),
+                    codigo = dgvdata.Rows[iRow].Cells[2].Value?.ToString(),
+                    
+                    preciocompra = precioCompra,
+                    precioventa = precioVenta,
+                    stock = stock,
+                    ocategoria = new Categoria()
+                    {
+                        nombre_categoria = dgvdata.Rows[iRow].Cells[3].Value?.ToString()
+                    },
                 };
+
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
         }
+
 
         private void btnbuscar_Click(object sender, EventArgs e)
         {
