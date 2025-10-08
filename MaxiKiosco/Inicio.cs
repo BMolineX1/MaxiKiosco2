@@ -17,6 +17,9 @@ namespace MaxiKiosco
         private static Usuario usuarioActual;
         private static IconMenuItem MenuActivo = null;
         private static Form FormularioActivo = null;
+        // [AGREGADO] Variable de estado para controlar el cierre
+        public bool cerrarPorLogin = false;
+
         public Inicio(Usuario objusuario)
         {
             usuarioActual = objusuario;
@@ -168,6 +171,21 @@ namespace MaxiKiosco
         private void submenunegocio_Click(object sender, EventArgs e)
         {
             AbrirFormulario(menumantenedor, new frmNegocio());
+        }
+
+        private void tsmiVolverLogin_Click(object sender, EventArgs e)
+        {
+            // 1. Marca que el cierre es para volver al login.
+            cerrarPorLogin = true;
+
+            // 2. Crea y muestra la nueva instancia del formulario de Login.
+            // **IMPORTANTE:** Usa el nombre de tu clase Login (parece ser 'Login').
+            Login loginForm = new Login();
+            loginForm.Show();
+
+            // 3. Cierra el formulario principal. Al cerrarse, el FormClosed en Login.cs se dispara,
+            // pero lo manejaremos para que no cierre la aplicación si 'cerrarPorLogin' es true.
+            this.Close();
         }
     }
 }

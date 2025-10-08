@@ -65,12 +65,7 @@ namespace MaxiKiosco
 
             txtdocumento.Select();
         }
-
-
         //Al hacer click en el check nos va a traer los datos en los txt
-
-
-
         private void btnlimpiar_Click(object sender, EventArgs e)
         {
             Limpiar();
@@ -84,8 +79,6 @@ namespace MaxiKiosco
                 Id = Convert.ToInt32(txtid.Text),
                 nombre_categoria = txtdocumento.Text,
                 estado = Convert.ToInt32(((OpcionCombo)cboestado.SelectedItem).Valor) == 1 ? true : false,
-
-
             };
             if (objCategoria.Id == 0)
             {
@@ -98,9 +91,6 @@ namespace MaxiKiosco
                         idCategoriagenerado,
                         ((OpcionCombo)cboestado.SelectedItem).texto.ToString(),
                         ((OpcionCombo)cboestado.SelectedItem).Valor.ToString(),
-
-
-
                 });
                     Limpiar();
                 }
@@ -108,12 +98,10 @@ namespace MaxiKiosco
                 {
                     MessageBox.Show(mensaje);
                 }
-
             }
             else
             {
                 bool resultado = new CN_Categoria().Editar(objCategoria, out mensaje);
-
                 if (resultado)
                 {
                     DataGridViewRow row = dgvdata.Rows[Convert.ToInt32(txtindice.Text)];
@@ -129,7 +117,6 @@ namespace MaxiKiosco
                 }
             }
         }
-
         private void btnlimpiar_Click_1(object sender, EventArgs e)
         {
             Limpiar();
@@ -141,7 +128,6 @@ namespace MaxiKiosco
             {
                 if (MessageBox.Show("¿Desea eliminar el Categoria?", "Mensaje", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-
                     string mensaje = string.Empty;
                     Categoria objCategoria = new Categoria()
                     {
@@ -159,7 +145,6 @@ namespace MaxiKiosco
                     }
                 }
             }
-            
         }
 
         private void dgvdata_CellPainting_1(object sender, DataGridViewCellPaintingEventArgs e)
@@ -206,9 +191,6 @@ namespace MaxiKiosco
             }
         }
 
-
-
-
         private void btnbuscar2_Click_1(object sender, EventArgs e)
         {
             string columnaFiltro = ((OpcionCombo)cbobusqueda.SelectedItem).Valor.ToString();
@@ -233,6 +215,21 @@ namespace MaxiKiosco
             {
                 row.Visible = true;
             }
+        }
+
+        private void dgvdata_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void cbobusqueda_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtbusqueda_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

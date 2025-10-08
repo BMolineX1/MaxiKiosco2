@@ -167,7 +167,51 @@ namespace CapaDatos
                 Mensaje = ex.Message;
             }
             return respuesta;
+        }
 
+        // [AGREGADO] Método para generar un código interno único
+        public string GenerarCodigoInternoUnico()
+        {
+            string nuevoCodigo = "INT-1"; // Valor por defecto si no hay ninguno.
+
+            // Consulta para obtener el último código interno (INT-XXX)
+            // Asumo que el código interno siempre tiene el prefijo 'INT-' y que lo guardas en la columna 'codigo'.
+            string query = "SELECT codigo FROM producto WHERE codigo LIKE 'INT-%' ORDER BY id DESC LIMIT 1";
+
+            using (MySqlConnection oconexion = new MySqlConnection(Conexion.cadena))
+            {
+                try
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, oconexion);
+                    cmd.CommandType = CommandType.Text;
+                    oconexion.Open();
+
+                    object resultado = cmd.ExecuteScalar(); // Ejecuta la consulta y devuelve el primer resultado
+
+                    if (resultado != null && resultado != DBNull.Value)
+                    {
+                        string ultimoCodigo = resultado.ToString(); // Ejemplo: "INT-10"
+
+                        // 1. Extraer el número (lo que está después de "INT-")
+                        // Se asume que el formato es siempre "INT-" seguido del número.
+                        string[] partes = ultimoCodigo.Split('-');
+                        if (partes.Length == 2 && int.TryParse(partes[1], out int ultimoNumero))
+                        {
+                            // 2. Incrementar el número
+                            ultimoNumero++;
+
+                            // 3. Formatear el nuevo código (Ej: "INT-11")
+                            nuevoCodigo = $"INT-{ultimoNumero}";
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    // Si hay un error de conexión/consulta, devolvemos el valor por defecto
+                    // para que no falle la aplicación, aunque es mejor registrar el error.
+                }
+            }
+            return nuevoCodigo;
         }
     }
 }
