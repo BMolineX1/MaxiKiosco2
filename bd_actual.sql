@@ -81,6 +81,7 @@ CREATE TABLE `cliente` (
   `nombre` varchar(100) NOT NULL,
   `apellido` varchar(100) NOT NULL,
   `dni` varchar(20) NOT NULL,
+  `cuit` varchar(15) DEFAULT NULL,
   `telefono` varchar(20) DEFAULT NULL,
   `domicilio` varchar(100) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
@@ -88,7 +89,7 @@ CREATE TABLE `cliente` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `dni` (`dni`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,7 +98,7 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-INSERT INTO `cliente` VALUES (1,'Federico','Molina','38962453','3644657148','mz 7 pc 12 Barrio Pro.Mu.Vi','fede.099molina@gmail.com',1),(3,'asd','dsadas','233333','12312377','asdasd','fede@asdas',1),(4,'gabi','Vera','2333333333','33333333','mz 7 pc 23','fede@gmail.com',0);
+INSERT INTO `cliente` VALUES (1,'Federico','Molina','38962453',NULL,'3644657148','mz 7 pc 12 Barrio Pro.Mu.Vi','fede.099molina@gmail.com',1),(4,'gabi','Vera','2333333333',NULL,'33333333','mz 7 pc 23','fede@gmail.com',0),(5,'Elias','Ramirez','42746919',NULL,'3644222298','Barrio anbtocñ','elias@gmail.com',1);
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -312,7 +313,7 @@ CREATE TABLE `producto` (
 
 LOCK TABLES `producto` WRITE;
 /*!40000 ALTER TABLE `producto` DISABLE KEYS */;
-INSERT INTO `producto` VALUES (2,'secco',30,1500.00,2,1200.00,'3 litros','2025-08-04 19:49:11',1,'10011010'),(3,'coca-cola',70,0.00,2,150000.00,'2.25 litros','2025-08-04 19:51:38',1,'11101101'),(4,'pan',26,1000.00,3,1100.00,'20 kilos','2025-08-04 19:57:39',1,'2002202'),(8,'Gaseosa',30,1400.00,2,1600.00,'1 litro','2025-10-08 00:55:54',1,'1010100'),(12,'yerba',20,1600.00,9,1400.00,'1 kg','2025-09-16 14:12:35',1,'21212121'),(15,'Pure de tomate',10,1300.00,2,900.00,'nada','2025-10-07 18:15:42',1,'125125'),(22,'Masita diversion',5,25000.00,3,2000.00,'dwd','2025-10-07 19:40:01',1,'1241556'),(28,'Borrar',12,232222.00,3,124.20,'sfs','2025-10-07 22:58:13',1,'INT-1'),(29,'Borrar',12,232222.00,3,124.20,'sfs','2025-10-07 23:02:01',1,'INT-2'),(30,'Masita Terrabusi',9,250000.00,10,200000.00,'sfsf','2025-10-08 00:49:35',1,'124952525'),(31,'Sidra',16,2500.00,2,2000.00,'12','2025-10-08 00:22:34',1,'491915051051'),(35,'borrar',2,124.00,2,124.00,'121','2025-10-08 00:56:52',1,'INT-4'),(36,'borrwr',12,1242.00,2,212.00,'124','2025-10-08 00:57:30',1,'INT-5');
+INSERT INTO `producto` VALUES (2,'secco',30,1500.00,2,1200.00,'3 litros','2025-08-04 19:49:11',1,'10011010'),(3,'coca-cola',70,0.00,2,150000.00,'2.25 litros','2025-08-04 19:51:38',1,'11101101'),(4,'pan',26,1000.00,3,1100.00,'20 kilos','2025-08-04 19:57:39',1,'2002202'),(8,'Gaseosa',30,1400.00,2,1600.00,'1 litro','2025-10-08 00:55:54',1,'1010100'),(12,'yerba',20,1600.00,9,1400.00,'1 kg','2025-09-16 14:12:35',1,'21212121'),(15,'Pure de tomate',10,130.00,2,900.00,'nada','2025-10-08 19:34:26',1,'125125'),(22,'Masita diversion',5,25000.00,3,2000.00,'dwd','2025-10-07 19:40:01',1,'1241556'),(28,'Borrar',12,232222.00,3,124.20,'sfs','2025-10-07 22:58:13',1,'INT-1'),(29,'Borrar',12,232222.00,3,124.20,'sfs','2025-10-07 23:02:01',1,'INT-2'),(30,'Masita Terrabusi',9,250000.00,10,200000.00,'sfsf','2025-10-08 00:49:35',1,'124952525'),(31,'Sidra',16,2500.00,2,2000.00,'12','2025-10-08 00:22:34',1,'491915051051'),(35,'borrar',2,124.00,2,124.00,'121','2025-10-08 00:56:52',1,'INT-4'),(36,'borrwr',12,1242.00,2,212.00,'124','2025-10-08 00:57:30',1,'INT-5');
 /*!40000 ALTER TABLE `producto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -335,7 +336,7 @@ CREATE TABLE `proveedor` (
   `razonsocial` varchar(80) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `cuit` (`cuit`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -344,7 +345,7 @@ CREATE TABLE `proveedor` (
 
 LOCK TABLES `proveedor` WRITE;
 /*!40000 ALTER TABLE `proveedor` DISABLE KEYS */;
-INSERT INTO `proveedor` VALUES (2,'sdasadsad','222222222222','321321','asd321asd321',1,'2025-09-14 16:44:45','fede@gmail.com',NULL),(3,'Distribuidora Norte','20-12345678-9','3624-555555','Av. Siempre Viva 123',1,'2025-09-23 08:35:45','contacto@norte.com','Distribuidora Norte SRL');
+INSERT INTO `proveedor` VALUES (3,'Distribuidora Norte','20-12345678-9','3624-555555','Av. Siempre Viva 123',1,'2025-09-23 08:35:45','contacto@norte.com','Distribuidora Norte SRL'),(4,'Arcor','00997733664','3644223344','ada',1,'2025-10-08 21:34:13','qwrqwr@gmail.com','');
 /*!40000 ALTER TABLE `proveedor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1439,4 +1440,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-10-08  1:01:13
+-- Dump completed on 2025-10-09  0:26:05
