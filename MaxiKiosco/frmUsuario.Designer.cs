@@ -87,16 +87,16 @@
             label1.Dock = DockStyle.Left;
             label1.Location = new Point(0, 0);
             label1.Name = "label1";
-            label1.Size = new Size(314, 826);
+            label1.Size = new Size(275, 562);
             label1.TabIndex = 0;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.BackColor = SystemColors.ControlLightLight;
-            label2.Location = new Point(30, 182);
+            label2.Location = new Point(26, 136);
             label2.Name = "label2";
-            label2.Size = new Size(66, 20);
+            label2.Size = new Size(51, 15);
             label2.TabIndex = 1;
             label2.Text = "Apellido";
             // 
@@ -104,9 +104,9 @@
             // 
             label3.AutoSize = true;
             label3.BackColor = SystemColors.ControlLightLight;
-            label3.Location = new Point(30, 129);
+            label3.Location = new Point(26, 97);
             label3.Name = "label3";
-            label3.Size = new Size(64, 20);
+            label3.Size = new Size(51, 15);
             label3.TabIndex = 2;
             label3.Text = "Nombre";
             // 
@@ -114,9 +114,9 @@
             // 
             label4.AutoSize = true;
             label4.BackColor = SystemColors.ControlLightLight;
-            label4.Location = new Point(29, 76);
+            label4.Location = new Point(25, 57);
             label4.Name = "label4";
-            label4.Size = new Size(166, 20);
+            label4.Size = new Size(133, 15);
             label4.TabIndex = 3;
             label4.Text = "Numero de Documento";
             // 
@@ -124,9 +124,9 @@
             // 
             label5.AutoSize = true;
             label5.BackColor = SystemColors.ControlLightLight;
-            label5.Location = new Point(32, 235);
+            label5.Location = new Point(28, 176);
             label5.Name = "label5";
-            label5.Size = new Size(67, 20);
+            label5.Size = new Size(52, 15);
             label5.TabIndex = 4;
             label5.Text = "Telefono";
             // 
@@ -134,9 +134,9 @@
             // 
             label6.AutoSize = true;
             label6.BackColor = SystemColors.ControlLightLight;
-            label6.Location = new Point(29, 288);
+            label6.Location = new Point(25, 216);
             label6.Name = "label6";
-            label6.Size = new Size(132, 20);
+            label6.Size = new Size(105, 15);
             label6.TabIndex = 5;
             label6.Text = "Correo Electronico";
             // 
@@ -144,62 +144,68 @@
             // 
             label7.AutoSize = true;
             label7.BackColor = SystemColors.ControlLightLight;
-            label7.Location = new Point(32, 500);
+            label7.Location = new Point(28, 375);
             label7.Name = "label7";
-            label7.Size = new Size(31, 20);
+            label7.Size = new Size(24, 15);
             label7.TabIndex = 6;
             label7.Text = "Rol";
             // 
             // txtdocumento
             // 
-            txtdocumento.Location = new Point(28, 99);
+            txtdocumento.Location = new Point(24, 74);
+            txtdocumento.Margin = new Padding(3, 2, 3, 2);
             txtdocumento.Name = "txtdocumento";
-            txtdocumento.Size = new Size(230, 27);
+            txtdocumento.Size = new Size(202, 23);
             txtdocumento.TabIndex = 7;
             // 
             // txtnombre
             // 
-            txtnombre.Location = new Point(28, 152);
+            txtnombre.Location = new Point(24, 114);
+            txtnombre.Margin = new Padding(3, 2, 3, 2);
             txtnombre.Name = "txtnombre";
-            txtnombre.Size = new Size(230, 27);
+            txtnombre.Size = new Size(202, 23);
             txtnombre.TabIndex = 8;
             // 
             // txtapellido
             // 
-            txtapellido.Location = new Point(28, 205);
+            txtapellido.Location = new Point(24, 154);
+            txtapellido.Margin = new Padding(3, 2, 3, 2);
             txtapellido.Name = "txtapellido";
-            txtapellido.Size = new Size(230, 27);
+            txtapellido.Size = new Size(202, 23);
             txtapellido.TabIndex = 9;
             // 
             // txttelefono
             // 
-            txttelefono.Location = new Point(28, 258);
+            txttelefono.Location = new Point(24, 194);
+            txttelefono.Margin = new Padding(3, 2, 3, 2);
             txttelefono.Name = "txttelefono";
-            txttelefono.Size = new Size(230, 27);
+            txttelefono.Size = new Size(202, 23);
             txttelefono.TabIndex = 10;
             // 
             // txtcorreo
             // 
-            txtcorreo.Location = new Point(28, 311);
+            txtcorreo.Location = new Point(24, 233);
+            txtcorreo.Margin = new Padding(3, 2, 3, 2);
             txtcorreo.Name = "txtcorreo";
-            txtcorreo.Size = new Size(230, 27);
+            txtcorreo.Size = new Size(202, 23);
             txtcorreo.TabIndex = 11;
             // 
             // txtclave
             // 
-            txtclave.Location = new Point(28, 417);
+            txtclave.Location = new Point(24, 313);
+            txtclave.Margin = new Padding(3, 2, 3, 2);
             txtclave.Name = "txtclave";
             txtclave.PasswordChar = '*';
-            txtclave.Size = new Size(231, 27);
+            txtclave.Size = new Size(203, 23);
             txtclave.TabIndex = 12;
             // 
             // label8
             // 
             label8.AutoSize = true;
             label8.BackColor = SystemColors.ButtonHighlight;
-            label8.Location = new Point(30, 394);
+            label8.Location = new Point(26, 296);
             label8.Name = "label8";
-            label8.Size = new Size(83, 20);
+            label8.Size = new Size(67, 15);
             label8.TabIndex = 13;
             label8.Text = "Contraseña";
             // 
@@ -207,45 +213,48 @@
             // 
             label9.AutoSize = true;
             label9.BackColor = SystemColors.ButtonHighlight;
-            label9.Location = new Point(28, 447);
+            label9.Location = new Point(24, 335);
             label9.Name = "label9";
-            label9.Size = new Size(153, 20);
+            label9.Size = new Size(124, 15);
             label9.TabIndex = 15;
             label9.Text = "Confirmar Contraseña";
             // 
             // txtconfirmarclave
             // 
-            txtconfirmarclave.Location = new Point(28, 470);
+            txtconfirmarclave.Location = new Point(24, 352);
+            txtconfirmarclave.Margin = new Padding(3, 2, 3, 2);
             txtconfirmarclave.Name = "txtconfirmarclave";
             txtconfirmarclave.PasswordChar = '*';
-            txtconfirmarclave.Size = new Size(231, 27);
+            txtconfirmarclave.Size = new Size(203, 23);
             txtconfirmarclave.TabIndex = 14;
             // 
             // cboestado
             // 
             cboestado.DropDownStyle = ComboBoxStyle.DropDownList;
             cboestado.FormattingEnabled = true;
-            cboestado.Location = new Point(28, 577);
+            cboestado.Location = new Point(24, 433);
+            cboestado.Margin = new Padding(3, 2, 3, 2);
             cboestado.Name = "cboestado";
-            cboestado.Size = new Size(231, 28);
+            cboestado.Size = new Size(203, 23);
             cboestado.TabIndex = 16;
             // 
             // cborol
             // 
             cborol.DropDownStyle = ComboBoxStyle.DropDownList;
             cborol.FormattingEnabled = true;
-            cborol.Location = new Point(28, 523);
+            cborol.Location = new Point(24, 392);
+            cborol.Margin = new Padding(3, 2, 3, 2);
             cborol.Name = "cborol";
-            cborol.Size = new Size(231, 28);
+            cborol.Size = new Size(203, 23);
             cborol.TabIndex = 17;
             // 
             // label10
             // 
             label10.AutoSize = true;
             label10.BackColor = SystemColors.ControlLightLight;
-            label10.Location = new Point(32, 554);
+            label10.Location = new Point(28, 416);
             label10.Name = "label10";
-            label10.Size = new Size(54, 20);
+            label10.Size = new Size(42, 15);
             label10.TabIndex = 18;
             label10.Text = "Estado";
             // 
@@ -253,17 +262,18 @@
             // 
             Cuenta.AutoSize = true;
             Cuenta.BackColor = SystemColors.ControlLightLight;
-            Cuenta.Location = new Point(32, 341);
+            Cuenta.Location = new Point(28, 256);
             Cuenta.Name = "Cuenta";
-            Cuenta.Size = new Size(55, 20);
+            Cuenta.Size = new Size(45, 15);
             Cuenta.TabIndex = 19;
             Cuenta.Text = "Cuenta";
             // 
             // txtcuenta
             // 
-            txtcuenta.Location = new Point(28, 364);
+            txtcuenta.Location = new Point(24, 273);
+            txtcuenta.Margin = new Padding(3, 2, 3, 2);
             txtcuenta.Name = "txtcuenta";
-            txtcuenta.Size = new Size(231, 27);
+            txtcuenta.Size = new Size(203, 23);
             txtcuenta.TabIndex = 20;
             // 
             // btnguardar
@@ -277,9 +287,10 @@
             btnguardar.IconColor = Color.White;
             btnguardar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnguardar.IconSize = 16;
-            btnguardar.Location = new Point(67, 638);
+            btnguardar.Location = new Point(59, 478);
+            btnguardar.Margin = new Padding(3, 2, 3, 2);
             btnguardar.Name = "btnguardar";
-            btnguardar.Size = new Size(173, 45);
+            btnguardar.Size = new Size(151, 34);
             btnguardar.TabIndex = 21;
             btnguardar.Text = "Guardar";
             btnguardar.TextAlign = ContentAlignment.MiddleRight;
@@ -298,9 +309,10 @@
             btnlimpiar.IconColor = Color.White;
             btnlimpiar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnlimpiar.IconSize = 18;
-            btnlimpiar.Location = new Point(67, 689);
+            btnlimpiar.Location = new Point(59, 517);
+            btnlimpiar.Margin = new Padding(3, 2, 3, 2);
             btnlimpiar.Name = "btnlimpiar";
-            btnlimpiar.Size = new Size(173, 45);
+            btnlimpiar.Size = new Size(151, 34);
             btnlimpiar.TabIndex = 22;
             btnlimpiar.Text = "Limpiar";
             btnlimpiar.TextAlign = ContentAlignment.MiddleRight;
@@ -319,9 +331,10 @@
             btneliminar.IconColor = Color.White;
             btneliminar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btneliminar.IconSize = 16;
-            btneliminar.Location = new Point(67, 740);
+            btneliminar.Location = new Point(59, 555);
+            btneliminar.Margin = new Padding(3, 2, 3, 2);
             btneliminar.Name = "btneliminar";
-            btneliminar.Size = new Size(173, 45);
+            btneliminar.Size = new Size(151, 34);
             btneliminar.TabIndex = 23;
             btneliminar.Text = "Eliminar";
             btneliminar.TextAlign = ContentAlignment.MiddleRight;
@@ -334,9 +347,9 @@
             label11.AutoSize = true;
             label11.BackColor = SystemColors.ControlLightLight;
             label11.Font = new Font("Segoe UI", 15F);
-            label11.Location = new Point(28, 9);
+            label11.Location = new Point(24, 7);
             label11.Name = "label11";
-            label11.Size = new Size(184, 35);
+            label11.Size = new Size(145, 28);
             label11.TabIndex = 24;
             label11.Text = "Detalle Usuario";
             // 
@@ -356,7 +369,8 @@
             dgvdata.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvdata.Columns.AddRange(new DataGridViewColumn[] { btnseleccionar, id, Documento, Nombre, Apellido, Correo, NombreCuenta, Clave, Rol, idrol, Telefono, EstadoValor, Estado });
             dgvdata.GridColor = SystemColors.HighlightText;
-            dgvdata.Location = new Point(511, 142);
+            dgvdata.Location = new Point(447, 106);
+            dgvdata.Margin = new Padding(3, 2, 3, 2);
             dgvdata.MultiSelect = false;
             dgvdata.Name = "dgvdata";
             dgvdata.ReadOnly = true;
@@ -364,7 +378,7 @@
             dataGridViewCellStyle2.SelectionBackColor = Color.White;
             dataGridViewCellStyle2.SelectionForeColor = Color.Black;
             dgvdata.RowsDefaultCellStyle = dataGridViewCellStyle2;
-            dgvdata.Size = new Size(1079, 554);
+            dgvdata.Size = new Size(944, 416);
             dgvdata.TabIndex = 25;
             dgvdata.CellContentClick += dgvdata_CellContentClick;
             dgvdata.CellPainting += dgvdata_CellPainting;
@@ -481,18 +495,19 @@
             // 
             label12.BackColor = SystemColors.ControlLightLight;
             label12.Font = new Font("Segoe UI", 15F);
-            label12.Location = new Point(511, 45);
+            label12.Location = new Point(447, 34);
             label12.Name = "label12";
-            label12.Size = new Size(1079, 79);
+            label12.Size = new Size(944, 59);
             label12.TabIndex = 26;
             label12.Text = "Lista de Usuarios";
             label12.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // txtid
             // 
-            txtid.Location = new Point(195, 47);
+            txtid.Location = new Point(171, 35);
+            txtid.Margin = new Padding(3, 2, 3, 2);
             txtid.Name = "txtid";
-            txtid.Size = new Size(37, 27);
+            txtid.Size = new Size(33, 23);
             txtid.TabIndex = 27;
             txtid.Text = "0";
             txtid.Visible = false;
@@ -501,9 +516,9 @@
             // 
             label13.AutoSize = true;
             label13.BackColor = SystemColors.ButtonHighlight;
-            label13.Location = new Point(940, 79);
+            label13.Location = new Point(822, 59);
             label13.Name = "label13";
-            label13.Size = new Size(80, 20);
+            label13.Size = new Size(66, 15);
             label13.TabIndex = 28;
             label13.Text = "Buscar Por:";
             // 
@@ -511,17 +526,21 @@
             // 
             cbobusqueda.DropDownStyle = ComboBoxStyle.DropDownList;
             cbobusqueda.FormattingEnabled = true;
-            cbobusqueda.Location = new Point(1026, 77);
+            cbobusqueda.Location = new Point(898, 58);
+            cbobusqueda.Margin = new Padding(3, 2, 3, 2);
             cbobusqueda.Name = "cbobusqueda";
-            cbobusqueda.Size = new Size(204, 28);
+            cbobusqueda.Size = new Size(179, 23);
             cbobusqueda.TabIndex = 29;
             // 
             // txtbusqueda
             // 
-            txtbusqueda.Location = new Point(1250, 77);
+            txtbusqueda.Location = new Point(1094, 58);
+            txtbusqueda.Margin = new Padding(3, 2, 3, 2);
             txtbusqueda.Name = "txtbusqueda";
-            txtbusqueda.Size = new Size(203, 27);
+            txtbusqueda.PlaceholderText = "Buscar segun el filto";
+            txtbusqueda.Size = new Size(178, 23);
             txtbusqueda.TabIndex = 30;
+            txtbusqueda.TextChanged += txtbusqueda_TextChanged;
             // 
             // btnlimpiarbuscador
             // 
@@ -534,9 +553,10 @@
             btnlimpiarbuscador.IconColor = Color.Black;
             btnlimpiarbuscador.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnlimpiarbuscador.IconSize = 16;
-            btnlimpiarbuscador.Location = new Point(1519, 75);
+            btnlimpiarbuscador.Location = new Point(1329, 56);
+            btnlimpiarbuscador.Margin = new Padding(3, 2, 3, 2);
             btnlimpiarbuscador.Name = "btnlimpiarbuscador";
-            btnlimpiarbuscador.Size = new Size(38, 29);
+            btnlimpiarbuscador.Size = new Size(33, 22);
             btnlimpiarbuscador.TabIndex = 32;
             btnlimpiarbuscador.TextAlign = ContentAlignment.MiddleRight;
             btnlimpiarbuscador.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -554,9 +574,10 @@
             btnbuscar.IconColor = Color.Black;
             btnbuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnbuscar.IconSize = 16;
-            btnbuscar.Location = new Point(1475, 74);
+            btnbuscar.Location = new Point(1291, 56);
+            btnbuscar.Margin = new Padding(3, 2, 3, 2);
             btnbuscar.Name = "btnbuscar";
-            btnbuscar.Size = new Size(38, 29);
+            btnbuscar.Size = new Size(33, 22);
             btnbuscar.TabIndex = 31;
             btnbuscar.TextAlign = ContentAlignment.MiddleRight;
             btnbuscar.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -565,19 +586,20 @@
             // 
             // txtindice
             // 
-            txtindice.Location = new Point(238, 47);
+            txtindice.Location = new Point(208, 35);
+            txtindice.Margin = new Padding(3, 2, 3, 2);
             txtindice.Name = "txtindice";
-            txtindice.Size = new Size(37, 27);
+            txtindice.Size = new Size(33, 23);
             txtindice.TabIndex = 33;
             txtindice.Text = "-1";
             txtindice.Visible = false;
             // 
             // frmUsuario
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaptionText;
-            ClientSize = new Size(1722, 826);
+            ClientSize = new Size(1199, 562);
             Controls.Add(txtindice);
             Controls.Add(btnlimpiarbuscador);
             Controls.Add(btnbuscar);
@@ -612,6 +634,7 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "frmUsuario";
             Text = "frmUsuario";
             Load += frmUsuario_Load;

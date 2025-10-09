@@ -217,10 +217,6 @@ namespace MaxiKiosco
             }
         }
 
-        private void dgvdata_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
 
         private void cbobusqueda_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -229,6 +225,52 @@ namespace MaxiKiosco
 
         private void txtbusqueda_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void txtbusqueda_TextChanged(object sender, EventArgs e)
+        {
+            // 1. Verificación de seguridad y obtención de filtros
+
+            // Evita el error NullReferenceException si el ComboBox no se ha cargado todavía
+            if (cbobusqueda.SelectedItem == null)
+            {
+                return;
+            }
+
+            // Obtiene la columna de la grilla que se debe usar para el filtro (ej: "Descripcion")
+            string columnaFiltro = ((OpcionCombo)cbobusqueda.SelectedItem).Valor.ToString();
+            string textoBusqueda = txtbusqueda.Text.Trim().ToUpper(); // Pone el texto en mayúsculas para la comparación
+
+            // 2. Iterar y Filtrar (Mostrar/Ocultar filas)
+
+            if (dgvdata.Rows.Count > 0)
+            {
+                foreach (DataGridViewRow row in dgvdata.Rows)
+                {
+                    // Omitimos la primera columna del botón seleccionar o validamos que la celda exista
+                    if (row.Cells[columnaFiltro].Value != null)
+                    {
+                        // Convierte el valor de la celda a mayúsculas para la comparación
+                        string valorCelda = row.Cells[columnaFiltro].Value.ToString().Trim().ToUpper();
+
+                        // 3. Mostrar u ocultar la fila si el valor de la celda contiene el texto de búsqueda
+                        if (valorCelda.Contains(textoBusqueda))
+                        {
+                            row.Visible = true;
+                        }
+                        else
+                        {
+                            row.Visible = false;
+                        }
+                    }
+                    // Si el texto de búsqueda está vacío, mostramos todas las filas
+                    else if (string.IsNullOrEmpty(textoBusqueda))
+                    {
+                        row.Visible = true;
+                    }
+                }
+            }
 
         }
     }

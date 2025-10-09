@@ -26,6 +26,7 @@ namespace MaxiKiosco
             frm.ShowDialog();
         }
 
+        // [Modificado]
         private void frmProveedores_Load(object sender, EventArgs e)
         {
             dgvdata.RowHeadersVisible = false;//es la fila que trae por defecto en el datagrid
@@ -34,7 +35,24 @@ namespace MaxiKiosco
             cboestado.Items.Add(new OpcionCombo() { Valor = 0, texto = "No Activo" });
             cboestado.DisplayMember = "texto";
             cboestado.ValueMember = "Valor";
-            dgvdata.Rows.Clear();
+
+            // [INSERTAR COLUMNA RAZONSOCIAL - SÓLO AQUÍ]
+            if (!dgvdata.Columns.Contains("RazonSocial"))
+            {
+                dgvdata.Columns.Insert(4, new DataGridViewTextBoxColumn()
+                {
+                    HeaderText = "Razón Social",
+                    Name = "RazonSocial",
+                    Visible = true,
+                    Width = 150
+                });
+            }
+
+            // Limpiar opciones de búsqueda y agregar nuevas
+            // Necesitas limpiar primero antes de agregarlas de nuevo
+            cbobusqueda.Items.Clear();
+
+
             foreach (DataGridViewColumn column in dgvdata.Columns)
             {
                 if (column.Visible == true && column.Name != "btnseleccionar")
@@ -42,86 +60,122 @@ namespace MaxiKiosco
                     cbobusqueda.Items.Add(new OpcionCombo() { Valor = column.Name, texto = column.HeaderText });
                 }
             }
+
+            // 🚨 Asegúrate de que el primer elemento esté seleccionado
+            if (cbobusqueda.Items.Count > 0)
+            {
+                cbobusqueda.SelectedIndex = 0;
+            }
+
+            // LLAMAR AL NUEVO MÉTODO DE CARGA
+            RecargarGrilla();
+        }
+
+        // [AGREGADO]  Metodo para listar los proveedores.
+        private void RecargarGrilla()
+        {
+            // Limpiamos la grilla para recargar los datos frescos de la BD
+            dgvdata.Rows.Clear();
+
             List<Proveedor> objProveedor = new CN_Proveedor().Listar();
+
             foreach (var item in objProveedor)
             {
                 dgvdata.Rows.Add(new object[]{
-                    "",
-                    item.id,
-                    item.nombre,
-                    item.cuit,
-                    item.email,
-                    item.telefono,
-                    item.direccion,
-                    item.estado == true ? 1 : 0,
-                    item.estado == true ? "Activo" : "Inactivo",
-                });
+            "",                     // Columna 0: btnseleccionar
+            item.id,                // Columna 1: id (Oculta)
+            item.nombre,            // Columna 2: Nombre
+            item.cuit,              // Columna 3: Cuit
+            
+            item.razonsocial,       // Columna 4: Razón Social
+            
+            item.email,             // Columna 5: Correo 
+            item.telefono,          // Columna 6: Telefono 
+            item.direccion,         // Columna 7: Domicilio
+            item.estado == true ? 1 : 0,    // Columna 8: EstadoValor
+            item.estado == true ? "Activo" : "Inactivo", // Columna 9: Estado
+        });
             }
         }
 
         private void btnguardar_Click(object sender, EventArgs e)
         {
             string Mensaje = string.Empty;
+
+            // [AGREGADO VALIDACIÓN DE CAMPOS]
+            if (string.IsNullOrWhiteSpace(txtnombre.Text) || string.IsNullOrWhiteSpace(txtcuit.Text))
+            {
+                MessageBox.Show("Los campos Nombre y CUIT son obligatorios.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            } //Razon social quitamos no es obligatorio
+
+            // [AGREGADO VALIDACIÓN DE CUIT: 11 DÍGITOS y NUMÉRICO]
+            if (txtcuit.Text.Length != 11 || !txtcuit.Text.All(char.IsDigit))
+            {
+                MessageBox.Show("El campo CUIT debe ser numérico y tener exactamente 11 dígitos (sin guiones).", "Advertencia de CUIT", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // [AGREGADO VALIDACIÓN DE EMAIL: Formato básico]
+            // Validamos solo si el campo no está vacío
+            if (!string.IsNullOrWhiteSpace(txtcorreo.Text) && (!txtcorreo.Text.Contains("@") || !txtcorreo.Text.Contains(".")))
+            {
+                MessageBox.Show("El Correo Electrónico no parece tener un formato válido.", "Advertencia de Email", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            } // Aplicado a ambos flujos (Registrar y Editar)
+
+            // [AGREGADO VALIDACIÓN DE TELÉFONO: Sólo numérico]
+            // Permitimos que el campo esté vacío si no es obligatorio, pero si tiene datos, deben ser números.
+            if (!string.IsNullOrWhiteSpace(txttelefono.Text) && !txttelefono.Text.All(char.IsDigit))
+            {
+                MessageBox.Show("El Teléfono solo debe contener caracteres numéricos (sin espacios ni símbolos).", "Advertencia de Teléfono", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }// Aplicado a ambos flujos (Registrar y Editar)
+
             Proveedor objProveedor = new Proveedor()
             {
                 id = Convert.ToInt32(txtid.Text),
                 nombre = txtnombre.Text,
                 cuit = txtcuit.Text,
+                // [MODIFICACIÓN CRUCIAL] 
+                razonsocial = txtrazonsocial.Text, //AGREGAR RAZON SOCIAL
                 direccion = txtdomicilio.Text,
                 telefono = txttelefono.Text,
                 email = txtcorreo.Text,
                 estado = Convert.ToInt32(((OpcionCombo)cboestado.SelectedItem).Valor) == 1 ? true : false,
             };
 
-            if (objProveedor.id == 0)
+            if (objProveedor.id == 0) // REGISTRAR (INSERTAR)
             {
                 int idProveedorgenerado = new CN_Proveedor().Registrar(objProveedor, out Mensaje);
 
-                if (idProveedorgenerado != 0)
+                if (idProveedorgenerado != 0) // Agregar RazonSocial a la inserción de la fila
                 {
-                    dgvdata.Rows.Add(new object[]
-                    {
-                    "",
-                    idProveedorgenerado,
-                    txtnombre.Text,
-                    txtcuit.Text,
-                    txtdomicilio.Text,
-                    txttelefono.Text,
-                    txtcorreo.Text,
-                    ((OpcionCombo)cboestado.SelectedItem).Valor.ToString(),
-                    ((OpcionCombo)cboestado.SelectedItem).texto.ToString(),
-                    });
-                    Limpiar();
-
-
+                    // Se quitó la adición manual de filas. Ahora se recarga.
+                    RecargarGrilla(); // Actualiza la tabla con los datos frescos de la DB
+                    Limpiar();        // Limpia los campos de la izquierda
+                    MessageBox.Show("Proveedor registrado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    MessageBox.Show(Mensaje);
+                    MessageBox.Show(Mensaje, "Error de Registro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            else
+            else // EDITAR (ACTUALIZAR)
             {
                 bool resultado = new CN_Proveedor().Editar(objProveedor, out Mensaje);
                 if (resultado)
                 {
-                    DataGridViewRow row = dgvdata.Rows[Convert.ToInt32(txtindice.Text)];
-                    row.Cells["Nombre"].Value = txtnombre.Text;
-                    row.Cells["Cuit"].Value = txtcuit.Text;
-                    row.Cells["Telefono"].Value = txttelefono.Text;
-                    row.Cells["Domicilio"].Value = txtdomicilio.Text;
-                    row.Cells["Correo"].Value = txtcorreo.Text;
-                    row.Cells["Estado"].Value = ((OpcionCombo)cboestado.SelectedItem).texto.ToString();
-                    row.Cells["EstadoValor"].Value = ((OpcionCombo)cboestado.SelectedItem).Valor.ToString();
-
+                    // ¡ESTA ES LA CORRECCIÓN CLAVE PARA LA EDICIÓN!
+                    RecargarGrilla(); // Actualiza la tabla con los datos frescos de la DB
+                    Limpiar();        // Limpia los campos de la izquierda
+                    MessageBox.Show("Proveedor editado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    MessageBox.Show(Mensaje);
+                    MessageBox.Show(Mensaje, "Error de Edición", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-
             }
-
         }
 
         private void btnlimpiar_Click(object sender, EventArgs e)
@@ -136,38 +190,43 @@ namespace MaxiKiosco
             txtid.Text = "0";
             txtnombre.Text = "";
             txtcuit.Text = "";
+            // [AGREGAR RAZÓN SOCIAL]
+            txtrazonsocial.Text = "";
+            // [Continuación del código de limpieza]
             txtdomicilio.Text = "";
             txttelefono.Text = "";
             txtcorreo.Text = "";
             cboestado.SelectedIndex = 0;
         }
-
         private void btneliminar_Click(object sender, EventArgs e)
         {
             if (Convert.ToInt32(txtid.Text) != 0)
             {
-                if (MessageBox.Show("¿Esta seguro que desea eliminar ese usuario?", "Mensaje", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show("¿Está seguro que desea eliminar este proveedor?", "Mensaje", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     string Mensaje = string.Empty;
                     Proveedor objProveedor = new Proveedor()
                     {
                         id = Convert.ToInt32(txtid.Text)
                     };
+
+                    // La Capa de Negocio se encarga de la eliminación (cambio de estado a Inactivo)
                     bool respuesta = new CN_Proveedor().Eliminar(objProveedor, out Mensaje);
+
                     if (respuesta)
                     {
-                        dgvdata.Rows.RemoveAt(Convert.ToInt32(txtindice.Text));
+                        // [CONFIRMACIÓN DE RECARGA] En lugar de remover la fila manualmente, recargamos toda la grilla.
+                        RecargarGrilla(); // Recarga la grilla después de la eliminación
+                        MessageBox.Show("Proveedor eliminado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                     {
                         MessageBox.Show(Mensaje, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
                 }
-                Limpiar();
-
+                Limpiar(); // Limpia los campos del detalle después de intentar eliminar
             }
         }
-
         private void dgvdata_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (dgvdata.Columns[e.ColumnIndex].Name == "btnseleccionar")
@@ -196,7 +255,6 @@ namespace MaxiKiosco
                 }
             }
         }
-
         private void dgvdata_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
             if (e.RowIndex < 0)
@@ -212,7 +270,6 @@ namespace MaxiKiosco
                 e.Handled = true;
             }
         }
-
         private void btnbuscar_Click(object sender, EventArgs e)
         {
             string columnaFiltro = ((OpcionCombo)cbobusqueda.SelectedItem).Valor.ToString();
@@ -228,13 +285,58 @@ namespace MaxiKiosco
                 }
             }
         }
-
         private void btnlimpiarbuscador_Click(object sender, EventArgs e)
         {
             txtbusqueda.Text = "";
             foreach (DataGridViewRow row in dgvdata.Rows)
             {
                 row.Visible = true;
+            }
+        }
+
+        // [AGREGADO] Busqued en tiempo real de proveedor
+        private void txtbusqueda_TextChanged(object sender, EventArgs e)
+        {
+            // [CORRECCIÓN CRUCIAL] VERIFICAR QUE HAYA UN ÍTEM SELECCIONADO EN EL COMBO
+            if (cbobusqueda.SelectedItem == null)
+            {
+                // Si no hay nada seleccionado, simplemente salimos del método para evitar el error.
+                return;
+            }
+
+            // 1. Obtener la columna de búsqueda seleccionada
+            // Ya es seguro acceder a SelectedItem.
+            string columnaFiltro = ((OpcionCombo)cbobusqueda.SelectedItem).Valor.ToString();
+            string textoBusqueda = txtbusqueda.Text.Trim().ToUpper();
+
+            // 2. Iterar sobre las filas del DataGridView
+            if (dgvdata.Rows.Count > 0)
+            {
+                foreach (DataGridViewRow row in dgvdata.Rows)
+                {
+                    // Verificamos que la celda de la columna filtro exista y no sea nula.
+                    if (row.Cells[columnaFiltro].Value != null)
+                    {
+                        // Convertimos el valor de la celda a mayúsculas para la comparación
+                        string valorCelda = row.Cells[columnaFiltro].Value.ToString().Trim().ToUpper();
+
+                        // 3. Mostrar u ocultar la fila
+                        if (valorCelda.Contains(textoBusqueda))
+                        {
+                            row.Visible = true; // El texto coincide, mostramos la fila
+                        }
+                        else
+                        {
+                            row.Visible = false; // No coincide, ocultamos la fila
+                        }
+                    }
+                    // Si el texto de búsqueda está vacío, o la celda es nula, mostramos la fila
+                    // si el textoBusqueda es vacío (para que vuelvan a aparecer todos).
+                    else if (string.IsNullOrEmpty(textoBusqueda))
+                    {
+                        row.Visible = true;
+                    }
+                }
             }
         }
     }

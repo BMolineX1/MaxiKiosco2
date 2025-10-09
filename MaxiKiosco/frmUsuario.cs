@@ -277,5 +277,48 @@ namespace MaxiKiosco
         {
             Limpiar();
         }
+
+        // [AGREGADO]
+        private void txtbusqueda_TextChanged(object sender, EventArgs e)
+        {
+            // 1. Evita el error NullReferenceException si el ComboBox o el texto están vacíos
+            if (cbobusqueda.SelectedItem == null)
+            {
+                return;
+            }
+
+            // Obtiene la columna seleccionada por el usuario (ej: "Documento", "Nombre", "Correo")
+            string columnaFiltro = ((OpcionCombo)cbobusqueda.SelectedItem).Valor.ToString();
+            string textoBusqueda = txtbusqueda.Text.Trim().ToUpper();
+
+            // 2. Iterar y Filtrar (Mostrar/Ocultar filas)
+            if (dgvdata.Rows.Count > 0)
+            {
+                foreach (DataGridViewRow row in dgvdata.Rows)
+                {
+                    // Verificamos que la celda de la columna seleccionada NO sea nula
+                    if (row.Cells[columnaFiltro].Value != null)
+                    {
+                        string valorCelda = row.Cells[columnaFiltro].Value.ToString().Trim().ToUpper();
+
+                        // Filtrado: Muestra si el valor de la celda CONTIENE el texto de búsqueda
+                        if (valorCelda.Contains(textoBusqueda))
+                        {
+                            row.Visible = true;
+                        }
+                        else
+                        {
+                            row.Visible = false;
+                        }
+                    }
+                    // Si el texto de búsqueda está vacío, mostramos todas las filas
+                    else if (string.IsNullOrEmpty(textoBusqueda))
+                    {
+                        row.Visible = true;
+                    }
+                }
+            }
+
+        }
     }
 }

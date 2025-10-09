@@ -109,8 +109,14 @@ namespace CapaDatos
                     cmd.CommandType = CommandType.StoredProcedure;
                     oconexion.Open();
                     cmd.ExecuteNonQuery();
+
+                    // 1. Aquí asignas la respuesta booleana según el procedimiento almacenado (SP)
                     respuesta = Convert.ToBoolean(cmd.Parameters["resultado"].Value);
+
+                    // 2. Aquí obtienes el mensaje del SP, que ES el que contiene "El proveedor fue modificado con éxito".
                     Mensaje = cmd.Parameters["mensaje"].Value.ToString();
+
+                    return respuesta; // Esto devuelve TRUE si el SP fue exitoso
                 }
 
             }
