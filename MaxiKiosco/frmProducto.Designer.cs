@@ -440,7 +440,7 @@
             // 
             // txtcodigo
             // 
-            txtcodigo.Location = new Point(31, 125);
+            txtcodigo.Location = new Point(30, 80);
             txtcodigo.Margin = new Padding(3, 2, 3, 2);
             txtcodigo.Name = "txtcodigo";
             txtcodigo.Size = new Size(202, 23);
@@ -448,7 +448,7 @@
             // 
             // txtnombre
             // 
-            txtnombre.Location = new Point(31, 86);
+            txtnombre.Location = new Point(30, 123);
             txtnombre.Margin = new Padding(3, 2, 3, 2);
             txtnombre.Name = "txtnombre";
             txtnombre.Size = new Size(202, 23);
@@ -506,7 +506,7 @@
             // 
             label3.AutoSize = true;
             label3.BackColor = SystemColors.ControlLightLight;
-            label3.Location = new Point(32, 68);
+            label3.Location = new Point(28, 106);
             label3.Name = "label3";
             label3.Size = new Size(51, 15);
             label3.TabIndex = 36;
@@ -516,11 +516,11 @@
             // 
             label2.AutoSize = true;
             label2.BackColor = SystemColors.ControlLightLight;
-            label2.Location = new Point(32, 108);
+            label2.Location = new Point(30, 63);
             label2.Name = "label2";
-            label2.Size = new Size(46, 15);
+            label2.Size = new Size(76, 15);
             label2.TabIndex = 35;
-            label2.Text = "Codigo";
+            label2.Text = "Codigo Barra";
             // 
             // label1
             // 

@@ -304,7 +304,7 @@ CREATE TABLE `producto` (
   UNIQUE KEY `codigo_UNIQUE` (`codigo`),
   KEY `categoria_id` (`categoria_id`),
   CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`categoria_id`) REFERENCES `categoria` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -313,7 +313,7 @@ CREATE TABLE `producto` (
 
 LOCK TABLES `producto` WRITE;
 /*!40000 ALTER TABLE `producto` DISABLE KEYS */;
-INSERT INTO `producto` VALUES (2,'secco',30,1500.00,2,1200.00,'3 litros','2025-08-04 19:49:11',1,'10011010'),(3,'coca-cola',70,0.00,2,150000.00,'2.25 litros','2025-08-04 19:51:38',1,'11101101'),(4,'pan',26,1000.00,3,1100.00,'20 kilos','2025-08-04 19:57:39',1,'2002202'),(8,'Gaseosa',30,1400.00,2,1600.00,'1 litro','2025-10-08 00:55:54',1,'1010100'),(12,'yerba',20,1600.00,9,1400.00,'1 kg','2025-09-16 14:12:35',1,'21212121'),(15,'Pure de tomate',10,130.00,2,900.00,'nada','2025-10-08 19:34:26',1,'125125'),(22,'Masita diversion',5,25000.00,3,2000.00,'dwd','2025-10-07 19:40:01',1,'1241556'),(28,'Borrar',12,232222.00,3,124.20,'sfs','2025-10-07 22:58:13',1,'INT-1'),(29,'Borrar',12,232222.00,3,124.20,'sfs','2025-10-07 23:02:01',1,'INT-2'),(30,'Masita Terrabusi',9,250000.00,10,200000.00,'sfsf','2025-10-08 00:49:35',1,'124952525'),(31,'Sidra',16,2500.00,2,2000.00,'12','2025-10-08 00:22:34',1,'491915051051'),(35,'borrar',2,124.00,2,124.00,'121','2025-10-08 00:56:52',1,'INT-4'),(36,'borrwr',12,1242.00,2,212.00,'124','2025-10-08 00:57:30',1,'INT-5');
+INSERT INTO `producto` VALUES (2,'secco',30,1500.00,2,1200.00,'3 litros','2025-08-04 19:49:11',1,'10011010'),(3,'coca-cola',70,0.00,2,150000.00,'2.25 litros','2025-08-04 19:51:38',1,'11101101'),(4,'pan',26,1000.00,3,1100.00,'20 kilos','2025-10-09 12:42:11',1,'2002202'),(8,'Gaseosa',30,1400.00,2,1600.00,'1 litro','2025-10-09 12:42:08',1,'1010100'),(12,'yerba',20,1600.00,9,1400.00,'1 kg','2025-09-16 14:12:35',1,'21212121'),(15,'Pure de tomate',10,130.00,2,900.00,'nada','2025-10-08 19:34:26',1,'125125'),(22,'Masita diversion',5,25000.00,3,2000.00,'dwd','2025-10-07 19:40:01',1,'1241556'),(28,'Borrar',12,232222.00,3,124.20,'sfs','2025-10-07 22:58:13',1,'INT-1'),(29,'Borrar',12,232222.00,3,124.20,'sfs','2025-10-07 23:02:01',1,'INT-2'),(30,'Masita Terrabusi',9,250000.00,10,200000.00,'sfsf','2025-10-08 00:49:35',1,'124952525'),(31,'Sidra',16,2500.00,2,2000.00,'12','2025-10-08 00:22:34',1,'491915051051'),(35,'borrar',2,124.00,2,124.00,'121','2025-10-08 00:56:52',1,'INT-4'),(36,'borrwr',12,12422.00,2,212.00,'124','2025-10-09 12:58:18',1,'INT-5'),(37,'borrar',2,12447705.00,2,12.00,'dad','2025-10-09 12:01:31',1,'INT-6'),(38,'borrardd',2,12321233.00,3,123.00,'dd','2025-10-09 12:23:48',1,'INT-3');
 /*!40000 ALTER TABLE `producto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -647,18 +647,21 @@ BEGIN
 
     SET mensaje = '';
     SET resultado = 1;
-
     
+    -- 1. Verificar si existe otro producto con el MISMO NOMBRE y DIFERENTE ID (Esto ya estaba bien)
     SELECT COUNT(*) INTO existe_nombre
     FROM producto 
     WHERE id != p_id AND nombre = p_nombre;
 
-    
+    -- 2. Verificar si existe otro producto con el MISMO CÓDIGO y DIFERENTE ID.
+    --    PERO solo si el código NO es un código autogenerado 'INT-%'.
     SELECT COUNT(*) INTO existe_codigo
     FROM producto 
-    WHERE id != p_id AND codigo = p_codigo;
+    WHERE id != p_id 
+      AND codigo = p_codigo
+      AND p_codigo NOT LIKE 'INT-%'; -- ⬅️ CORRECCIÓN APLICADA AQUÍ.
 
-    
+    -- 3. Proceder a la edición si no hay duplicados.
     IF (existe_nombre = 0 AND existe_codigo = 0) THEN
         UPDATE producto 
         SET nombre = p_nombre,
@@ -1188,29 +1191,53 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegistrarProducto`(
-in p_nombre varchar(60),
-in p_stock int,
-in p_precioventa float,
-in p_categoria_id int,
-in p_preciocompra float,
-in p_descripcion varchar(20),
-in p_fecharegistro datetime,
-in p_estado tinyint,
-in p_codigo varchar(13),
-out mensaje varchar(250),
-out resultado int
+    IN p_nombre VARCHAR(60),
+    IN p_stock INT,
+    IN p_precioventa FLOAT,
+    IN p_categoria_id INT,
+    IN p_preciocompra FLOAT,
+    IN p_descripcion VARCHAR(20),
+    IN p_fecharegistro DATETIME,
+    IN p_estado TINYINT,
+    IN p_codigo VARCHAR(13),
+    OUT mensaje VARCHAR(250),
+    OUT resultado INT
 )
-begin
-	set mensaje = '';
-    set resultado = 1;
-	if not exists(select * from producto where producto.nombre = p_nombre and producto.codigo = p_codigo) then
-			insert into producto(nombre,stock,precioventa,categoria_id,preciocompra,descripcion,estado,codigo)
-			values (p_nombre,p_stock,p_precioventa,p_categoria_id,p_preciocompra,p_descripcion,p_estado,p_codigo);
-			set resultado = last_insert_id();
-			set mensaje = "El producto se registro con exito";
-	else
-			set mensaje = "Error, el producto ya esta registrado";
-	end if;
+BEGIN
+    DECLARE existe_nombre INT DEFAULT 0;
+    DECLARE existe_codigo INT DEFAULT 0;
+
+    SET mensaje = '';
+    SET resultado = 0; -- Inicializamos el resultado en 0 (Error)
+
+    -- 1. Verificar si ya existe otro producto con el MISMO NOMBRE
+    SELECT COUNT(1) INTO existe_nombre
+    FROM producto 
+    WHERE nombre = p_nombre;
+
+    -- 2. Verificar si ya existe otro producto con el MISMO CÓDIGO
+    --    PERO solo si el código NO es un código interno ('INT-%')
+    IF p_codigo NOT LIKE 'INT-%' THEN
+        SELECT COUNT(1) INTO existe_codigo
+        FROM producto 
+        WHERE codigo = p_codigo;
+    END IF;
+
+    -- 3. Insertar solo si NO hay conflictos
+    IF existe_nombre = 0 AND existe_codigo = 0 THEN
+        INSERT INTO producto(nombre, stock, precioventa, categoria_id, preciocompra, descripcion, estado, codigo)
+        VALUES (p_nombre, p_stock, p_precioventa, p_categoria_id, p_preciocompra, p_descripcion, p_estado, p_codigo);
+        
+        SET resultado = LAST_INSERT_ID();
+        SET mensaje = 'El producto se registró con éxito';
+    ELSE
+        -- Devolver el error específico
+        IF existe_nombre > 0 THEN
+            SET mensaje = 'Error: Ya existe un producto registrado con ese nombre.';
+        ELSEIF existe_codigo > 0 THEN
+            SET mensaje = 'Error: Ya existe un producto registrado con ese código de barra.';
+        END IF;
+    END IF;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1440,4 +1467,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-10-09  0:26:05
+-- Dump completed on 2025-10-09 13:38:55

@@ -69,25 +69,28 @@ namespace MaxiKiosco
             // Esto es NECESARIO porque el registro/edición puede haber cambiado los datos del producto (Id, etc.)
             try
             {
-                listaProductos = new CN_Producto().Listar();
+                // Esta línea asumo que es la lista que usas para llenar la grilla
+                // Si no la tienes declarada a nivel de clase, puedes declararla aquí
+                List<Producto> listaProductos = new CN_Producto().Listar();
+                //listaProductos = new CN_Producto().Listar();
 
                 // Llena el DataGridView con los datos de la lista recién cargada
                 foreach (Producto item in listaProductos)
                 {
                     dgvdata.Rows.Add(new object[] {
-                "",
-                item.Id,
-                item.nombre,
-                item.codigo,
-                item.preciocompra,
-                item.precioventa,
-                item.descripcion,
-                item.ocategoria.nombre_categoria,
-                item.ocategoria.Id,
-                item.stock,
-                item.estado == true ? 1 : 0,
-                item.estado == true ? "Activo" : "Inactivo",
-            });
+                        "",
+                        item.Id,
+                        item.nombre,
+                        item.codigo,
+                        item.preciocompra,
+                        item.precioventa,
+                        item.descripcion,
+                        item.ocategoria.nombre_categoria,
+                        item.ocategoria.Id,
+                        item.stock,
+                        item.estado == true ? 1 : 0,
+                        item.estado == true ? "Activo" : "Inactivo",
+                    });
                 }
             }
             catch (Exception ex)
@@ -129,9 +132,28 @@ namespace MaxiKiosco
             cbobusqueda.ValueMember = "Valor";
             cbobusqueda.SelectedIndex = 0;
 
+
+            // 1. Aplicar formato "N2" a la columna de Precio de Compra
+            // Usamos el nombre 'preciocompra' (minúsculas) que es común cuando se usa la propiedad del objeto.
+            if (dgvdata.Columns.Contains("preciocompra"))
+            {
+                // Forzar el tipo de dato de la columna.
+                dgvdata.Columns["preciocompra"].ValueType = typeof(decimal);
+
+                // Luego aplicar el formato.
+                dgvdata.Columns["preciocompra"].DefaultCellStyle.Format = "N2";
+            }
+
+            // 2. Aplicar formato "N2" a la columna de Precio de Venta
+            if (dgvdata.Columns.Contains("precioventa"))
+            {
+                dgvdata.Columns["precioventa"].DefaultCellStyle.Format = "N2";
+            }
+
             // [MODIFICADO] Aquí has llamado a CargarProductos()
             CargarProductos();
         }
+       
         private void Limpiar()
         {
             // [IMPORTANTE] Restablecer el ID para indicar que es un registro nuevo
@@ -155,6 +177,7 @@ namespace MaxiKiosco
         private void btnguardar_Click_1(object sender, EventArgs e)
         {
             string mensaje = string.Empty;
+
             // 1. Verificar si los campos numéricos son válidos
             // Nota: Dejé la validación de txtcodigo.Text aquí, pero será manejada por la lógica GENERAR_INTERNO
             if (string.IsNullOrWhiteSpace(txtnombre.Text) ||
@@ -173,15 +196,34 @@ namespace MaxiKiosco
             int idestado;
             int idcategoria;
 
+            // NUEVA VALIDACIÓN DE FORMATO DECIMAL (PUNTO Y COMA) Para precio venta y compra 
+            // Obtenemos el separador decimal que usa la configuración regional actual.
+            // Esto es CRUCIAL para saber qué carácter contar.
+            char separadorDecimal = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
+            string textoVenta = txtprecioventa.Text.Trim();
+            string textoCompra = txtpreciocompra.Text.Trim();
+            // Contamos cuántas veces aparece el separador decimal en el texto.
+            int cuentaSeparadorVenta = textoVenta.Count(c => c == separadorDecimal);
+            int cuentaSeparadorCompra = textoCompra.Count(c => c == separadorDecimal);
+            // Validamos que solo haya CERO o UN separador decimal
+            if (cuentaSeparadorVenta > 1 || cuentaSeparadorCompra > 1)
+            {
+                MessageBox.Show($"El formato de precio es incorrecto. Debe usar el separador decimal '{separadorDecimal}' solo una vez. Ejemplo: 123{separadorDecimal}45.",
+                                "Error de Formato Decimal", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            // 2.1. Intentamos el TryParse usando la configuración regional (Ahora es seguro)
+
             // Usamos TryParse para asegurarnos de que el formato sea correcto
-            if (!decimal.TryParse(txtprecioventa.Text, out precioventa) ||
-                !decimal.TryParse(txtpreciocompra.Text, out preciocompra) ||
+            if (!decimal.TryParse(textoVenta, out precioventa) ||
+                !decimal.TryParse(textoCompra, out preciocompra) ||
                 !int.TryParse(txtstock.Text, out stock) ||
                 !int.TryParse(txtidproducto.Text, out idproducto) ||
                 !int.TryParse(((OpcionCombo)cboestado.SelectedItem).Valor.ToString(), out idestado) ||
                 !int.TryParse(((OpcionCombo)cbocategoria.SelectedItem).Valor.ToString(), out idcategoria))
             {
-                MessageBox.Show("Por favor, ingrese formatos numéricos válidos para Precios y/o Stock.", "Error de Formato", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Por favor, ingrese formatos numéricos válidos para Precios y/o Stock. Recuerde que el Stock debe ser un número entero.", "Error de Formato Numérico", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
