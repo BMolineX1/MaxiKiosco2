@@ -85,7 +85,9 @@
             label = new Label();
             iconButton3 = new FontAwesome.Sharp.IconButton();
             btnExportar = new FontAwesome.Sharp.IconButton();
+            panel1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)dgvdata).BeginInit();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // txtindice
@@ -190,6 +192,7 @@
             // dgvdata
             // 
             dgvdata.AllowUserToAddRows = false;
+            dgvdata.BackgroundColor = Color.WhiteSmoke;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = SystemColors.Control;
             dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
@@ -201,7 +204,7 @@
             dgvdata.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvdata.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvdata.Columns.AddRange(new DataGridViewColumn[] { btnseleccionar, id, Nombre, Codigo, PrecioDeCompra, PrecioDeVenta, Descripcion, Categoria, idcategoria, Stock, EstadoValor, Estado });
-            dgvdata.Location = new Point(427, 80);
+            dgvdata.Location = new Point(427, 85);
             dgvdata.Margin = new Padding(3, 2, 3, 2);
             dgvdata.MultiSelect = false;
             dgvdata.Name = "dgvdata";
@@ -210,7 +213,7 @@
             dataGridViewCellStyle2.SelectionBackColor = Color.White;
             dataGridViewCellStyle2.SelectionForeColor = Color.Black;
             dgvdata.RowsDefaultCellStyle = dataGridViewCellStyle2;
-            dgvdata.Size = new Size(944, 416);
+            dgvdata.Size = new Size(924, 436);
             dgvdata.TabIndex = 59;
             dgvdata.CellContentClick += dgvdata_CellContentClick;
             dgvdata.CellPainting += dgvdata_CellPainting_1;
@@ -336,7 +339,7 @@
             btneliminar.IconColor = Color.White;
             btneliminar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btneliminar.IconSize = 16;
-            btneliminar.Location = new Point(61, 499);
+            btneliminar.Location = new Point(37, 446);
             btneliminar.Margin = new Padding(3, 2, 3, 2);
             btneliminar.Name = "btneliminar";
             btneliminar.Size = new Size(151, 34);
@@ -358,7 +361,7 @@
             btnlimpiar.IconColor = Color.White;
             btnlimpiar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnlimpiar.IconSize = 18;
-            btnlimpiar.Location = new Point(61, 460);
+            btnlimpiar.Location = new Point(37, 408);
             btnlimpiar.Margin = new Padding(3, 2, 3, 2);
             btnlimpiar.Name = "btnlimpiar";
             btnlimpiar.Size = new Size(151, 34);
@@ -380,7 +383,7 @@
             btnguardar.IconColor = Color.White;
             btnguardar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnguardar.IconSize = 16;
-            btnguardar.Location = new Point(61, 422);
+            btnguardar.Location = new Point(37, 370);
             btnguardar.Margin = new Padding(3, 2, 3, 2);
             btnguardar.Name = "btnguardar";
             btnguardar.Size = new Size(151, 34);
@@ -394,8 +397,8 @@
             // label10
             // 
             label10.AutoSize = true;
-            label10.BackColor = SystemColors.ControlLightLight;
-            label10.Location = new Point(37, 356);
+            label10.BackColor = Color.Transparent;
+            label10.Location = new Point(15, 310);
             label10.Name = "label10";
             label10.Size = new Size(42, 15);
             label10.TabIndex = 52;
@@ -405,7 +408,7 @@
             // 
             cbocategoria.DropDownStyle = ComboBoxStyle.DropDownList;
             cbocategoria.FormattingEnabled = true;
-            cbocategoria.Location = new Point(33, 333);
+            cbocategoria.Location = new Point(10, 273);
             cbocategoria.Margin = new Padding(3, 2, 3, 2);
             cbocategoria.Name = "cbocategoria";
             cbocategoria.Size = new Size(203, 23);
@@ -416,7 +419,7 @@
             // 
             cboestado.DropDownStyle = ComboBoxStyle.DropDownList;
             cboestado.FormattingEnabled = true;
-            cboestado.Location = new Point(33, 374);
+            cboestado.Location = new Point(10, 327);
             cboestado.Margin = new Padding(3, 2, 3, 2);
             cboestado.Name = "cboestado";
             cboestado.Size = new Size(203, 23);
@@ -424,23 +427,25 @@
             // 
             // txtpreciocompra
             // 
-            txtpreciocompra.Location = new Point(31, 205);
+            txtpreciocompra.Location = new Point(10, 147);
             txtpreciocompra.Margin = new Padding(3, 2, 3, 2);
             txtpreciocompra.Name = "txtpreciocompra";
+            txtpreciocompra.PlaceholderText = "Eje: 100,99";
             txtpreciocompra.Size = new Size(202, 23);
             txtpreciocompra.TabIndex = 45;
             // 
             // txtprecioventa
             // 
-            txtprecioventa.Location = new Point(31, 165);
+            txtprecioventa.Location = new Point(10, 105);
             txtprecioventa.Margin = new Padding(3, 2, 3, 2);
             txtprecioventa.Name = "txtprecioventa";
+            txtprecioventa.PlaceholderText = "Eje: 100,99";
             txtprecioventa.Size = new Size(202, 23);
             txtprecioventa.TabIndex = 44;
             // 
             // txtcodigo
             // 
-            txtcodigo.Location = new Point(30, 80);
+            txtcodigo.Location = new Point(10, 19);
             txtcodigo.Margin = new Padding(3, 2, 3, 2);
             txtcodigo.Name = "txtcodigo";
             txtcodigo.Size = new Size(202, 23);
@@ -448,7 +453,7 @@
             // 
             // txtnombre
             // 
-            txtnombre.Location = new Point(30, 123);
+            txtnombre.Location = new Point(10, 63);
             txtnombre.Margin = new Padding(3, 2, 3, 2);
             txtnombre.Name = "txtnombre";
             txtnombre.Size = new Size(202, 23);
@@ -465,8 +470,8 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.BackColor = SystemColors.ControlLightLight;
-            label7.Location = new Point(37, 316);
+            label7.BackColor = Color.Transparent;
+            label7.Location = new Point(10, 256);
             label7.Name = "label7";
             label7.Size = new Size(58, 15);
             label7.TabIndex = 40;
@@ -475,8 +480,8 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.BackColor = SystemColors.ControlLightLight;
-            label6.Location = new Point(32, 188);
+            label6.BackColor = Color.Transparent;
+            label6.Location = new Point(10, 130);
             label6.Name = "label6";
             label6.Size = new Size(102, 15);
             label6.TabIndex = 39;
@@ -485,8 +490,8 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.BackColor = SystemColors.ControlLightLight;
-            label5.Location = new Point(34, 148);
+            label5.BackColor = Color.Transparent;
+            label5.Location = new Point(10, 88);
             label5.Name = "label5";
             label5.Size = new Size(88, 15);
             label5.TabIndex = 38;
@@ -505,8 +510,8 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.BackColor = SystemColors.ControlLightLight;
-            label3.Location = new Point(28, 106);
+            label3.BackColor = Color.Transparent;
+            label3.Location = new Point(15, 46);
             label3.Name = "label3";
             label3.Size = new Size(51, 15);
             label3.TabIndex = 36;
@@ -515,8 +520,8 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.BackColor = SystemColors.ControlLightLight;
-            label2.Location = new Point(30, 63);
+            label2.BackColor = Color.Transparent;
+            label2.Location = new Point(15, 2);
             label2.Name = "label2";
             label2.Size = new Size(76, 15);
             label2.TabIndex = 35;
@@ -616,7 +621,7 @@
             // 
             // txtdescripcion
             // 
-            txtdescripcion.Location = new Point(32, 287);
+            txtdescripcion.Location = new Point(10, 231);
             txtdescripcion.Margin = new Padding(3, 2, 3, 2);
             txtdescripcion.Name = "txtdescripcion";
             txtdescripcion.Size = new Size(202, 23);
@@ -625,8 +630,8 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.BackColor = SystemColors.ControlLightLight;
-            label8.Location = new Point(31, 270);
+            label8.BackColor = Color.Transparent;
+            label8.Location = new Point(15, 214);
             label8.Name = "label8";
             label8.Size = new Size(69, 15);
             label8.TabIndex = 74;
@@ -665,7 +670,7 @@
             // 
             // txtstock
             // 
-            txtstock.Location = new Point(32, 248);
+            txtstock.Location = new Point(10, 189);
             txtstock.Margin = new Padding(3, 2, 3, 2);
             txtstock.Name = "txtstock";
             txtstock.Size = new Size(202, 23);
@@ -674,8 +679,8 @@
             // label
             // 
             label.AutoSize = true;
-            label.BackColor = SystemColors.ControlLightLight;
-            label.Location = new Point(30, 230);
+            label.BackColor = Color.Transparent;
+            label.Location = new Point(15, 172);
             label.Name = "label";
             label.Size = new Size(36, 15);
             label.TabIndex = 79;
@@ -723,20 +728,44 @@
             btnExportar.UseVisualStyleBackColor = false;
             btnExportar.Click += btnExportar_Click;
             // 
+            // panel1
+            // 
+            panel1.BackColor = Color.GhostWhite;
+            panel1.Controls.Add(label2);
+            panel1.Controls.Add(txtcodigo);
+            panel1.Controls.Add(label3);
+            panel1.Controls.Add(txtstock);
+            panel1.Controls.Add(txtnombre);
+            panel1.Controls.Add(label);
+            panel1.Controls.Add(txtdescripcion);
+            panel1.Controls.Add(label5);
+            panel1.Controls.Add(label8);
+            panel1.Controls.Add(txtprecioventa);
+            panel1.Controls.Add(label6);
+            panel1.Controls.Add(txtpreciocompra);
+            panel1.Controls.Add(label7);
+            panel1.Controls.Add(cbocategoria);
+            panel1.Controls.Add(label10);
+            panel1.Controls.Add(cboestado);
+            panel1.Controls.Add(btnguardar);
+            panel1.Controls.Add(btnlimpiar);
+            panel1.Controls.Add(btneliminar);
+            panel1.Location = new Point(24, 71);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(229, 482);
+            panel1.TabIndex = 83;
+            // 
             // frmProducto
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1199, 512);
+            Controls.Add(panel1);
             Controls.Add(btnExportar);
             Controls.Add(iconButton3);
-            Controls.Add(txtstock);
-            Controls.Add(label);
             Controls.Add(textBox3);
             Controls.Add(txtidproducto);
             Controls.Add(label9);
-            Controls.Add(txtdescripcion);
-            Controls.Add(label8);
             Controls.Add(iconButton1);
             Controls.Add(iconButton2);
             Controls.Add(txtbusquedaproducto);
@@ -753,29 +782,16 @@
             Controls.Add(label12);
             Controls.Add(dgvdata);
             Controls.Add(label11);
-            Controls.Add(btneliminar);
-            Controls.Add(btnlimpiar);
-            Controls.Add(btnguardar);
-            Controls.Add(label10);
-            Controls.Add(cbocategoria);
-            Controls.Add(cboestado);
-            Controls.Add(txtpreciocompra);
-            Controls.Add(txtprecioventa);
-            Controls.Add(txtcodigo);
-            Controls.Add(txtnombre);
             Controls.Add(txtdocumento);
-            Controls.Add(label7);
-            Controls.Add(label6);
-            Controls.Add(label5);
             Controls.Add(label4);
-            Controls.Add(label3);
-            Controls.Add(label2);
             Controls.Add(label1);
             Margin = new Padding(3, 2, 3, 2);
             Name = "frmProducto";
             Text = "frmProducto";
             Load += frmProducto_Load;
             ((System.ComponentModel.ISupportInitialize)dgvdata).EndInit();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -837,5 +853,6 @@
         private DataGridViewTextBoxColumn Stock;
         private DataGridViewTextBoxColumn EstadoValor;
         private DataGridViewTextBoxColumn Estado;
+        private Panel panel1;
     }
 }

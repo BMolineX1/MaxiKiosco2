@@ -17,5 +17,8 @@ namespace CapaEntidad
         public string cuit { get; set;  }
         public string email { get; set; }
         public bool estado { get; set; }
+        public string razonsocial { get; set; }
+        public string condicion_iva { get; set; }
+        public string tipo_cliente { get; set; }
     }
 }

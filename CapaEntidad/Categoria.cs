@@ -10,6 +10,7 @@ namespace CapaEntidad
     {
         public int Id { get; set; }
         public string nombre_categoria {  get; set; }
+        public decimal porcentaje_aumento { get; set; }
         public bool estado { get; set; }
     }
 }

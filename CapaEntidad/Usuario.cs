@@ -18,5 +18,10 @@ namespace CapaEntidad
         public string dni { get; set; }
         public Rol oRol { get; set; } = new Rol();
         public bool estado { get; set; }
+        public bool EsCliente { get; set; }
+        public bool EsProveedor { get; set; }
+
+        // Propiedad para recibir el valor CALCULADO del SP
+        public string TipoRolCalculado { get; set; }
     }
 }

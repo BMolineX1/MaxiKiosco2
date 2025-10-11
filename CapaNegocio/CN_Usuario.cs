@@ -18,6 +18,7 @@ namespace CapaNegocio
         //traemos registrar de CN_Usuario
         public int Registrar(Usuario obj, out string Mensaje)
         {
+            
             //el mensaje va a ir como vacio
             Mensaje = string.Empty;
             if (obj.nombre == "" && obj.apellido == "")

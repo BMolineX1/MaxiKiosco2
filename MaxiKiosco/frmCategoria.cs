@@ -20,18 +20,61 @@ namespace MaxiKiosco
         {
             InitializeComponent();
         }
+        
         private void frmCategoria_Load(object sender, EventArgs e)
         {
+            // Cargo las columnas por codigo en ves del diseñador
             dgvdata.RowHeadersVisible = false;
+            dgvdata.Columns.Clear();
+
+            // 1 btn 
+            dgvdata.Columns.Add(new DataGridViewButtonColumn()
+            {
+                Name = "btnseleccionar",
+                HeaderText = "",
+                Width = 30,
+                Text = "Seleccionar",
+                UseColumnTextForButtonValue = true
+            });
+
+            // Nombre de categoría
+            dgvdata.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                Name = "NombreDeCategoria",
+                HeaderText = "Nombre De Categoria",
+                Width = 230 // más espacio
+            });
+
+            dgvdata.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Id", HeaderText = "ID", Visible = false });
+
+            // Estado
+            dgvdata.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                Name = "Estado",
+                HeaderText = "Estado",
+                Width = 200
+            });
+
+            dgvdata.Columns.Add(new DataGridViewTextBoxColumn() { Name = "EstadoValor", HeaderText = "EstadoValor", Visible = false });
+
+            // Porcentaje aumento
+            dgvdata.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                Name = "PorcentajeAumento",
+                HeaderText = "% Aumento",
+                Width = 170
+            });
+
             cboestado.Items.Add(new OpcionCombo() { Valor = 1, texto = "Activo" });
             cboestado.Items.Add(new OpcionCombo() { Valor = 0, texto = "No Activo" });
             cboestado.DisplayMember = "Texto";
             cboestado.ValueMember = "Valor";
             cboestado.SelectedIndex = 0;
-            dgvdata.Rows.Clear(); // Limpia la grilla
+
+            cbobusqueda.Items.Clear();
             foreach (DataGridViewColumn column in dgvdata.Columns)
             {
-                if (column.Visible == true && column.Name != "btnseleccionar")
+                if (column.Visible && column.Name != "btnseleccionar" && column.Name != "Id" && column.Name != "EstadoValor")
                 {
                     cbobusqueda.Items.Add(new OpcionCombo() { Valor = column.Name, texto = column.HeaderText });
                 }
@@ -40,59 +83,84 @@ namespace MaxiKiosco
             cbobusqueda.ValueMember = "Valor";
             cbobusqueda.SelectedIndex = 0;
 
-            //mostrar todos los Categorias
-            dgvdata.Rows.Clear(); // Limpia la grilla
+            dgvdata.Rows.Clear();
             List<Categoria> listaCategoria = new CN_Categoria().Listar();
+
             foreach (Categoria item in listaCategoria)
             {
                 dgvdata.Rows.Add(new object[] {
-                    "",
+                    "", // botón
                     item.nombre_categoria,
                     item.Id,
-                    item.estado == true ? "Activo" : "Inactivo",
-                    item.estado == true ? 1 : 0,
-
-            });
+                    item.estado ? "Activo" : "No Activo",
+                    item.estado ? 1 : 0,
+                    item.porcentaje_aumento
+                });
             }
         }
+        
         private void Limpiar()
         {
             txtindice.Text = "-1";
             txtid.Text = "0";
-            txtdocumento.Text = "";
-            cboestado.SelectedIndex = 0;
+            txtnombreC.Text = string.Empty;
 
+            // Si tenés un NumericUpDown para el porcentaje:
+            txtPorcentajeAumento.Value = 0;
 
-            txtdocumento.Select();
+            // Restablece el combo de estado
+            if (cboestado.Items.Count > 0)
+                cboestado.SelectedIndex = 0;
+
+            // Limpia selección del DataGridView (por estética)
+            dgvdata.ClearSelection();
+
+            // Si el botón guardar cambia de texto al editar
+            btnguardar.Text = "Guardar";
+            btnguardar.BackColor = Color.FromArgb(0, 192, 0); // verde de nuevo, si lo usás así
+
+            // Devuelve el foco al primer campo
+            txtnombreC.Focus();
         }
-        //Al hacer click en el check nos va a traer los datos en los txt
-        private void btnlimpiar_Click(object sender, EventArgs e)
-        {
-            Limpiar();
-        }
 
+
+        // [MODIFICADO]
         private void btnguardar_Click_1(object sender, EventArgs e)
         {
             string mensaje = string.Empty;
+            decimal porcentajeAumento = 0;
+
+            // 1. VALIDACIÓN y LECTURA del nuevo campo
+            if (!decimal.TryParse(txtPorcentajeAumento.Text.Trim(), out porcentajeAumento))
+            {
+                MessageBox.Show("El Porcentaje de Aumento debe ser un valor numérico válido (ej. 10 o 5.5).", "Error de Validación", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
             Categoria objCategoria = new Categoria()
             {
                 Id = Convert.ToInt32(txtid.Text),
-                nombre_categoria = txtdocumento.Text,
+                nombre_categoria = txtnombreC.Text,
                 estado = Convert.ToInt32(((OpcionCombo)cboestado.SelectedItem).Valor) == 1 ? true : false,
+                porcentaje_aumento = porcentajeAumento //nuevo para el procentaje
             };
+
             if (objCategoria.Id == 0)
             {
                 int idCategoriagenerado = new CN_Categoria().Registrar(objCategoria, out mensaje);
 
                 if (idCategoriagenerado != 0)
                 {
-                    dgvdata.Rows.Add(new object[] {"",
-                        txtdocumento.Text,
+                    dgvdata.Rows.Add(new object[] {
+                        "",
+                        txtnombreC.Text, // Revisa si el campo de texto para el nombre es realmente txtdocumento.Text
                         idCategoriagenerado,
                         ((OpcionCombo)cboestado.SelectedItem).texto.ToString(),
                         ((OpcionCombo)cboestado.SelectedItem).Valor.ToString(),
-                });
+                        objCategoria.porcentaje_aumento // 🌟 CORRECCIÓN: Agregar el porcentaje de aumento
+                    });
                     Limpiar();
+                    MessageBox.Show("Categoría registrada con éxito.", "Registro Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
@@ -105,10 +173,14 @@ namespace MaxiKiosco
                 if (resultado)
                 {
                     DataGridViewRow row = dgvdata.Rows[Convert.ToInt32(txtindice.Text)];
-                    row.Cells["NombreDeCategoria"].Value = txtdocumento.Text;
+                    row.Cells["NombreDeCategoria"].Value = txtnombreC.Text;
                     row.Cells["Id"].Value = txtid.Text;
                     row.Cells["Estado"].Value = ((OpcionCombo)cboestado.SelectedItem).texto.ToString();
                     row.Cells["EstadoValor"].Value = ((OpcionCombo)cboestado.SelectedItem).Valor.ToString();
+                    row.Cells["PorcentajeAumento"].Value = objCategoria.porcentaje_aumento;
+
+                    MessageBox.Show("Categoría editada con éxito.", "Edición Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                     Limpiar();
                 }
                 else
@@ -117,6 +189,7 @@ namespace MaxiKiosco
                 }
             }
         }
+       
         private void btnlimpiar_Click_1(object sender, EventArgs e)
         {
             Limpiar();
@@ -174,7 +247,9 @@ namespace MaxiKiosco
                     txtindice.Text = indice.ToString();
 
                     txtid.Text = dgvdata.Rows[indice].Cells["Id"].Value.ToString();
-                    txtdocumento.Text = dgvdata.Rows[indice].Cells["NombreDeCategoria"].Value.ToString();
+                    txtnombreC.Text = dgvdata.Rows[indice].Cells["NombreDeCategoria"].Value.ToString();
+                    // 🌟 CARGA DEL NUEVO CAMPO
+                    txtPorcentajeAumento.Text = dgvdata.Rows[indice].Cells["PorcentajeAumento"].Value.ToString();
 
                     foreach (OpcionCombo oc in cboestado.Items)
                     {

@@ -16,15 +16,32 @@ namespace CapaNegocio
         {
             return object_categoria.Listar();
         }
+
+        // Método para cargar el ComboBox en el formulario de Producto
+        public List<Categoria> ListarActivos()
+        {
+            // Llama al método filtrado de la Capa de Datos
+            return object_categoria.ListarActivos();
+        }
+
         //traemos registrar de CD_Categoria
         public int Registrar(Categoria obj, out string Mensaje)
         {
             
             //el mensaje va a ir como vacio
             Mensaje = string.Empty;
+
             if (obj.nombre_categoria == "")
             {
-                Mensaje += "Es necesario el nombre y apellido del Categoria\n";
+                Mensaje += "Es necesario el nombre de la Categoria\n";
+                return 0;
+            }
+            if (obj.porcentaje_aumento < 0)
+            {
+                Mensaje += "El Porcentaje de Aumento no puede ser negativo.\n";
+            }
+            if (Mensaje != string.Empty)
+            {
                 return 0;
             }
 
@@ -41,9 +58,13 @@ namespace CapaNegocio
             Mensaje = string.Empty;
             if (obj.nombre_categoria == "")
             {
-                Mensaje += "Es necesario el nombre y apellido del Categoria\n";
+                Mensaje += "Es necesario el nombre de la Categoria\n";
             }
-           
+            if (obj.porcentaje_aumento < 0)
+            {
+                Mensaje += "El Porcentaje de Aumento no puede ser negativo.\n";
+            }
+
             if (Mensaje != string.Empty)
             {
                 return false;

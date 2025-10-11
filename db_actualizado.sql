@@ -26,9 +26,10 @@ CREATE TABLE `categoria` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nombre_categoria` varchar(100) NOT NULL,
   `estado` tinyint NOT NULL DEFAULT '1',
+  `porcentaje_aumento` decimal(5,2) DEFAULT '0.00',
   PRIMARY KEY (`id`),
   UNIQUE KEY `nombre_categoria` (`nombre_categoria`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +38,7 @@ CREATE TABLE `categoria` (
 
 LOCK TABLES `categoria` WRITE;
 /*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
-INSERT INTO `categoria` VALUES (2,'Bebidas',1),(3,'Panificados',1),(9,'Fiambreria',1),(10,'Galletitas',1),(11,'Golosina',1);
+INSERT INTO `categoria` VALUES (2,'Bebidas',1,10.00),(3,'Panificados',0,30.00),(9,'Fiambreria',1,29.00),(10,'Galletitas',1,5.00),(18,'Lacteos',0,12.00),(21,'Otro',1,50.00),(22,'Articulo de limpieza',1,30.00);
 /*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -86,10 +87,13 @@ CREATE TABLE `cliente` (
   `domicilio` varchar(100) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   `estado` tinyint DEFAULT '1',
+  `razonsocial` varchar(100) DEFAULT NULL,
+  `condicion_iva` enum('Responsable Inscripto','Monotributista','Consumidor Final','Exento') DEFAULT NULL,
+  `tipo_cliente` enum('Minorista','Mayorista') DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `dni` (`dni`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -98,7 +102,7 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-INSERT INTO `cliente` VALUES (1,'Federico','Molina','38962453',NULL,'3644657148','mz 7 pc 12 Barrio Pro.Mu.Vi','fede.099molina@gmail.com',1),(4,'gabi','Vera','2333333333',NULL,'33333333','mz 7 pc 23','fede@gmail.com',0),(5,'Elias','Ramirez','42746919',NULL,'3644222298','Barrio anbtocñ','elias@gmail.com',1);
+INSERT INTO `cliente` VALUES (1,'Federico','Molina','38962453','','3644657148','mz 7 pc 12 Barrio Pro.Mu.Vi','fede.099molina@gmail.com',1,'','Consumidor Final','Mayorista'),(4,'gabi','Vera','2333333333','','33333333','mz 7 pc 23','fede@gmail.com',1,'','Consumidor Final','Mayorista'),(5,'Elias','Ramirez','42746919','','3644222298','Barrio anbtocñ','elias@gmail.com',1,'','Consumidor Final','Minorista'),(11,'Marcelo','Concelo','1245780536','20888999678','3644896278','Nañta','123abc@gmail.com',1,'Limpa S.R.L','Responsable Inscripto','Mayorista');
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -304,7 +308,7 @@ CREATE TABLE `producto` (
   UNIQUE KEY `codigo_UNIQUE` (`codigo`),
   KEY `categoria_id` (`categoria_id`),
   CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`categoria_id`) REFERENCES `categoria` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -313,7 +317,7 @@ CREATE TABLE `producto` (
 
 LOCK TABLES `producto` WRITE;
 /*!40000 ALTER TABLE `producto` DISABLE KEYS */;
-INSERT INTO `producto` VALUES (2,'secco',30,1500.00,2,1200.00,'3 litros','2025-08-04 19:49:11',1,'10011010'),(3,'coca-cola',70,0.00,2,150000.00,'2.25 litros','2025-08-04 19:51:38',1,'11101101'),(4,'pan',26,1000.00,3,1100.00,'20 kilos','2025-10-09 12:42:11',1,'2002202'),(8,'Gaseosa',30,1400.00,2,1600.00,'1 litro','2025-10-09 12:42:08',1,'1010100'),(12,'yerba',20,1600.00,9,1400.00,'1 kg','2025-09-16 14:12:35',1,'21212121'),(15,'Pure de tomate',10,130.00,2,900.00,'nada','2025-10-08 19:34:26',1,'125125'),(22,'Masita diversion',5,25000.00,3,2000.00,'dwd','2025-10-07 19:40:01',1,'1241556'),(28,'Borrar',12,232222.00,3,124.20,'sfs','2025-10-07 22:58:13',1,'INT-1'),(29,'Borrar',12,232222.00,3,124.20,'sfs','2025-10-07 23:02:01',1,'INT-2'),(30,'Masita Terrabusi',9,250000.00,10,200000.00,'sfsf','2025-10-08 00:49:35',1,'124952525'),(31,'Sidra',16,2500.00,2,2000.00,'12','2025-10-08 00:22:34',1,'491915051051'),(35,'borrar',2,124.00,2,124.00,'121','2025-10-08 00:56:52',1,'INT-4'),(36,'borrwr',12,12422.00,2,212.00,'124','2025-10-09 12:58:18',1,'INT-5'),(37,'borrar',2,12447705.00,2,12.00,'dad','2025-10-09 12:01:31',1,'INT-6'),(38,'borrardd',2,12321233.00,3,123.00,'dd','2025-10-09 12:23:48',1,'INT-3');
+INSERT INTO `producto` VALUES (2,'secco',30,1500.00,2,1200.00,'3 litros4','2025-10-11 11:42:00',1,'10011010'),(3,'Coca-cola',70,0.00,2,150000.00,'2.25 litros','2025-10-11 12:25:55',1,'11101101'),(4,'pan',22,1000.00,3,1100.00,'20 kilos','2025-10-11 00:53:04',1,'2002202'),(8,'Gaseosa',30,1400.00,2,1600.00,'1 litro','2025-10-09 12:42:08',1,'1010100'),(12,'yerba',20,1600.00,9,1400.00,'1 kg','2025-10-10 20:21:29',0,'21212121'),(15,'Pure de tomate',10,130.99,2,900.69,'nada','2025-10-11 12:25:38',1,'125125'),(22,'Masita diversion',5,25000.00,21,2000.00,'dwd','2025-10-11 01:28:00',1,'1241556'),(31,'Sidra',16,2500.00,2,2000.00,'12','2025-10-08 00:22:34',1,'491915051051'),(38,'borra',2,12321233.00,21,123.00,'dd','2025-10-11 12:01:28',1,'INT-3'),(40,'Ravioles',3,279999.00,9,249999.00,'nadad','2025-10-11 00:54:08',1,'INT-4'),(41,'Lavandina',5,1852.00,2,1252.00,'nada','2025-10-11 12:07:17',1,'INT-5'),(43,'Detergente ariel',13,1000.60,2,650.90,'adadd','2025-10-11 12:25:16',1,'INT-6'),(44,'Queso Roquefort',5,620.20,9,480.00,'adad','2025-10-11 12:27:33',1,'INT-7');
 /*!40000 ALTER TABLE `producto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -336,7 +340,7 @@ CREATE TABLE `proveedor` (
   `razonsocial` varchar(80) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `cuit` (`cuit`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -345,7 +349,7 @@ CREATE TABLE `proveedor` (
 
 LOCK TABLES `proveedor` WRITE;
 /*!40000 ALTER TABLE `proveedor` DISABLE KEYS */;
-INSERT INTO `proveedor` VALUES (3,'Distribuidora Norte','20-12345678-9','3624-555555','Av. Siempre Viva 123',1,'2025-09-23 08:35:45','contacto@norte.com','Distribuidora Norte SRL'),(4,'Arcor','00997733664','3644223344','ada',1,'2025-10-08 21:34:13','qwrqwr@gmail.com','');
+INSERT INTO `proveedor` VALUES (3,'Distribuidora Norte','20-12345678-9','3624-555555','Av. Siempre Viva 123',1,'2025-09-23 08:35:45','contacto@norte.com','Distribuidora Norte SRL'),(4,'Arcor','00997733664','3644223344','ada',1,'2025-10-08 21:34:13','qwrqwr@gmail.com',''),(8,'Manaos','09987674637','3562674455','calle hiporito hiyrogoyen ',1,'2025-10-11 01:58:57','manaookk@gmail.com','Manos SRl');
 /*!40000 ALTER TABLE `proveedor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -446,11 +450,13 @@ CREATE TABLE `usuario` (
   `contrasenia` varchar(45) NOT NULL,
   `email` varchar(60) NOT NULL,
   `estado` tinyint DEFAULT '1',
+  `escliente` tinyint DEFAULT '0',
+  `esproveedor` tinyint DEFAULT '0',
   PRIMARY KEY (`idusuario`),
   UNIQUE KEY `dni` (`dni`),
   KEY `rol_id` (`rol_id`),
   CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`rol_id`) REFERENCES `rol` (`idrol`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -459,7 +465,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'Federicooo','Molina','38962453','3644657148',1,'FNMolina','123456789','fede.099molina@gmail.com',1),(2,'Hector','Ramirez','38862453','3644657148',2,'EliasR','123456789','fede.99molina@gmail.com',1),(12,'Prueba','Prueba','12312356','3644332255',1,'admin','admin','prueba@gmail.com',1);
+INSERT INTO `usuario` VALUES (1,'Federicooo','Molina','38962453','3644657148',1,'FNMolina','123456789','fede.099molina@gmail.com',1,0,0),(2,'Hector','Ramirez','38862453','3644657148',2,'EliasR','123456789','what@gmail.com',1,0,0),(12,'Prueba','Prueba','12312356','3644332255',1,'admin','admin','prueba@gmail.com',1,1,1),(17,'elias','ramirewa','12345678','3644555503',1,'124','1234','afmalf@gmaiol.com',1,0,0),(19,'Matias','Alex','1234093482','1159478201',2,'admin','adminn','elias@gmail.com',1,1,0);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -543,9 +549,10 @@ UNLOCK TABLES;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_EditarCategoria`(
-	IN p_id int,
+    IN p_id INT,
     IN p_nombre_categoria VARCHAR(50),
-    IN p_estado tinyint,
+    IN p_estado TINYINT,
+    IN p_porcentaje_aumento DECIMAL(5,2),
     OUT p_resultado INT,
     OUT mensaje VARCHAR(250)
 )
@@ -553,13 +560,18 @@ BEGIN
     SET p_resultado = 1;
     SET mensaje = '';
 
-    IF NOT EXISTS (SELECT * FROM categoria WHERE nombre_categoria = p_nombre_categoria and id != p_id) THEN
-        update categoria set nombre_categoria = p_nombre_categoria,estado=p_estado where id = p_id;
-		SET mensaje = 'Categoría editada correctamente';
-    else
-		set p_resultado = 0;
-		SET mensaje = 'Error: No se puede repetir la descripcion de una categoria';
-	END IF;
+    IF NOT EXISTS (SELECT * FROM categoria WHERE nombre_categoria = p_nombre_categoria AND id != p_id) THEN
+        UPDATE categoria 
+        SET nombre_categoria = p_nombre_categoria,
+            estado = p_estado,
+            porcentaje_aumento = p_porcentaje_aumento
+        WHERE id = p_id;
+
+        SET mensaje = 'Categoría editada correctamente';
+    ELSE
+        SET p_resultado = 0;
+        SET mensaje = 'Error: No se puede repetir la descripción de una categoría';
+    END IF;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -585,6 +597,13 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_EDITARCLIENTE`(
     IN p_domicilio VARCHAR(50),
     IN p_email VARCHAR(50),
     IN p_estado TINYINT,
+    
+    -- NUEVOS PARAMETROS
+    IN p_cuit VARCHAR(15), 
+    IN p_razonsocial VARCHAR(100),
+    IN p_condicion_iva VARCHAR(50),
+    IN p_tipo_cliente VARCHAR(50),
+    
     OUT respuesta TINYINT,
     OUT mensaje VARCHAR(250)
 )
@@ -593,7 +612,7 @@ BEGIN
     SET respuesta = 0;
     SET mensaje = '';
 
-    
+    -- Se actualiza la tabla con los nuevos campos
     UPDATE cliente
     SET dni = p_documento,
         nombre = p_nombre,
@@ -601,15 +620,22 @@ BEGIN
         telefono = p_telefono,
         domicilio = p_domicilio,
         email = p_email,
-        estado = p_estado
+        estado = p_estado,
+        -- ACTUALIZACION DE NUEVAS COLUMNAS
+        cuit = p_cuit,
+        razonsocial = p_razonsocial,
+        condicion_iva = p_condicion_iva,
+        tipo_cliente = p_tipo_cliente
     WHERE id = p_idcliente;
 
     
     IF ROW_COUNT() > 0 THEN
         SET respuesta = 1;
-        SET mensaje = 'Cliente actualizado correctamente';
+        -- Mensaje de exito sin acentos
+        SET mensaje = 'Cliente actualizado correctamente'; 
     ELSE
-        SET mensaje = 'No se encontró el cliente o no hubo cambios';
+        -- Mensaje de error sin acentos
+        SET mensaje = 'No se encontro el cliente o no hubo cambios';
     END IF;
 END ;;
 DELIMITER ;
@@ -631,9 +657,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_EditarProducto`(
     IN p_id INT,
     IN p_nombre VARCHAR(60),
     IN p_stock INT,
-    IN p_precioventa DECIMAL,
+    IN p_precioventa DECIMAL(10, 2),
     IN p_categoria_id INT,
-    IN p_preciocompra DECIMAL,
+    IN p_preciocompra DECIMAL(10, 2),
     IN p_descripcion VARCHAR(20),
     IN p_fecharegistro DATETIME,
     IN p_estado TINYINT,
@@ -747,7 +773,7 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_EDITARUSUARIO`(
-	IN p_idusuario int,
+    IN p_idusuario int,
     IN p_documento VARCHAR(50),
     IN p_nombre VARCHAR(80),
     IN p_apellido VARCHAR(60),
@@ -757,6 +783,11 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_EDITARUSUARIO`(
     IN p_contrasenia VARCHAR(80),
     IN p_email VARCHAR(50),
     IN p_estado TINYINT,
+    
+    -- ⬇️ NUEVOS PARÁMETROS AGREGADOS ⬇️
+    IN p_escliente TINYINT,
+    IN p_esproveedor TINYINT,
+    
     OUT respuesta tinyint,
     OUT mensaje VARCHAR(250)
 )
@@ -765,22 +796,29 @@ BEGIN
     SET respuesta = 0;
     SET mensaje = '';
 
-    IF NOT EXISTS (SELECT 1 FROM usuario WHERE dni = p_documento AND idusuario <> p_idusuario) THEN
-        UPDATE usuario set dni = p_documento,
-		nombre = p_nombre,
-        apellido = p_apellido,
-        email = p_email,
-        usuario_cuenta = p_usuario_cuenta,
-        contrasenia = p_contrasenia,
-        rol_id =  p_rol_id,
-        telefono =  p_telefono,
-        estado = p_estado
-        where idusuario = p_idusuario;
+    IF NOT EXISTS (SELECT 1 FROM usuario WHERE dni = p_documento 
+    AND idusuario <> p_idusuario) THEN
+        UPDATE usuario set 
+            dni = p_documento,
+            nombre = p_nombre,
+            apellido = p_apellido,
+            email = p_email,
+            usuario_cuenta = p_usuario_cuenta,
+            contrasenia = p_contrasenia,
+            rol_id =  p_rol_id,
+            telefono =  p_telefono,
+            estado = p_estado,
+            
+            escliente = p_escliente,     -- Nueva actualización
+            esproveedor = p_esproveedor  -- Nueva actualización
+
+        WHERE idusuario = p_idusuario;
 
         SET respuesta = 1;
         SET mensaje = 'Usuario editado correctamente';
     ELSE
-        SET mensaje = 'Error: No se puede editar a ese usuario';
+		SET mensaje = 'Error: El documento ya está registrado por otro usuario.'; 
+		SET respuesta = 0;
     END IF;
 END ;;
 DELIMITER ;
@@ -964,7 +1002,8 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegistrarCategoria`(
     IN p_nombre_categoria VARCHAR(50),
-    IN p_estado tinyint,
+    IN p_estado TINYINT,
+    IN p_porcentaje_aumento DECIMAL(5,2),
     OUT p_resultado INT,
     OUT mensaje VARCHAR(250)
 )
@@ -973,12 +1012,14 @@ BEGIN
     SET mensaje = '';
 
     IF NOT EXISTS (SELECT * FROM categoria WHERE nombre_categoria = p_nombre_categoria) THEN
-        INSERT INTO categoria(nombre_categoria,estado) VALUES (p_nombre_categoria,p_estado);
+        INSERT INTO categoria(nombre_categoria, estado, porcentaje_aumento)
+        VALUES (p_nombre_categoria, p_estado, p_porcentaje_aumento);
+
         SET p_resultado = LAST_INSERT_ID();
-		SET mensaje = 'Categoría creada correctamente';
-    else
-		SET mensaje = 'Error: Ya existe esa categoria';
-	END IF;
+        SET mensaje = 'Categoría creada correctamente';
+    ELSE
+        SET mensaje = 'Error: Ya existe esa categoría';
+    END IF;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1001,8 +1042,15 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRARCLIENTE`(
     IN p_apellido VARCHAR(60),
     IN p_telefono VARCHAR(20),
     IN p_email VARCHAR(50),
-    IN p_domicilio varchar(50),
+    IN p_domicilio VARCHAR(50),
     IN p_estado TINYINT,
+    
+    -- ⬇️ NUEVOS PARÁMETROS AGREGADOS ⬇️
+    IN p_cuit VARCHAR(15), 
+    IN p_razonsocial VARCHAR(100),
+    IN p_condicion_iva VARCHAR(50), 
+    IN p_tipo_cliente VARCHAR(50),
+    
     OUT idclienteresultado INT,
     OUT mensaje VARCHAR(250)
 )
@@ -1012,8 +1060,16 @@ BEGIN
     SET mensaje = '';
 
     IF NOT EXISTS (SELECT 1 FROM cliente WHERE dni = p_documento) THEN
-        INSERT INTO cliente (nombre, apellido, dni,telefono,domicilio,email, estado)
-        VALUES ( p_nombre, p_apellido,p_documento,p_telefono,p_domicilio,p_email,p_estado);
+        INSERT INTO cliente (
+            nombre, apellido, dni, telefono, domicilio, email, estado,
+            -- ⬇️ NUEVAS COLUMNAS ⬇️
+            cuit, razonsocial, condicion_iva, tipo_cliente 
+        )
+        VALUES ( 
+            p_nombre, p_apellido, p_documento, p_telefono, p_domicilio, p_email, p_estado,
+            -- ⬇️ NUEVOS VALORES ⬇️
+            p_cuit, p_razonsocial, p_condicion_iva, p_tipo_cliente
+        );
 
         SET idclienteresultado = LAST_INSERT_ID();
         SET mensaje = 'Cliente registrado correctamente';
@@ -1193,9 +1249,9 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegistrarProducto`(
     IN p_nombre VARCHAR(60),
     IN p_stock INT,
-    IN p_precioventa FLOAT,
+    IN p_precioventa decimal(10, 2), -- Corregido float - decimal
     IN p_categoria_id INT,
-    IN p_preciocompra FLOAT,
+    IN p_preciocompra decimal(10, 2), -- Corregido float - decimal
     IN p_descripcion VARCHAR(20),
     IN p_fecharegistro DATETIME,
     IN p_estado TINYINT,
@@ -1304,6 +1360,11 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRARUSUARIO`(
     IN p_contrasenia VARCHAR(80),
     IN p_email VARCHAR(50),
     IN p_estado TINYINT,
+    
+    -- ⬇️ NUEVOS PARÁMETROS AGREGADOS ⬇️
+    IN p_escliente TINYINT,
+    IN p_esproveedor TINYINT,
+    
     OUT idusuarioresultado INT,
     OUT mensaje VARCHAR(250)
 )
@@ -1313,8 +1374,32 @@ BEGIN
     SET mensaje = '';
 
     IF NOT EXISTS (SELECT 1 FROM usuario WHERE dni = p_documento) THEN
-        INSERT INTO usuario (dni, nombre, apellido, email, usuario_cuenta, contrasenia, rol_id, telefono, estado)
-        VALUES (p_documento, p_nombre, p_apellido, p_email, p_usuario_cuenta, p_contrasenia, p_rol_id, p_telefono, p_estado);
+        INSERT INTO usuario (
+            dni, 
+            nombre, 
+            apellido, 
+            email, 
+            usuario_cuenta, 
+            contrasenia, 
+            rol_id, 
+            telefono, 
+            estado, 
+            escliente,           -- Nueva columna
+            esproveedor          -- Nueva columna
+        )
+        VALUES (
+            p_documento, 
+            p_nombre, 
+            p_apellido, 
+            p_email, 
+            p_usuario_cuenta, 
+            p_contrasenia, 
+            p_rol_id, 
+            p_telefono, 
+            p_estado,
+            p_escliente,         -- Nuevo valor
+            p_esproveedor        -- Nuevo valor
+        );
 
         SET idusuarioresultado = LAST_INSERT_ID();
         SET mensaje = 'Usuario registrado correctamente';
@@ -1467,4 +1552,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-10-09 13:38:55
+-- Dump completed on 2025-10-11 12:50:18

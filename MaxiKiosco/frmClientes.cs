@@ -28,35 +28,36 @@ namespace MaxiKiosco
         private void RecargarGrillaCliente()
         {
             dgvdata.Rows.Clear();
-
             List<Cliente> objcliente = new CN_Cliente().Listar();
 
             foreach (var item in objcliente)
             {
-                dgvdata.Rows.Add(new object[]{
-            "",                     // Columna 0: btnseleccionar
-            item.id,                // Columna 1: id (Oculta)
-            item.dni,               // Columna 2: DNI/Documento
-            
-            item.cuit,              // Columna 3: CUIT (NUEVA POSICIÓN)
-            
-            item.nombre,            // Columna 4: Nombre (Se movió de 3 a 4)
-            item.apellido,          // Columna 5: Apellido (Se movió de 4 a 5)
-            item.email,             // Columna 6: Correo (Se movió de 5 a 6)
-            item.telefono,          // Columna 7: Teléfono (Se movió de 6 a 7)
-            item.domicilio,         // Columna 8: Domicilio (Se movió de 7 a 8)
-            item.estado == true ? 1 : 0, // Columna 9: EstadoValor (Se movió de 8 a 9)
-            item.estado == true ? "Activo" : "Inactivo", // Columna 10: Estado (Se movió de 9 a 10)
-        });
+                dgvdata.Rows.Add(new object[] {
+                    // --- PARTE 1: DATOS PARA LAS COLUMNAS CREADAS EN EL DISEÑADOR ---
+                    // Este orden DEBE coincidir con el orden de tus columnas en el diseñador.
+                    "",                                          // 0. btnSeleccionar
+                    item.id,                                     // 1. Id (oculta)
+                    item.dni,                                    // 2. Numero de Documento
+                    item.nombre,                                 // 3. Nombre
+                    item.apellido,                               // 4. Apellido
+                    item.email,                                  // 5. Correo
+                    item.telefono,                               // 6. Telefono
+                    item.domicilio,                              // 7. Domicilio
+                    item.estado == true ? 1 : 0,
+                    item.estado == true ? "Activo" : "Inactivo", // 8. Estado
+                    item.cuit ?? "",                             // 9. CUIT
+                    item.razonsocial ?? "",                      // 10. Razón Social
+                    item.condicion_iva ?? "",                    // 11. Condición IVA
+                    item.tipo_cliente ?? "",                     // 12. Tipo Cliente
+                    item.estado == true ? 1 : 0                  // 13. EstadoValor (oculta)
+                });
             }
 
-            // Aseguramos que la primera opción de búsqueda quede seleccionada
             if (cbobusqueda.Items.Count > 0)
             {
                 cbobusqueda.SelectedIndex = 0;
             }
         }
-
         // [MODIFICADO]
         private void frmClientes_Load(object sender, EventArgs e)
         {
@@ -67,20 +68,82 @@ namespace MaxiKiosco
             cboestado.DisplayMember = "texto";
             cboestado.ValueMember = "Valor";
 
-            dgvdata.Rows.Clear();
+            // 1. LLENAR COMBOBOX DE TIPO DE CLIENTE (ENUM: 'Mayorista', 'Minorista')
+            cboTipoCliente.Items.Add(new OpcionCombo() { Valor = 0, texto = "Minorista" });
+            cboTipoCliente.Items.Add(new OpcionCombo() { Valor = 1, texto = "Mayorista" });
+            cboTipoCliente.DisplayMember = "Texto";
+            cboTipoCliente.ValueMember = "Valor";
+            cboTipoCliente.SelectedIndex = 0;
 
-            // 1. AGREGAR LA COLUMNA CUIT PROGRAMÁTICAMENTE (Índice 3) Debe ir después de DNI/Documento (Índice 2).
+            // 2. LLENAR COMBOBOX DE CONDICIÓN FRENTE AL IVA (ENUM: 'Responsable Inscripto', 'Monotributista', 'Consumidor Final', 'Exento')
+            cboCondicionIVA.Items.Add(new OpcionCombo() { Valor = 0, texto = "Responsable Inscripto" });
+            cboCondicionIVA.Items.Add(new OpcionCombo() { Valor = 1, texto = "Monotributista" });
+            cboCondicionIVA.Items.Add(new OpcionCombo() { Valor = 2, texto = "Consumidor Final" });
+            cboCondicionIVA.Items.Add(new OpcionCombo() { Valor = 3, texto = "Exento" });
+            cboCondicionIVA.DisplayMember = "Texto";
+            cboCondicionIVA.ValueMember = "Valor";
+            cboCondicionIVA.SelectedIndex = 2; // Sugerencia: Empezar en Consumidor Final, ya que es el más común.
+
+            dgvdata.Rows.Clear();
+            // 
+            // 1.1. CUIT (Insertamos en el índice 3)
             if (!dgvdata.Columns.Contains("Cuit"))
             {
-                // Insertamos en el índice 3 (después de DNI/Documento)
-                dgvdata.Columns.Insert(3, new DataGridViewTextBoxColumn()
+                dgvdata.Columns.Add(new DataGridViewTextBoxColumn()
                 {
                     HeaderText = "CUIT",
-                    Name = "Cuit", // ¡Usamos este nombre para referenciarla!
+                    Name = "Cuit",
                     Visible = true,
                     Width = 100
                 });
             }
+            // 1.2. Razón Social
+            if (!dgvdata.Columns.Contains("RazonSocial"))
+            {
+                dgvdata.Columns.Add(new DataGridViewTextBoxColumn()
+                {
+                    Name = "RazonSocial",
+                    HeaderText = "Razón Social",
+                    Width = 150,
+                    Visible = true
+                });
+            }
+
+            // 1.3. Condición IVA
+            if (!dgvdata.Columns.Contains("CondicionIVA"))
+            {
+                dgvdata.Columns.Add(new DataGridViewTextBoxColumn()
+                {
+                    Name = "CondicionIVA",
+                    HeaderText = "Condición IVA",
+                    Width = 150,
+                    Visible = true
+                });
+            }
+
+            // 1.4. Tipo Cliente
+            if (!dgvdata.Columns.Contains("TipoCliente"))
+            {
+                dgvdata.Columns.Add(new DataGridViewTextBoxColumn()
+                {
+                    Name = "TipoCliente",
+                    HeaderText = "Tipo Cliente",
+                    Width = 100,
+                    Visible = true
+                });
+            }
+            // 1.5. EstadoValor (Columna Oculta)
+            if (!dgvdata.Columns.Contains("EstadoValor"))
+            {
+                dgvdata.Columns.Add(new DataGridViewTextBoxColumn()
+                {
+                    Name = "EstadoValor",
+                    HeaderText = "",
+                    Width = 0,
+                    Visible = false
+                });
+            }
+
             cbobusqueda.Items.Clear(); // Limpiamos las opciones antes de rellenar
 
             // Rellenar el ComboBox de búsqueda
@@ -93,17 +156,45 @@ namespace MaxiKiosco
             }
 
             // 2. CARGAR LOS DATOS
-            RecargarGrillaCliente();
+            RecargarGrillaCliente(); // Usamos RecargarGrillaCliente (que se ve más completo)
         }
-
 
         // [MODIFICADO]
         private void btnguardar_Click(object sender, EventArgs e)
         {
             string Mensaje = string.Empty;
+            string condicionIVA = cboCondicionIVA.Text.Trim();
+            string tipoCliente = cboTipoCliente.Text.Trim();
+            string cuit = txtcuit.Text.Trim();
+            string razonSocial = txtrazonSocial.Text.Trim();
 
-            // [VALIDACIÓN DE CAMPOS OBLIGATORIOS MÍNIMOS EN EL FORMULARIO]
-            if (string.IsNullOrWhiteSpace(txtnombre.Text) || string.IsNullOrWhiteSpace(txtapellido.Text) || string.IsNullOrWhiteSpace(txtdocumento.Text))
+            // [AGREGAR] esta validacion es crucial para el registro o edicion del cliente.
+            // [Validación fiscal principal: según condición IVA]
+            if (condicionIVA == "Responsable Inscripto" || condicionIVA == "Monotributista")
+            {
+                if (string.IsNullOrWhiteSpace(cuit))
+                {
+                    MessageBox.Show("El CUIT es obligatorio para esta condición IVA.", "Error de Edición", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(razonSocial))
+                {
+                    MessageBox.Show("La Razón Social es obligatoria para esta condición IVA.", "Error de Edición", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+            else
+            {
+                // Los demás (Exento, Consumidor Final) no necesitan CUIT ni Razón Social
+                txtcuit.Text = "";
+                txtrazonSocial.Text = "";
+            }
+
+            // [VALIDACIÓN DE CAMPOS OBLIGATORIOS MÍNIMOS]
+            if (string.IsNullOrWhiteSpace(txtnombre.Text) ||
+                string.IsNullOrWhiteSpace(txtapellido.Text) ||
+                string.IsNullOrWhiteSpace(txtdocumento.Text))
             {
                 MessageBox.Show("Los campos Nombre, Apellido y DNI son obligatorios.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -116,49 +207,66 @@ namespace MaxiKiosco
                 return;
             }
 
-            // [VALIDACIÓN 3: DNI/DOCUMENTO - Longitud y Numérico] Se permite entre 8 y 12 dígitos (para DNI o CUIL con sólo dígitos)
+            // [VALIDACIÓN DNI/DOCUMENTO] DNI numérico y longitud
             if (!txtdocumento.Text.All(char.IsDigit) || txtdocumento.Text.Length < 8 || txtdocumento.Text.Length > 12)
             {
-                MessageBox.Show("El Número de Documento (DNI) debe ser numérico y tener entre 8 y 12 dígitos.", "Advertencia de Documento", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("El DNI debe ser numérico y tener entre 8 y 12 dígitos.", "Advertencia de Documento", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // [VALIDACIÓN CONDICIONAL DE CUIT (Opcional, pero si se pone, debe ser válido)]
-            if (!string.IsNullOrWhiteSpace(txtcuit.Text))
+            // [5️⃣ Validación CUIT solo si se ingresó algo]
+            if (!string.IsNullOrWhiteSpace(cuit))
             {
-                // Si CUIT tiene datos, debe tener 11 dígitos y ser numérico.
-                if (txtcuit.Text.Length != 11 || !txtcuit.Text.All(char.IsDigit))
+                if (cuit.Length != 11 || !cuit.All(char.IsDigit))
                 {
-                    MessageBox.Show("Si ingresa CUIT, debe ser numérico y tener exactamente 11 dígitos.", "Advertencia de CUIT", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("El CUIT debe tener exactamente 11 dígitos numéricos.", "Advertencia de CUIT", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
             }
 
-            // [VALIDACIÓN DE EMAIL (Si tiene datos)]
-            if (!string.IsNullOrWhiteSpace(txtcorreo.Text) && (!txtcorreo.Text.Contains("@") || !txtcorreo.Text.Contains(".")))
+            // [ Condición IVA y Tipo Cliente obligatorios]
+            if (cboCondicionIVA.SelectedIndex == -1)
             {
-                MessageBox.Show("El Correo Electrónico no parece tener un formato válido.", "Advertencia de Email", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Debe seleccionar una Condición de IVA.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // [VALIDACIÓN DE TELÉFONO (Si tiene datos)]
+            if (cboTipoCliente.SelectedIndex == -1)
+            {
+                MessageBox.Show("Debe seleccionar un Tipo de Cliente.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // [Validación de correo electrónico]
+            if (!string.IsNullOrWhiteSpace(txtcorreo.Text) &&
+                (!txtcorreo.Text.Contains("@") || !txtcorreo.Text.Contains(".")))
+            {
+                MessageBox.Show("El formato del correo electrónico no es válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // [8️⃣ Teléfono numérico]
             if (!string.IsNullOrWhiteSpace(txttelefono.Text) && !txttelefono.Text.All(char.IsDigit))
             {
-                MessageBox.Show("El Teléfono solo debe contener caracteres numéricos.", "Advertencia de Teléfono", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("El teléfono solo debe contener números.", "Advertencia de Teléfono", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
+            // [CREAR OBJETO CLIENTE]
             Cliente objCliente = new Cliente()
             {
                 id = Convert.ToInt32(txtid.Text),
-                dni = txtdocumento.Text,
-                cuit = txtcuit.Text,
-                nombre = txtnombre.Text,
-                apellido = txtapellido.Text,
-                email = txtcorreo.Text,
-                telefono = txttelefono.Text,
-                domicilio = txtdomicilio.Text,
-                estado = Convert.ToInt32(((OpcionCombo)cboestado.SelectedItem).Valor) == 1 ? true : false,
+                dni = txtdocumento.Text.Trim(),
+                cuit = txtcuit.Text.Trim(),
+                nombre = txtnombre.Text.Trim(),
+                apellido = txtapellido.Text.Trim(),
+                email = txtcorreo.Text.Trim(),
+                telefono = txttelefono.Text.Trim(),
+                domicilio = txtdomicilio.Text.Trim(),
+                razonsocial = txtrazonSocial.Text.Trim(),
+                condicion_iva = cboCondicionIVA.Text,
+                tipo_cliente = cboTipoCliente.Text,
+                estado = Convert.ToInt32(((OpcionCombo)cboestado.SelectedItem).Valor) == 1
             };
 
 
@@ -195,8 +303,8 @@ namespace MaxiKiosco
 
         }
 
-        private void btnlimpiar_Click(object sender, EventArgs e)
-        {
+        private void btnlimpiar_Click(object sender, EventArgs e) 
+        { 
             Limpiar();
         }
         private void Limpiar()
@@ -207,13 +315,21 @@ namespace MaxiKiosco
             txtapellido.Text = "";
             txtdocumento.Text = ""; // Número de Documento (DNI)
 
-            // [NUEVO CAMPO] Limpiar CUIT
+            // ⬇️ Limpieza de NUEVOS CAMPOS FISCALES ⬇️
             txtcuit.Text = "";
+            txtrazonSocial.Text = ""; // 👈 ¡ESTE ES EL CAMPO QUE PROBABLEMENTE FALTABA!
 
             txtdomicilio.Text = "";
             txttelefono.Text = "";
             txtcorreo.Text = "";
+
+            // Restaurar ComboBox al primer elemento (Asumo que el índice 0 es el valor por defecto)
+            cboCondicionIVA.SelectedIndex = 0; // Restaurar Condición IVA
+            cboTipoCliente.SelectedIndex = 0;  // Restaurar Tipo Cliente
             cboestado.SelectedIndex = 0;
+
+            // Opcional: Centrar el foco
+            txtdocumento.Focus();
         }
 
         private void btneliminar_Click(object sender, EventArgs e)
@@ -261,8 +377,7 @@ namespace MaxiKiosco
                 {
                     txtindice.Text = indice.ToString();
 
-                    // [CORRECCIÓN CRUCIAL] Usar operador de coalescencia nula (?? "") para evitar fallos
-
+                    // Usa el operador de coalescencia nula (?? "") para evitar NullReferenceException
                     // Columna "id"
                     txtid.Text = dgvdata.Rows[indice].Cells["id"].Value?.ToString() ?? "";
 
@@ -272,6 +387,8 @@ namespace MaxiKiosco
 
                     // Columna CUIT
                     txtcuit.Text = dgvdata.Rows[indice].Cells["Cuit"].Value?.ToString() ?? "";
+                    // ⬅️ Carga de Nuevos Campos ⬅️
+                    txtrazonSocial.Text = dgvdata.Rows[indice].Cells["RazonSocial"].Value?.ToString() ?? ""; // Usar ?. en vez de .
 
                     // Campos normales (también se benefician de la verificación de nulidad)
                     txtnombre.Text = dgvdata.Rows[indice].Cells["Nombre"].Value?.ToString() ?? "";
@@ -279,6 +396,28 @@ namespace MaxiKiosco
                     txttelefono.Text = dgvdata.Rows[indice].Cells["Telefono"].Value?.ToString() ?? "";
                     txtcorreo.Text = dgvdata.Rows[indice].Cells["Correo"].Value?.ToString() ?? "";
                     txtdomicilio.Text = dgvdata.Rows[indice].Cells["Domicilio"].Value?.ToString() ?? "";
+
+                    // Cargar y seleccionar CONDICIÓN IVA
+                    string condicionIVA_Texto = dgvdata.Rows[indice].Cells["CondicionIVA"].Value?.ToString() ?? ""; // Asegurar que no sea null
+                    foreach (OpcionCombo oc in cboCondicionIVA.Items)
+                    {
+                        if (oc.texto.ToString() == condicionIVA_Texto)
+                        {
+                            cboCondicionIVA.SelectedIndex = cboCondicionIVA.Items.IndexOf(oc);
+                            break;
+                        }
+                    }
+
+                    // Cargar y seleccionar TIPO CLIENTE
+                    string tipoCliente_Texto = dgvdata.Rows[indice].Cells["TipoCliente"].Value?.ToString() ?? ""; // Asegurar que no sea null
+                    foreach (OpcionCombo oc in cboTipoCliente.Items)
+                    {
+                        if (oc.texto.ToString() == tipoCliente_Texto)
+                        {
+                            cboTipoCliente.SelectedIndex = cboTipoCliente.Items.IndexOf(oc);
+                            break;
+                        }
+                    }
 
                     // Cargar estado
                     foreach (OpcionCombo oc in cboestado.Items)
@@ -340,7 +479,6 @@ namespace MaxiKiosco
         {
 
         }
-
         private void label1_Click(object sender, EventArgs e)
         {
 
@@ -383,6 +521,11 @@ namespace MaxiKiosco
                     }
                 }
             }
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

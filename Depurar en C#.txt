@@ -1,0 +1,65 @@
+* En producto poner el campo código primero (hecho)
+* Nombrar lo código de barra al campo (hecho)
+* Código en null, pero no debe repetirse un valor por defecto cuando un producto no se carga un valor en código (hecho)
+* Precio de compra dejarlo en nullo no es necesario (hecho)
+* Sacar descripción de producto (hecho)
+* Validar el campo precio para solucionar el problema de punto o coma, tener en cuenta como funciona en c# y mysql (hecho)
+* En el buscador de producto que busque producto en tiempo real (hecho)
+* En proveedores agregar un campo razón social y en la bd tambien (hecho)
+* Agregar cuit a la bd y a la tabla cliente en el programa. (hecho)
+* En modulo compra realizar el calculo por categoría osea que se sume el total por categoria (hecho)
+* Veficar que un usuaario pueda mostrar si es  cliente o provedor o ambos (hecho)
+* Agregar en categoria agregar un campo para calcular el monto de la venta (hecho)
+
+* Agregar en la compra un campo para buscar prodcuto por nombre también
+* Agregar el Iva al total (en el backend)
+* En compra agregar una ventana de diálogo para preguntar si desea salir de compra porque pueden ver regitro no guardado y perderse si se sale-
+* En compra agregar un campo de porcentaje de la compra para calcularlo con el porcentaje de categoría
+* En compra poner código para cargar el  producto en la compra, también agregar búsqueda por nombre del producto así me trae el producto en tiempo real.
+* Razón social agregar en proveedor y cliente y que en compra se carge automáticamente.
+* En ves de buscar por número de documento  buscar por nombre de proveedor y por fecha, entonces filtra por detalle de compra. (hecho)
+* Para cada factura o registro de detalle de venta debe tener un btn de editar y eliminar.
+* En venta poner un campo, tipo de pago de venta
+* Marcar como consumidor final al cliente cuando realiza la venta
+* En el.campo fecha de venta tiene que autocompletar la fecha actual y que no se pueda modificar osea disable
+* En cantidad validar que sea entero en venta
+
+
+Cambios mios hechos.
+Agrege btn volver al login
+maneje las ventanas de login y inicio.
+evento de busqueda de producto en tiempo real
+valide todo los campos de productos que sea valido para insertar en la bd
+Arregle en el codigo de barra que genere automatico sino se ingresa pero sin repetir y valido para el sistema (toque cn_producto, cd_producto y frmproducto)
+en el sp puse decimal no float para los campo de venta y compra en productos.
+btn limpiar vuelve a resetear no a dejar en ""
+el btn ya no elimina por la fila seleccionada sino por el id de la fila seleccionada es mas seguro.
+agrege en provedor la columna razon social
+agrege el campo razon social ál formulario
+agreege validaciones a los campos cuit, email y telefono.
+modifique el metodo limpiar con resetear no dejar en "".
+busqueda en tiempo real para los proveedores.
+SOLUCIONAR EN EL SP: cuando se editar y guarda un registro sin editar sus campo me muestra un mensaje valido pero el icno es de error, se debe manejar en el SP eso.
+En la tabla cliente agrege el campo cuit y en el formulario tambien 
+Modifique el metodo limpiar 
+agrege validacion al cuit, dni y email
+busqueda en tiempo real del cliente
+Para usuario agrege la busqueda en tiempo real.
+valide los nombre, apellido, cuit, telefono email.
+agrege el tipo de cliente
+agrege tipo de condicion para el iva
+agrege validacion cando es consumidor final y cuando es resposable inscrito
+agrege si es cliente o proveedor tambien ala tabla
+en el datagrid agrege el tipo de rol extra.
+en categoria agrege el campo preccio_aumento.
+valide que precio_aumento sea doble o float tambien estableci que si no tiene valor lo deje en null=0 
+en producto (capa de dato) estableci que se muestren las categorias activas sino hay una incoherencia de negocio para eso cree un nuevo metodo en capa de dato y negocio de categoria
+
+
+
+
+
+
+
+
+

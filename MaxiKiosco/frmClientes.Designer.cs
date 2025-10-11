@@ -53,24 +53,32 @@
             btneliminar = new FontAwesome.Sharp.IconButton();
             btnlimpiar = new FontAwesome.Sharp.IconButton();
             btnguardar = new FontAwesome.Sharp.IconButton();
-            label10 = new Label();
-            cboestado = new ComboBox();
-            txtcorreo = new TextBox();
-            txttelefono = new TextBox();
-            txtapellido = new TextBox();
-            txtnombre = new TextBox();
-            txtdocumento = new TextBox();
-            label6 = new Label();
-            label5 = new Label();
-            label4 = new Label();
-            label3 = new Label();
-            label2 = new Label();
             label1 = new Label();
-            txtdomicilio = new TextBox();
+            label4 = new Label();
+            label5 = new Label();
+            label6 = new Label();
+            txtdocumento = new TextBox();
+            txttelefono = new TextBox();
+            txtcorreo = new TextBox();
+            cboestado = new ComboBox();
+            label10 = new Label();
             label8 = new Label();
+            txtdomicilio = new TextBox();
             txtcuit = new TextBox();
             lblcuit = new Label();
+            pnlcamposclientes = new Panel();
+            label3 = new Label();
+            txtnombre = new TextBox();
+            label2 = new Label();
+            txtapellido = new TextBox();
+            lbltipocliente = new Label();
+            cboTipoCliente = new ComboBox();
+            lblcondiva = new Label();
+            cboCondicionIVA = new ComboBox();
+            lblrazonSocial = new Label();
+            txtrazonSocial = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dgvdata).BeginInit();
+            pnlcamposclientes.SuspendLayout();
             SuspendLayout();
             // 
             // txtindice
@@ -170,9 +178,9 @@
             // 
             label12.BackColor = SystemColors.ControlLightLight;
             label12.Font = new Font("Segoe UI", 15F);
-            label12.Location = new Point(438, 30);
+            label12.Location = new Point(359, 30);
             label12.Name = "label12";
-            label12.Size = new Size(944, 59);
+            label12.Size = new Size(1018, 59);
             label12.TabIndex = 60;
             label12.Text = "Lista de Clientes";
             label12.TextAlign = ContentAlignment.MiddleLeft;
@@ -180,7 +188,7 @@
             // dgvdata
             // 
             dgvdata.AllowUserToAddRows = false;
-            dgvdata.BackgroundColor = SystemColors.ButtonHighlight;
+            dgvdata.BackgroundColor = Color.WhiteSmoke;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = SystemColors.Control;
             dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
@@ -193,7 +201,7 @@
             dgvdata.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvdata.Columns.AddRange(new DataGridViewColumn[] { btnseleccionar, id, Documento, Nombre, Apellido, Correo, Telefono, Domicilio, EstadoValor, Estado });
             dgvdata.GridColor = SystemColors.HighlightText;
-            dgvdata.Location = new Point(438, 100);
+            dgvdata.Location = new Point(359, 100);
             dgvdata.Margin = new Padding(3, 2, 3, 2);
             dgvdata.MultiSelect = false;
             dgvdata.Name = "dgvdata";
@@ -202,7 +210,7 @@
             dataGridViewCellStyle2.SelectionBackColor = Color.White;
             dataGridViewCellStyle2.SelectionForeColor = Color.Black;
             dgvdata.RowsDefaultCellStyle = dataGridViewCellStyle2;
-            dgvdata.Size = new Size(877, 416);
+            dgvdata.Size = new Size(991, 416);
             dgvdata.TabIndex = 59;
             dgvdata.CellContentClick += dgvdata_CellContentClick;
             dgvdata.CellPainting += dgvdata_CellPainting;
@@ -311,7 +319,7 @@
             btneliminar.IconColor = Color.White;
             btneliminar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btneliminar.IconSize = 16;
-            btneliminar.Location = new Point(58, 482);
+            btneliminar.Location = new Point(58, 517);
             btneliminar.Margin = new Padding(3, 2, 3, 2);
             btneliminar.Name = "btneliminar";
             btneliminar.Size = new Size(151, 34);
@@ -333,7 +341,7 @@
             btnlimpiar.IconColor = Color.White;
             btnlimpiar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnlimpiar.IconSize = 18;
-            btnlimpiar.Location = new Point(58, 444);
+            btnlimpiar.Location = new Point(58, 479);
             btnlimpiar.Margin = new Padding(3, 2, 3, 2);
             btnlimpiar.Name = "btnlimpiar";
             btnlimpiar.Size = new Size(151, 34);
@@ -355,7 +363,7 @@
             btnguardar.IconColor = Color.White;
             btnguardar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnguardar.IconSize = 16;
-            btnguardar.Location = new Point(58, 406);
+            btnguardar.Location = new Point(58, 439);
             btnguardar.Margin = new Padding(3, 2, 3, 2);
             btnguardar.Name = "btnguardar";
             btnguardar.Size = new Size(151, 34);
@@ -365,116 +373,6 @@
             btnguardar.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnguardar.UseVisualStyleBackColor = false;
             btnguardar.Click += btnguardar_Click;
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.BackColor = SystemColors.ControlLightLight;
-            label10.Location = new Point(29, 351);
-            label10.Name = "label10";
-            label10.Size = new Size(42, 15);
-            label10.TabIndex = 52;
-            label10.Text = "Estado";
-            // 
-            // cboestado
-            // 
-            cboestado.DropDownStyle = ComboBoxStyle.DropDownList;
-            cboestado.FormattingEnabled = true;
-            cboestado.Location = new Point(30, 368);
-            cboestado.Margin = new Padding(3, 2, 3, 2);
-            cboestado.Name = "cboestado";
-            cboestado.Size = new Size(203, 23);
-            cboestado.TabIndex = 50;
-            // 
-            // txtcorreo
-            // 
-            txtcorreo.Location = new Point(31, 326);
-            txtcorreo.Margin = new Padding(3, 2, 3, 2);
-            txtcorreo.Name = "txtcorreo";
-            txtcorreo.Size = new Size(202, 23);
-            txtcorreo.TabIndex = 45;
-            // 
-            // txttelefono
-            // 
-            txttelefono.Location = new Point(31, 242);
-            txttelefono.Margin = new Padding(3, 2, 3, 2);
-            txttelefono.Name = "txttelefono";
-            txttelefono.Size = new Size(202, 23);
-            txttelefono.TabIndex = 44;
-            // 
-            // txtapellido
-            // 
-            txtapellido.Location = new Point(30, 200);
-            txtapellido.Margin = new Padding(3, 2, 3, 2);
-            txtapellido.Name = "txtapellido";
-            txtapellido.Size = new Size(202, 23);
-            txtapellido.TabIndex = 43;
-            // 
-            // txtnombre
-            // 
-            txtnombre.Location = new Point(29, 158);
-            txtnombre.Margin = new Padding(3, 2, 3, 2);
-            txtnombre.Name = "txtnombre";
-            txtnombre.Size = new Size(202, 23);
-            txtnombre.TabIndex = 42;
-            // 
-            // txtdocumento
-            // 
-            txtdocumento.Location = new Point(30, 70);
-            txtdocumento.Margin = new Padding(3, 2, 3, 2);
-            txtdocumento.Name = "txtdocumento";
-            txtdocumento.Size = new Size(202, 23);
-            txtdocumento.TabIndex = 41;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.BackColor = SystemColors.ControlLightLight;
-            label6.Location = new Point(30, 309);
-            label6.Name = "label6";
-            label6.Size = new Size(105, 15);
-            label6.TabIndex = 39;
-            label6.Text = "Correo Electronico";
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.BackColor = SystemColors.ControlLightLight;
-            label5.Location = new Point(31, 225);
-            label5.Name = "label5";
-            label5.Size = new Size(52, 15);
-            label5.TabIndex = 38;
-            label5.Text = "Telefono";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.BackColor = SystemColors.ControlLightLight;
-            label4.Location = new Point(30, 53);
-            label4.Name = "label4";
-            label4.Size = new Size(27, 15);
-            label4.TabIndex = 37;
-            label4.Text = "DNI";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.BackColor = SystemColors.ControlLightLight;
-            label3.Location = new Point(29, 141);
-            label3.Name = "label3";
-            label3.Size = new Size(51, 15);
-            label3.TabIndex = 36;
-            label3.Text = "Nombre";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.BackColor = SystemColors.ControlLightLight;
-            label2.Location = new Point(30, 183);
-            label2.Name = "label2";
-            label2.Size = new Size(51, 15);
-            label2.TabIndex = 35;
-            label2.Text = "Apellido";
             // 
             // label1
             // 
@@ -487,51 +385,251 @@
             label1.TabIndex = 34;
             label1.Click += label1_Click;
             // 
-            // txtdomicilio
+            // label4
             // 
-            txtdomicilio.Location = new Point(31, 284);
-            txtdomicilio.Margin = new Padding(3, 2, 3, 2);
-            txtdomicilio.Name = "txtdomicilio";
-            txtdomicilio.Size = new Size(202, 23);
-            txtdomicilio.TabIndex = 69;
+            label4.AutoSize = true;
+            label4.BackColor = Color.Transparent;
+            label4.Location = new Point(17, 97);
+            label4.Name = "label4";
+            label4.Size = new Size(27, 15);
+            label4.TabIndex = 37;
+            label4.Text = "DNI";
+            label4.Click += label4_Click;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.BackColor = Color.Transparent;
+            label5.Location = new Point(18, 321);
+            label5.Name = "label5";
+            label5.Size = new Size(52, 15);
+            label5.TabIndex = 38;
+            label5.Text = "Telefono";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.BackColor = Color.Transparent;
+            label6.Location = new Point(18, 404);
+            label6.Name = "label6";
+            label6.Size = new Size(105, 15);
+            label6.TabIndex = 39;
+            label6.Text = "Correo Electronico";
+            // 
+            // txtdocumento
+            // 
+            txtdocumento.Location = new Point(19, 114);
+            txtdocumento.Margin = new Padding(3, 2, 3, 2);
+            txtdocumento.Name = "txtdocumento";
+            txtdocumento.PlaceholderText = "obligatorio";
+            txtdocumento.Size = new Size(202, 23);
+            txtdocumento.TabIndex = 41;
+            // 
+            // txttelefono
+            // 
+            txttelefono.Location = new Point(19, 338);
+            txttelefono.Margin = new Padding(3, 2, 3, 2);
+            txttelefono.Name = "txttelefono";
+            txttelefono.PlaceholderText = "debe tener 10 digito sin espacio";
+            txttelefono.Size = new Size(202, 23);
+            txttelefono.TabIndex = 44;
+            // 
+            // txtcorreo
+            // 
+            txtcorreo.Location = new Point(19, 421);
+            txtcorreo.Margin = new Padding(3, 2, 3, 2);
+            txtcorreo.Name = "txtcorreo";
+            txtcorreo.PlaceholderText = "cliente@dominio.com";
+            txtcorreo.Size = new Size(202, 23);
+            txtcorreo.TabIndex = 45;
+            // 
+            // cboestado
+            // 
+            cboestado.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboestado.FormattingEnabled = true;
+            cboestado.Location = new Point(19, 463);
+            cboestado.Margin = new Padding(3, 2, 3, 2);
+            cboestado.Name = "cboestado";
+            cboestado.Size = new Size(203, 23);
+            cboestado.TabIndex = 50;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.BackColor = Color.Transparent;
+            label10.Location = new Point(18, 446);
+            label10.Name = "label10";
+            label10.Size = new Size(42, 15);
+            label10.TabIndex = 52;
+            label10.Text = "Estado";
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.BackColor = SystemColors.ControlLightLight;
-            label8.Location = new Point(30, 267);
+            label8.BackColor = Color.Transparent;
+            label8.Location = new Point(18, 363);
             label8.Name = "label8";
             label8.Size = new Size(58, 15);
             label8.TabIndex = 68;
             label8.Text = "Domicilio";
             // 
+            // txtdomicilio
+            // 
+            txtdomicilio.Location = new Point(18, 379);
+            txtdomicilio.Margin = new Padding(3, 2, 3, 2);
+            txtdomicilio.Name = "txtdomicilio";
+            txtdomicilio.Size = new Size(202, 23);
+            txtdomicilio.TabIndex = 69;
+            // 
             // txtcuit
             // 
-            txtcuit.Location = new Point(29, 116);
+            txtcuit.Location = new Point(19, 156);
             txtcuit.Margin = new Padding(3, 2, 3, 2);
             txtcuit.Name = "txtcuit";
+            txtcuit.PlaceholderText = "debe tener 11 digito sin '-'";
             txtcuit.Size = new Size(202, 23);
             txtcuit.TabIndex = 70;
             // 
             // lblcuit
             // 
             lblcuit.AutoSize = true;
-            lblcuit.BackColor = SystemColors.ControlLightLight;
-            lblcuit.Location = new Point(29, 99);
+            lblcuit.BackColor = Color.Transparent;
+            lblcuit.Location = new Point(17, 139);
             lblcuit.Name = "lblcuit";
             lblcuit.Size = new Size(32, 15);
             lblcuit.TabIndex = 71;
             lblcuit.Text = "CUIT";
+            // 
+            // pnlcamposclientes
+            // 
+            pnlcamposclientes.AutoScroll = true;
+            pnlcamposclientes.BackColor = Color.GhostWhite;
+            pnlcamposclientes.Controls.Add(label3);
+            pnlcamposclientes.Controls.Add(txtnombre);
+            pnlcamposclientes.Controls.Add(label2);
+            pnlcamposclientes.Controls.Add(txtapellido);
+            pnlcamposclientes.Controls.Add(lbltipocliente);
+            pnlcamposclientes.Controls.Add(cboTipoCliente);
+            pnlcamposclientes.Controls.Add(lblcondiva);
+            pnlcamposclientes.Controls.Add(cboCondicionIVA);
+            pnlcamposclientes.Controls.Add(lblrazonSocial);
+            pnlcamposclientes.Controls.Add(txtrazonSocial);
+            pnlcamposclientes.Controls.Add(label4);
+            pnlcamposclientes.Controls.Add(txtdomicilio);
+            pnlcamposclientes.Controls.Add(txtcuit);
+            pnlcamposclientes.Controls.Add(label8);
+            pnlcamposclientes.Controls.Add(lblcuit);
+            pnlcamposclientes.Controls.Add(txtdocumento);
+            pnlcamposclientes.Controls.Add(txttelefono);
+            pnlcamposclientes.Controls.Add(label5);
+            pnlcamposclientes.Controls.Add(label6);
+            pnlcamposclientes.Controls.Add(txtcorreo);
+            pnlcamposclientes.Controls.Add(cboestado);
+            pnlcamposclientes.Controls.Add(label10);
+            pnlcamposclientes.Location = new Point(15, 54);
+            pnlcamposclientes.Name = "pnlcamposclientes";
+            pnlcamposclientes.Size = new Size(260, 373);
+            pnlcamposclientes.TabIndex = 72;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.BackColor = Color.Transparent;
+            label3.Location = new Point(17, 13);
+            label3.Name = "label3";
+            label3.Size = new Size(51, 15);
+            label3.TabIndex = 79;
+            label3.Text = "Nombre";
+            // 
+            // txtnombre
+            // 
+            txtnombre.Location = new Point(19, 30);
+            txtnombre.Margin = new Padding(3, 2, 3, 2);
+            txtnombre.Name = "txtnombre";
+            txtnombre.PlaceholderText = "obligatorio";
+            txtnombre.Size = new Size(202, 23);
+            txtnombre.TabIndex = 80;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.BackColor = Color.Transparent;
+            label2.Location = new Point(18, 55);
+            label2.Name = "label2";
+            label2.Size = new Size(51, 15);
+            label2.TabIndex = 78;
+            label2.Text = "Apellido";
+            // 
+            // txtapellido
+            // 
+            txtapellido.Location = new Point(19, 72);
+            txtapellido.Margin = new Padding(3, 2, 3, 2);
+            txtapellido.Name = "txtapellido";
+            txtapellido.PlaceholderText = "obligatorio";
+            txtapellido.Size = new Size(202, 23);
+            txtapellido.TabIndex = 81;
+            // 
+            // lbltipocliente
+            // 
+            lbltipocliente.AutoSize = true;
+            lbltipocliente.BackColor = Color.Transparent;
+            lbltipocliente.Location = new Point(18, 273);
+            lbltipocliente.Name = "lbltipocliente";
+            lbltipocliente.Size = new Size(70, 15);
+            lbltipocliente.TabIndex = 77;
+            lbltipocliente.Text = "Tipo Cliente";
+            // 
+            // cboTipoCliente
+            // 
+            cboTipoCliente.FormattingEnabled = true;
+            cboTipoCliente.Location = new Point(19, 291);
+            cboTipoCliente.Name = "cboTipoCliente";
+            cboTipoCliente.Size = new Size(202, 23);
+            cboTipoCliente.TabIndex = 76;
+            // 
+            // lblcondiva
+            // 
+            lblcondiva.AutoSize = true;
+            lblcondiva.BackColor = Color.Transparent;
+            lblcondiva.Location = new Point(16, 224);
+            lblcondiva.Name = "lblcondiva";
+            lblcondiva.Size = new Size(82, 15);
+            lblcondiva.TabIndex = 75;
+            lblcondiva.Text = "Condicion IVA";
+            // 
+            // cboCondicionIVA
+            // 
+            cboCondicionIVA.FormattingEnabled = true;
+            cboCondicionIVA.Location = new Point(18, 242);
+            cboCondicionIVA.Name = "cboCondicionIVA";
+            cboCondicionIVA.Size = new Size(202, 23);
+            cboCondicionIVA.TabIndex = 74;
+            // 
+            // lblrazonSocial
+            // 
+            lblrazonSocial.AutoSize = true;
+            lblrazonSocial.BackColor = Color.Transparent;
+            lblrazonSocial.Location = new Point(15, 181);
+            lblrazonSocial.Name = "lblrazonSocial";
+            lblrazonSocial.Size = new Size(72, 15);
+            lblrazonSocial.TabIndex = 73;
+            lblrazonSocial.Text = "Razon social";
+            // 
+            // txtrazonSocial
+            // 
+            txtrazonSocial.Location = new Point(19, 198);
+            txtrazonSocial.Margin = new Padding(3, 2, 3, 2);
+            txtrazonSocial.Name = "txtrazonSocial";
+            txtrazonSocial.PlaceholderText = "Eje: Empresa S.R.L";
+            txtrazonSocial.Size = new Size(202, 23);
+            txtrazonSocial.TabIndex = 72;
             // 
             // frmClientes
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1199, 562);
-            Controls.Add(lblcuit);
-            Controls.Add(txtcuit);
-            Controls.Add(txtdomicilio);
-            Controls.Add(label8);
+            Controls.Add(pnlcamposclientes);
             Controls.Add(txtindice);
             Controls.Add(btnlimpiarbuscador);
             Controls.Add(btnbuscar);
@@ -545,24 +643,14 @@
             Controls.Add(btneliminar);
             Controls.Add(btnlimpiar);
             Controls.Add(btnguardar);
-            Controls.Add(label10);
-            Controls.Add(cboestado);
-            Controls.Add(txtcorreo);
-            Controls.Add(txttelefono);
-            Controls.Add(txtapellido);
-            Controls.Add(txtnombre);
-            Controls.Add(txtdocumento);
-            Controls.Add(label6);
-            Controls.Add(label5);
-            Controls.Add(label4);
-            Controls.Add(label3);
-            Controls.Add(label2);
             Controls.Add(label1);
             Margin = new Padding(3, 2, 3, 2);
             Name = "frmClientes";
             Text = "frmClientes";
             Load += frmClientes_Load;
             ((System.ComponentModel.ISupportInitialize)dgvdata).EndInit();
+            pnlcamposclientes.ResumeLayout(false);
+            pnlcamposclientes.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -582,19 +670,6 @@
         private FontAwesome.Sharp.IconButton btneliminar;
         private FontAwesome.Sharp.IconButton btnlimpiar;
         private FontAwesome.Sharp.IconButton btnguardar;
-        private Label label10;
-        private ComboBox cboestado;
-        private TextBox txtcorreo;
-        private TextBox txttelefono;
-        private TextBox txtapellido;
-        private TextBox txtnombre;
-        private TextBox txtdocumento;
-        private Label label6;
-        private Label label5;
-        private Label label4;
-        private Label label3;
-        private Label label2;
-        private Label label1;
         private DataGridViewButtonColumn btnseleccionar;
         private DataGridViewTextBoxColumn id;
         private DataGridViewTextBoxColumn Documento;
@@ -605,9 +680,29 @@
         private DataGridViewTextBoxColumn Domicilio;
         private DataGridViewTextBoxColumn EstadoValor;
         private DataGridViewTextBoxColumn Estado;
-        private TextBox txtdomicilio;
+        private Label label1;
+        private Label label4;
+        private Label label5;
+        private Label label6;
+        private TextBox txtdocumento;
+        private TextBox txttelefono;
+        private TextBox txtcorreo;
+        private ComboBox cboestado;
+        private Label label10;
         private Label label8;
+        private TextBox txtdomicilio;
         private TextBox txtcuit;
         private Label lblcuit;
+        private Panel pnlcamposclientes;
+        private Label lblrazonSocial;
+        private TextBox txtrazonSocial;
+        private Label lblcondiva;
+        private ComboBox cboCondicionIVA;
+        private Label lbltipocliente;
+        private ComboBox cboTipoCliente;
+        private Label label3;
+        private TextBox txtnombre;
+        private Label label2;
+        private TextBox txtapellido;
     }
 }

@@ -1,4 +1,5 @@
-﻿using CapaEntidad;
+﻿using CapaDatos;
+using CapaEntidad;
 using CapaNegocio;
 using ClosedXML.Excel;
 using MaxiKiosco.Utilidades;
@@ -23,6 +24,26 @@ namespace MaxiKiosco
         public frmProducto()
         {
             InitializeComponent();
+        }
+
+        // [AGREGADO] para buscar categorias activas
+        private void CargarCategoriasCombo()
+        {
+            cbocategoria.Items.Clear();
+
+            // ❌ CORRECCIÓN: Usar ListarActivos() en lugar de Listar()
+            List<Categoria> listaCategoria = new CN_Categoria().ListarActivos();
+
+            foreach (Categoria item in listaCategoria)
+            {
+                cbocategoria.Items.Add(new OpcionCombo() { Valor = item.Id, texto = item.nombre_categoria });
+            }
+            cbocategoria.DisplayMember = "Texto";
+            cbocategoria.ValueMember = "Valor";
+            if (cbocategoria.Items.Count > 0)
+            {
+                cbocategoria.SelectedIndex = 0;
+            }
         }
 
         // [AGREGADO] 2. Nuevo método para cargar los productos y mantenerlos en memoria
@@ -107,13 +128,16 @@ namespace MaxiKiosco
             cboestado.DisplayMember = "texto";
             cboestado.ValueMember = "Valor";
             cboestado.SelectedIndex = 0;
+
             dgvdata.Rows.Clear(); // Limpia la grilla
+
+            /* Borrar una ves que ffuncine todo
             List<Categoria> listaCategoria = new CN_Categoria().Listar();
             foreach (var item in listaCategoria)
             {
 
                 cbocategoria.Items.Add(new OpcionCombo() { Valor = item.Id, texto = item.nombre_categoria });
-            }
+            }*/
 
             cboproductos.Items.Add(new OpcionCombo() { Valor = "", texto = "Elija una opcion" });
             cboproductos.DisplayMember = "texto";
@@ -150,10 +174,11 @@ namespace MaxiKiosco
                 dgvdata.Columns["precioventa"].DefaultCellStyle.Format = "N2";
             }
 
+            CargarCategoriasCombo(); // Llama a la función de carga del combo filtrada
             // [MODIFICADO] Aquí has llamado a CargarProductos()
             CargarProductos();
         }
-       
+
         private void Limpiar()
         {
             // [IMPORTANTE] Restablecer el ID para indicar que es un registro nuevo
@@ -172,14 +197,21 @@ namespace MaxiKiosco
             cbocategoria.SelectedIndex = 0;
             cboestado.SelectedIndex = 0;
         }
-        
+
         //[MODIFICADO]
         private void btnguardar_Click_1(object sender, EventArgs e)
         {
             string mensaje = string.Empty;
 
-            // 1. Verificar si los campos numéricos son válidos
-            // Nota: Dejé la validación de txtcodigo.Text aquí, pero será manejada por la lógica GENERAR_INTERNO
+            // Declaración de variables fuera del TryParse
+            decimal precioventa;
+            decimal preciocompra;
+            int stock;
+            int idproducto;
+            int idestado;
+            int idcategoria; // Variable para la Categoría
+
+            // 1. VERIFICACIÓN DE CAMPOS DE TEXTO VACÍOS (VALIDACIÓN BÁSICA)
             if (string.IsNullOrWhiteSpace(txtnombre.Text) ||
              string.IsNullOrWhiteSpace(txtprecioventa.Text) ||
              string.IsNullOrWhiteSpace(txtpreciocompra.Text) ||
@@ -188,91 +220,89 @@ namespace MaxiKiosco
                 MessageBox.Show("Debe completar los campos Nombre, Precios y Stock.", "Error de Validación", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-            // 2. PARSEO DE VALORES NUMÉRICOS (SEGURO)
-            decimal precioventa;
-            decimal preciocompra;
-            int stock;
-            int idproducto;
-            int idestado;
-            int idcategoria;
 
-            // NUEVA VALIDACIÓN DE FORMATO DECIMAL (PUNTO Y COMA) Para precio venta y compra 
-            // Obtenemos el separador decimal que usa la configuración regional actual.
-            // Esto es CRUCIAL para saber qué carácter contar.
-            char separadorDecimal = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
-            string textoVenta = txtprecioventa.Text.Trim();
-            string textoCompra = txtpreciocompra.Text.Trim();
-            // Contamos cuántas veces aparece el separador decimal en el texto.
-            int cuentaSeparadorVenta = textoVenta.Count(c => c == separadorDecimal);
-            int cuentaSeparadorCompra = textoCompra.Count(c => c == separadorDecimal);
-            // Validamos que solo haya CERO o UN separador decimal
-            if (cuentaSeparadorVenta > 1 || cuentaSeparadorCompra > 1)
+            // 2. VALIDACIÓN DEL COMBOBOX DE CATEGORÍA (PREVENCIÓN DE NullReferenceException)
+            // CORRECCIÓN CLAVE: Validamos que haya un ítem seleccionado ANTES de usarlo.
+            if (cbocategoria.SelectedItem == null)
             {
-                MessageBox.Show($"El formato de precio es incorrecto. Debe usar el separador decimal '{separadorDecimal}' solo una vez. Ejemplo: 123{separadorDecimal}45.",
-                                "Error de Formato Decimal", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                mensaje += "Debe seleccionar una Categoría válida.\nSi no hay categoria agrege primero una (en la sesion de categoria) y luego registre su producto con la nueva categoria,";
+            }
+
+            // Si la validación de categoría falló, mostramos el error y salimos.
+            if (mensaje != string.Empty)
+            {
+                MessageBox.Show(mensaje, "Error de Validación", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            // 2.1. Intentamos el TryParse usando la configuración regional (Ahora es seguro)
+            // ASIGNACIÓN SEGURA: Como ya validamos que NO es nulo, obtenemos el ID de categoría.
+            // Esto ya no necesita estar dentro del bloque TryParse.
+            idcategoria = Convert.ToInt32(((OpcionCombo)cbocategoria.SelectedItem).Valor);
 
-            // Usamos TryParse para asegurarnos de que el formato sea correcto
-            if (!decimal.TryParse(textoVenta, out precioventa) ||
-                !decimal.TryParse(textoCompra, out preciocompra) ||
+
+            // 3. VERIFICACIÓN DE FORMATO DECIMAL (PUNTO Y COMA)
+            char separadorDecimal = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
+            string textoVenta = txtprecioventa.Text.Trim();
+            string textoCompra = txtpreciocompra.Text.Trim();
+
+            int cuentaSeparadorVenta = textoVenta.Count(c => c == separadorDecimal);
+            int cuentaSeparadorCompra = textoCompra.Count(c => c == separadorDecimal);
+
+            if (cuentaSeparadorVenta > 1 || cuentaSeparadorCompra > 1)
+            {
+                MessageBox.Show($"El formato de precio es incorrecto. Debe usar el separador decimal '{separadorDecimal}' solo una vez. Ejemplo: 123{separadorDecimal}45.",
+                                 "Error de Formato Decimal", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+
+            // 4. PARSEO DE VALORES NUMÉRICOS RESTANTES
+            // CORRECCIÓN: Quitamos la validación de idcategoria de este bloque.
+            // CORRECCIÓN: Usamos TryParse con CultureInfo.CurrentCulture para manejar correctamente la coma decimal.
+            bool parseVenta = decimal.TryParse(textoVenta, System.Globalization.NumberStyles.Any,
+                                   System.Globalization.CultureInfo.CurrentCulture, out precioventa);
+            bool parseCompra = decimal.TryParse(textoCompra, System.Globalization.NumberStyles.Any,
+                                                System.Globalization.CultureInfo.CurrentCulture, out preciocompra);
+
+            // Verificamos si las conversiones fueron exitosas junto con las demás
+            if (!parseVenta || !parseCompra ||
                 !int.TryParse(txtstock.Text, out stock) ||
                 !int.TryParse(txtidproducto.Text, out idproducto) ||
-                !int.TryParse(((OpcionCombo)cboestado.SelectedItem).Valor.ToString(), out idestado) ||
-                !int.TryParse(((OpcionCombo)cbocategoria.SelectedItem).Valor.ToString(), out idcategoria))
+                !int.TryParse(((OpcionCombo)cboestado.SelectedItem).Valor.ToString(), out idestado))
             {
                 MessageBox.Show("Por favor, ingrese formatos numéricos válidos para Precios y/o Stock. Recuerde que el Stock debe ser un número entero.", "Error de Formato Numérico", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
-            // 3. LÓGICA DE CÓDIGO DE BARRAS (GENERACIÓN INTERNA)
+
+            // 5. LÓGICA DE CÓDIGO DE BARRAS (GENERACIÓN INTERNA)
             string codigoProducto = txtcodigo.Text.Trim();
-            int idproducto_check = Convert.ToInt32(txtidproducto.Text); // Obtener el ID para chequear si es edición
 
-            // Si NO es edición (Id = 0) Y el campo está vacío, usamos la bandera.
-            if (idproducto_check == 0 && string.IsNullOrWhiteSpace(codigoProducto))
-            {
-                codigoProducto = "GENERAR_INTERNO";
-            }
-
-            // Si es edición (Id > 0) y el campo está vacío, simplemente lo dejamos vacío (""),
-            // y la CN_Producto.Editar lo validará si es necesario.
-            // Si es edición y tiene "GENERAR_INTERNO", significa que el usuario borró el campo,
-            // lo cual debería fallar si el código de barras es obligatorio al editar. 
-
-            // Si dejamos la lógica de arriba, funciona, porque si ID > 0, nunca entra al IF.
-            // Hacemos una pequeña mejora en el IF para hacerlo más explícito:
+            // Si NO es edición (Id = 0) Y el campo de código está vacío, usamos la bandera.
             if (string.IsNullOrWhiteSpace(codigoProducto) && idproducto == 0)
             {
                 codigoProducto = "GENERAR_INTERNO";
             }
 
-            // 4. CREACIÓN DEL OBJETO PRODUCTO (USANDO VALORES PARSEADOS Y EL CÓDIGO MANEJADO)
+            // 6. CREACIÓN DEL OBJETO PRODUCTO
             Producto objproducto = new Producto()
             {
-                // [CORREGIDO]: Usar la variable 'idproducto' ya parseada
                 Id = idproducto,
                 nombre = txtnombre.Text,
-                // [AGREGADO]: Usar la variable 'codigoProducto' con la bandera
                 codigo = codigoProducto,
-                // [CORREGIDO]: Usar las variables ya parseadas
                 precioventa = precioventa,
                 preciocompra = preciocompra,
                 descripcion = txtdescripcion.Text,
-                // Asignamos la fecha y hora del sistema.
                 fecharegistro = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
-                // [CORREGIDO]: Usar las variables ya parseadas
+                // Usamos la variable idcategoria que obtuvimos de forma segura
                 ocategoria = new Categoria() { Id = idcategoria },
                 stock = stock,
                 estado = idestado == 1 ? true : false,
             };
 
-            // 5. LÓGICA DE REGISTRO/EDICIÓN
+            // 7. LÓGICA DE REGISTRO/EDICIÓN
             if (objproducto.Id == 0) // REGISTRAR NUEVO
             {
-                // La CN_Producto se encargará de reemplazar "GENERAR_INTERNO" por el código real
                 int idProductogenerado = new CN_Producto().Registrar(objproducto, out mensaje);
 
                 if (idProductogenerado != 0)
@@ -287,7 +317,6 @@ namespace MaxiKiosco
             }
             else // EDITAR EXISTENTE
             {
-                // La edición no debe permitir GENERAR_INTERNO, la CN_Producto ya tiene esa validación.
                 bool resultado = new CN_Producto().Editar(objproducto, out mensaje);
 
                 if (resultado)

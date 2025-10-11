@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
             txtdomicilio = new TextBox();
             label8 = new Label();
             txtindice = new TextBox();
@@ -67,12 +67,14 @@
             txtcuit = new TextBox();
             lblrazonsocial = new Label();
             txtrazonsocial = new TextBox();
+            panel1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)dgvdata).BeginInit();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // txtdomicilio
             // 
-            txtdomicilio.Location = new Point(28, 227);
+            txtdomicilio.Location = new Point(15, 198);
             txtdomicilio.Margin = new Padding(3, 2, 3, 2);
             txtdomicilio.Name = "txtdomicilio";
             txtdomicilio.Size = new Size(202, 23);
@@ -81,8 +83,8 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.BackColor = SystemColors.ControlLightLight;
-            label8.Location = new Point(28, 210);
+            label8.BackColor = Color.Transparent;
+            label8.Location = new Point(24, 181);
             label8.Name = "label8";
             label8.Size = new Size(58, 15);
             label8.TabIndex = 96;
@@ -194,16 +196,16 @@
             // dgvdata
             // 
             dgvdata.AllowUserToAddRows = false;
-            dgvdata.BackgroundColor = SystemColors.ButtonHighlight;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.Padding = new Padding(2);
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dgvdata.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dgvdata.BackgroundColor = Color.WhiteSmoke;
+            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = SystemColors.Control;
+            dataGridViewCellStyle9.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle9.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle9.Padding = new Padding(2);
+            dataGridViewCellStyle9.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
+            dgvdata.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
             dgvdata.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvdata.Columns.AddRange(new DataGridViewColumn[] { btnseleccionar, id, Nombre, Cuit, Correo, telefono, Domicilio, EstadoValor, Estado });
             dgvdata.GridColor = SystemColors.HighlightText;
@@ -213,9 +215,9 @@
             dgvdata.Name = "dgvdata";
             dgvdata.ReadOnly = true;
             dgvdata.RowHeadersWidth = 51;
-            dataGridViewCellStyle2.SelectionBackColor = Color.White;
-            dataGridViewCellStyle2.SelectionForeColor = Color.Black;
-            dgvdata.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle10.SelectionBackColor = Color.White;
+            dataGridViewCellStyle10.SelectionForeColor = Color.Black;
+            dgvdata.RowsDefaultCellStyle = dataGridViewCellStyle10;
             dgvdata.Size = new Size(877, 416);
             dgvdata.TabIndex = 87;
             dgvdata.CellContentClick += dgvdata_CellContentClick;
@@ -317,7 +319,7 @@
             btneliminar.IconColor = Color.White;
             btneliminar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btneliminar.IconSize = 16;
-            btneliminar.Location = new Point(57, 434);
+            btneliminar.Location = new Point(44, 414);
             btneliminar.Margin = new Padding(3, 2, 3, 2);
             btneliminar.Name = "btneliminar";
             btneliminar.Size = new Size(151, 34);
@@ -339,7 +341,7 @@
             btnlimpiar.IconColor = Color.White;
             btnlimpiar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnlimpiar.IconSize = 18;
-            btnlimpiar.Location = new Point(57, 396);
+            btnlimpiar.Location = new Point(44, 366);
             btnlimpiar.Margin = new Padding(3, 2, 3, 2);
             btnlimpiar.Name = "btnlimpiar";
             btnlimpiar.Size = new Size(151, 34);
@@ -361,7 +363,7 @@
             btnguardar.IconColor = Color.White;
             btnguardar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnguardar.IconSize = 16;
-            btnguardar.Location = new Point(57, 358);
+            btnguardar.Location = new Point(44, 319);
             btnguardar.Margin = new Padding(3, 2, 3, 2);
             btnguardar.Name = "btnguardar";
             btnguardar.Size = new Size(151, 34);
@@ -375,8 +377,8 @@
             // label10
             // 
             label10.AutoSize = true;
-            label10.BackColor = SystemColors.ControlLightLight;
-            label10.Location = new Point(28, 294);
+            label10.BackColor = Color.Transparent;
+            label10.Location = new Point(24, 265);
             label10.Name = "label10";
             label10.Size = new Size(42, 15);
             label10.TabIndex = 82;
@@ -386,7 +388,7 @@
             // 
             cboestado.DropDownStyle = ComboBoxStyle.DropDownList;
             cboestado.FormattingEnabled = true;
-            cboestado.Location = new Point(28, 311);
+            cboestado.Location = new Point(15, 282);
             cboestado.Margin = new Padding(3, 2, 3, 2);
             cboestado.Name = "cboestado";
             cboestado.Size = new Size(203, 23);
@@ -394,33 +396,36 @@
             // 
             // txtcorreo
             // 
-            txtcorreo.Location = new Point(28, 269);
+            txtcorreo.Location = new Point(15, 240);
             txtcorreo.Margin = new Padding(3, 2, 3, 2);
             txtcorreo.Name = "txtcorreo";
+            txtcorreo.PlaceholderText = "proveedor@dominio.com";
             txtcorreo.Size = new Size(202, 23);
             txtcorreo.TabIndex = 80;
             // 
             // txttelefono
             // 
-            txttelefono.Location = new Point(29, 185);
+            txttelefono.Location = new Point(15, 156);
             txttelefono.Margin = new Padding(3, 2, 3, 2);
             txttelefono.Name = "txttelefono";
+            txttelefono.PlaceholderText = "debe tener 10 digito sin espacio";
             txttelefono.Size = new Size(202, 23);
             txttelefono.TabIndex = 79;
             // 
             // txtnombre
             // 
-            txtnombre.Location = new Point(29, 59);
+            txtnombre.Location = new Point(15, 30);
             txtnombre.Margin = new Padding(3, 2, 3, 2);
             txtnombre.Name = "txtnombre";
+            txtnombre.PlaceholderText = "obligatorio";
             txtnombre.Size = new Size(202, 23);
             txtnombre.TabIndex = 77;
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.BackColor = SystemColors.ControlLightLight;
-            label6.Location = new Point(28, 252);
+            label6.BackColor = Color.Transparent;
+            label6.Location = new Point(23, 223);
             label6.Name = "label6";
             label6.Size = new Size(105, 15);
             label6.TabIndex = 75;
@@ -429,8 +434,8 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.BackColor = SystemColors.ControlLightLight;
-            label5.Location = new Point(29, 168);
+            label5.BackColor = Color.Transparent;
+            label5.Location = new Point(23, 139);
             label5.Name = "label5";
             label5.Size = new Size(52, 15);
             label5.TabIndex = 74;
@@ -439,8 +444,8 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.BackColor = SystemColors.ControlLightLight;
-            label3.Location = new Point(30, 40);
+            label3.BackColor = Color.Transparent;
+            label3.Location = new Point(24, 13);
             label3.Name = "label3";
             label3.Size = new Size(51, 15);
             label3.TabIndex = 72;
@@ -459,8 +464,8 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.BackColor = SystemColors.ControlLightLight;
-            label2.Location = new Point(28, 126);
+            label2.BackColor = Color.Transparent;
+            label2.Location = new Point(24, 97);
             label2.Name = "label2";
             label2.Size = new Size(29, 15);
             label2.TabIndex = 71;
@@ -468,17 +473,18 @@
             // 
             // txtcuit
             // 
-            txtcuit.Location = new Point(28, 143);
+            txtcuit.Location = new Point(15, 114);
             txtcuit.Margin = new Padding(3, 2, 3, 2);
             txtcuit.Name = "txtcuit";
+            txtcuit.PlaceholderText = "debe tener 11 digito sin '-'";
             txtcuit.Size = new Size(202, 23);
             txtcuit.TabIndex = 78;
             // 
             // lblrazonsocial
             // 
             lblrazonsocial.AutoSize = true;
-            lblrazonsocial.BackColor = SystemColors.ControlLightLight;
-            lblrazonsocial.Location = new Point(28, 84);
+            lblrazonsocial.BackColor = Color.Transparent;
+            lblrazonsocial.Location = new Point(24, 55);
             lblrazonsocial.Name = "lblrazonsocial";
             lblrazonsocial.Size = new Size(73, 15);
             lblrazonsocial.TabIndex = 98;
@@ -486,21 +492,44 @@
             // 
             // txtrazonsocial
             // 
-            txtrazonsocial.Location = new Point(28, 101);
+            txtrazonsocial.Location = new Point(15, 72);
             txtrazonsocial.Margin = new Padding(3, 2, 3, 2);
             txtrazonsocial.Name = "txtrazonsocial";
+            txtrazonsocial.PlaceholderText = "Eje: Empresa S.R.L";
             txtrazonsocial.Size = new Size(202, 23);
             txtrazonsocial.TabIndex = 99;
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.GhostWhite;
+            panel1.Controls.Add(label3);
+            panel1.Controls.Add(txtdomicilio);
+            panel1.Controls.Add(txtrazonsocial);
+            panel1.Controls.Add(label8);
+            panel1.Controls.Add(txtnombre);
+            panel1.Controls.Add(lblrazonsocial);
+            panel1.Controls.Add(label2);
+            panel1.Controls.Add(txtcuit);
+            panel1.Controls.Add(label5);
+            panel1.Controls.Add(txttelefono);
+            panel1.Controls.Add(label6);
+            panel1.Controls.Add(btneliminar);
+            panel1.Controls.Add(txtcorreo);
+            panel1.Controls.Add(btnlimpiar);
+            panel1.Controls.Add(label10);
+            panel1.Controls.Add(btnguardar);
+            panel1.Controls.Add(cboestado);
+            panel1.Location = new Point(24, 60);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(231, 465);
+            panel1.TabIndex = 100;
             // 
             // frmProveedores
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1199, 525);
-            Controls.Add(txtrazonsocial);
-            Controls.Add(lblrazonsocial);
-            Controls.Add(txtdomicilio);
-            Controls.Add(label8);
+            Controls.Add(panel1);
             Controls.Add(txtindice);
             Controls.Add(btnlimpiarbuscador);
             Controls.Add(btnbuscar);
@@ -511,25 +540,14 @@
             Controls.Add(label12);
             Controls.Add(dgvdata);
             Controls.Add(label11);
-            Controls.Add(btneliminar);
-            Controls.Add(btnlimpiar);
-            Controls.Add(btnguardar);
-            Controls.Add(label10);
-            Controls.Add(cboestado);
-            Controls.Add(txtcorreo);
-            Controls.Add(txttelefono);
-            Controls.Add(txtcuit);
-            Controls.Add(txtnombre);
-            Controls.Add(label6);
-            Controls.Add(label5);
-            Controls.Add(label3);
-            Controls.Add(label2);
             Controls.Add(label1);
             Margin = new Padding(3, 2, 3, 2);
             Name = "frmProveedores";
             Text = "frmProveedores";
             Load += frmProveedores_Load;
             ((System.ComponentModel.ISupportInitialize)dgvdata).EndInit();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -573,5 +591,6 @@
         private TextBox txtcuit;
         private Label lblrazonsocial;
         private TextBox txtrazonsocial;
+        private Panel panel1;
     }
 }

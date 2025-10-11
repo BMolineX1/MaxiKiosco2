@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System;
 
 namespace CapaDatos
 {
@@ -19,10 +20,12 @@ namespace CapaDatos
             {
                 try
                 {
-                    string query = "select Id,nombre_categoria,estado from categoria";
+                    string query = "select Id,nombre_categoria,porcentaje_aumento,estado from categoria";
+
                     MySqlCommand cmd = new MySqlCommand(query, oconexion);
                     cmd.CommandType = CommandType.Text;
                     oconexion.Open();
+
                     using (MySqlDataReader dr = cmd.ExecuteReader())
                     {
                         while (dr.Read())
@@ -31,6 +34,8 @@ namespace CapaDatos
                             {
                                 Id = Convert.ToInt32(dr["id"]),
                                 nombre_categoria = dr["nombre_categoria"].ToString(),
+                                porcentaje_aumento = dr["porcentaje_aumento"] != DBNull.Value ? Convert.ToDecimal(dr["porcentaje_aumento"])
+                                : 0, // valor por defecto si está nulo
                                 estado = Convert.ToBoolean(dr["estado"]),
                             });
                         }
@@ -45,6 +50,42 @@ namespace CapaDatos
             return lista;
         }
 
+        // NUEVO MÉTODO: Trae SOLO las categorías Activas (para el ComboBox de Producto)
+        public List<Categoria> ListarActivos()
+        {
+            List<Categoria> lista = new List<Categoria>();
+            using (MySqlConnection oconexion = new MySqlConnection(Conexion.cadena))
+            {
+                try
+                {
+                    // Consulta que SOLO trae los Activos (estado = 1)
+                    string query = "select Id,nombre_categoria from categoria WHERE estado = 1";
+
+                    MySqlCommand cmd = new MySqlCommand(query, oconexion);
+                    cmd.CommandType = CommandType.Text;
+                    oconexion.Open();
+
+                    using (MySqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            lista.Add(new Categoria()
+                            {
+                                Id = Convert.ToInt32(dr["id"]),
+                                nombre_categoria = dr["nombre_categoria"].ToString(),
+                                // Aquí solo necesitas el Id y el Nombre para el ComboBox
+                            });
+                        }
+                    }
+                }
+                catch
+                {
+                    lista = new List<Categoria>();
+                }
+            }
+            return lista;
+        }
+
         public int Registrar(Categoria obj, out string Mensaje)
         {
             int idCategoriagenerado = 0;
@@ -55,8 +96,10 @@ namespace CapaDatos
                 {
                     MySqlCommand cmd = new MySqlCommand("SP_RegistrarCategoria", oconexion);
                     cmd.Parameters.AddWithValue("p_nombre_categoria", obj.nombre_categoria);
+                    cmd.Parameters.AddWithValue("p_porcentaje_aumento", obj.porcentaje_aumento);
                     cmd.Parameters.AddWithValue("p_estado", obj.estado);
                     cmd.Parameters.Add("p_resultado", MySqlDbType.Int32).Direction = ParameterDirection.Output;
+
                     cmd.Parameters.Add("Mensaje", MySqlDbType.VarChar, 250).Direction = ParameterDirection.Output;
                     cmd.CommandType = CommandType.StoredProcedure;
                     oconexion.Open();
@@ -73,6 +116,7 @@ namespace CapaDatos
             }
             return idCategoriagenerado;
         }
+       
         public bool Editar(Categoria obj, out string Mensaje)
         {
             bool respuesta = false;
@@ -85,8 +129,12 @@ namespace CapaDatos
                     MySqlCommand cmd = new MySqlCommand("SP_EditarCategoria", oconexion);
                     cmd.Parameters.AddWithValue("p_id", obj.Id);
                     cmd.Parameters.AddWithValue("p_nombre_categoria", obj.nombre_categoria);
+
+                    cmd.Parameters.AddWithValue("p_porcentaje_aumento", obj.porcentaje_aumento);
+
                     cmd.Parameters.AddWithValue("p_estado", obj.estado);
                     cmd.Parameters.Add("p_resultado", MySqlDbType.Int32).Direction = ParameterDirection.Output;
+
                     cmd.Parameters.Add("mensaje", MySqlDbType.VarChar, 250).Direction = ParameterDirection.Output;
                     cmd.CommandType = CommandType.StoredProcedure;
                     oconexion.Open();
@@ -104,6 +152,7 @@ namespace CapaDatos
             return respuesta;
 
         }
+       
         public bool Eliminar(Categoria obj, out string Mensaje)
         {
             bool respuesta = false;

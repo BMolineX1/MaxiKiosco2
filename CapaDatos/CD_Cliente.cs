@@ -15,21 +15,25 @@ namespace CapaDatos
         public List<Cliente> Listar()
         {
             List<Cliente> clientes = new List<Cliente>();
+
             using (MySqlConnection oconexion = new MySqlConnection(Conexion.cadena))
             {
                 try
                 {
                     string query = "select * from cliente";
+
                     //creamos una instancia de MysqlCommand y le agregamos la consulta y la conexion
                     MySqlCommand cmd = new MySqlCommand(query, oconexion);
                     cmd.CommandType = CommandType.Text;
                     //se abre la conexion
                     oconexion.Open();
+
                     //mysqldatareader sirve para leer linea por linea de la consulta sin guardar en el buffer ayudando a optimizar el sistema
                     using (MySqlDataReader dr = cmd.ExecuteReader())
                     {
                         while (dr.Read())
                         {
+                            // [AGRAGADO MAS CAMPOS]
                             clientes.Add(new Cliente()
                             {
                                 id = Convert.ToInt32(dr["id"]),
@@ -40,7 +44,11 @@ namespace CapaDatos
                                 email = dr["email"].ToString(),
                                 domicilio = dr["domicilio"].ToString(),
                                 estado = Convert.ToBoolean(dr["estado"]),
-
+                                // NUEVOS CAMPOS
+                                cuit = dr["cuit"] != DBNull.Value ? dr["cuit"].ToString() : "",
+                                razonsocial = dr["razonsocial"] != DBNull.Value ? dr["razonsocial"].ToString() : "",
+                                condicion_iva = dr["condicion_iva"] != DBNull.Value ? dr["condicion_iva"].ToString() : "",
+                                tipo_cliente = dr["tipo_cliente"] != DBNull.Value ? dr["tipo_cliente"].ToString() : ""
                             });
                         }
                     }
@@ -64,6 +72,8 @@ namespace CapaDatos
                 using (MySqlConnection oconexion = new MySqlConnection(Conexion.cadena))
                 {
                     MySqlCommand cmd = new MySqlCommand("SP_REGISTRARCLIENTE", oconexion);
+                    cmd.CommandType = CommandType.StoredProcedure; // agregado
+
                     cmd.Parameters.AddWithValue("p_nombre", objcliente.nombre);
                     cmd.Parameters.AddWithValue("p_apellido", objcliente.apellido);
                     cmd.Parameters.AddWithValue("p_documento", objcliente.dni);
@@ -71,11 +81,19 @@ namespace CapaDatos
                     cmd.Parameters.AddWithValue("p_domicilio", objcliente.domicilio);
                     cmd.Parameters.AddWithValue("p_email", objcliente.email);
                     cmd.Parameters.AddWithValue("p_estado", objcliente.estado);
+                    // NUEVOS PARÁMETROS
+                    cmd.Parameters.AddWithValue("p_cuit", objcliente.cuit ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_razonsocial", objcliente.razonsocial ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_condicion_iva", objcliente.condicion_iva ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_tipo_cliente", objcliente.tipo_cliente ?? (object)DBNull.Value);
+                    // Salida
                     cmd.Parameters.Add("idclienteresultado", MySqlDbType.Int32).Direction = ParameterDirection.Output;
                     cmd.Parameters.Add("Mensaje", MySqlDbType.VarChar, 250).Direction = ParameterDirection.Output;
                     cmd.CommandType = CommandType.StoredProcedure;
+
                     oconexion.Open();
                     cmd.ExecuteNonQuery();
+
                     idclientegenerado = Convert.ToInt32(cmd.Parameters["idclienteresultado"].Value);
                     Mensaje = cmd.Parameters["Mensaje"].Value.ToString();
 
@@ -98,6 +116,8 @@ namespace CapaDatos
                 using (MySqlConnection oconexion = new MySqlConnection(Conexion.cadena))
                 {
                     MySqlCommand cmd = new MySqlCommand("SP_EDITARCLIENTE", oconexion);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
                     cmd.Parameters.AddWithValue("p_idcliente",objcliente.id);
                     cmd.Parameters.AddWithValue("p_nombre", objcliente.nombre);
                     cmd.Parameters.AddWithValue("p_apellido", objcliente.apellido);
@@ -106,6 +126,12 @@ namespace CapaDatos
                     cmd.Parameters.AddWithValue("p_telefono", objcliente.telefono);
                     cmd.Parameters.AddWithValue("p_email", objcliente.email);
                     cmd.Parameters.AddWithValue("p_estado", objcliente.estado);
+                    // NUEVOS PARÁMETROS
+                    cmd.Parameters.AddWithValue("p_cuit", objcliente.cuit ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_razonsocial", objcliente.razonsocial ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_condicion_iva", objcliente.condicion_iva ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_tipo_cliente", objcliente.tipo_cliente ?? (object)DBNull.Value);
+                    // Salida
                     cmd.Parameters.Add("respuesta", MySqlDbType.Bit).Direction = ParameterDirection.Output;
                     cmd.Parameters.Add("Mensaje", MySqlDbType.VarChar, 250).Direction = ParameterDirection.Output;
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -136,16 +162,13 @@ namespace CapaDatos
                     MySqlCommand cmd = new MySqlCommand(query, oconexion);
                     cmd.Parameters.AddWithValue("@idcliente", objcliente.id);
                     cmd.CommandType = CommandType.Text;
+
                     oconexion.Open();
-                    respuesta = cmd.ExecuteNonQuery() > 0 ? true : false;
-                    if (respuesta) 
-                    {
-                        Mensaje = "El usuario fue eliminado con exito";
-                    }
-                    else
-                    {
-                        Mensaje = "No se puede eliminar ese usuario";
-                    }
+                    respuesta = cmd.ExecuteNonQuery() > 0;
+
+                    Mensaje = respuesta
+                        ? "El cliente fue eliminado con éxito."
+                        : "No se pudo eliminar el cliente.";
                 }
                 
             }
