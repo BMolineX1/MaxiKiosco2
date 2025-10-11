@@ -25,7 +25,7 @@
 * En cantidad validar que sea entero en venta
 
 
-Cambios mios hechos.
+Modificaciones mias.
 Agrege btn volver al login
 maneje las ventanas de login y inicio.
 evento de busqueda de producto en tiempo real
