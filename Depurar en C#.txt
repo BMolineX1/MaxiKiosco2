@@ -13,12 +13,13 @@
 
 Cambios 1
 * Agregar en la compra un campo para buscar prodcuto por nombre también (Hechos)
-* Agregar el Iva al total (en el backend) 
+* Agregar el Iva al total (en el backend)  (Hechos)
 * En compra agregar una ventana de diálogo para preguntar si desea salir de compra porque pueden ver regitro no guardado y perderse si se sale
-* En compra agregar un campo de porcentaje de la compra para calcularlo con el porcentaje de categoría
+* En compra agregar un campo de porcentaje de la compra para calcularlo con el porcentaje de categoría (Hechos)
 * En compra poner código para cargar el  producto en la compra, también agregar búsqueda por nombre del producto así me trae el producto en tiempo real. (Hechos)
 * En compra se carge automáticamente la razon social del proveedor. (Hechos)
 
+(Venta no toque)
 * Para cada factura o registro de detalle de venta debe tener un btn de editar y eliminar.
 * En venta poner un campo, tipo de pago de venta
 * Marcar como consumidor final al cliente cuando realiza la venta
@@ -66,6 +67,7 @@ En compra en el campo fecha lo deje disable.
 Valide la razon social y busqueda en tiempo real para razon social y nombre.
 Compra agrege textbox para buscar por nombre un producto.
 Busqueda en tiempo real para el producto.
+Agrege el iva al total del detalle-compora osea ala confirmacion general de la compra
 
 
 
