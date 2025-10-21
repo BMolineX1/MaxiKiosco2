@@ -24,6 +24,9 @@ namespace MaxiKiosco
         // Formato típico AR: 0001-00000001
         private static readonly Regex RxNumDocGuion = new Regex(@"^\d{4}-\d{8}$", RegexOptions.Compiled);
 
+        //Valor actual del IVA.
+        private const decimal IVA_PERCENTAJE = 0.21m;
+
         public frmCompras(Usuario oUsuario = null)
         {
             _Usuario = oUsuario;
@@ -103,39 +106,20 @@ namespace MaxiKiosco
         {
             using (var modal = new mdProducto())
             {
-                var result = modal.ShowDialog();
-                if (result == DialogResult.OK)
-                {
-                    txtidproducto.Text = modal._Producto.Id.ToString();
-                    txtnombreproducto.Text = modal._Producto.nombre;
-                    txtcodproducto.Text = modal._Producto.codigo;
-                    txtpreciocompraproducto.Select();
-                }
-                else
-                {
-                    txtnombreproducto.Select();
-                }
-            }
-        }
+                modal.ShowDialog();
 
-        private void txtcodproducto_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                Producto oProducto = new CN_Producto().Listar().Where(p => p.codigo == txtcodproducto.Text && p.estado == true).FirstOrDefault();
-                if (oProducto != null)
+                if (modal.DialogResult == DialogResult.OK)
                 {
-                    txtcodproducto.BackColor = Color.Honeydew;
-                    txtidproducto.Text = oProducto.Id.ToString();
-                    txtnombreproducto.Text = oProducto.nombre;
-                    txtpreciocompraproducto.Select();
+                    // Asumiendo que el modal tiene una propiedad pública para devolver el objeto
+                    Producto oProductoSeleccionado = modal._Producto;
+
+                    // AHORA ESTE MÉTODO ES UNIFICADO Y ROBUSTO
+                    CargarDatosProducto(oProductoSeleccionado);
+
+                    // Limpia los campos de búsqueda
+                    textcodproducto.Text = "";
+                    txtnomproducto.Text = "";
                 }
-            }
-            else
-            {
-                txtcodproducto.BackColor = Color.MistyRose;
-                txtidproducto.Text = "0";
-                txtnombreproducto.Text = "";
             }
         }
 
@@ -145,13 +129,14 @@ namespace MaxiKiosco
             decimal precioventa = 0m;
             bool producto_existe = false;
 
+            // 1. VALIDACIÓN DE PRODUCTO SELECCIONADO (txtidproducto debe ser > 0)
             if (!int.TryParse(txtidproducto.Text, out int idProd) || idProd == 0)
             {
                 MessageBox.Show("Debe seleccionar un producto", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
-            // precio compra
+            // 2. VALIDACIÓN DE FORMATO DE PRECIO COMPRA
             if (!decimal.TryParse(txtpreciocompraproducto.Text, NumberStyles.Any, CultureInfo.CurrentCulture, out preciocompra) &&
                 !decimal.TryParse(txtpreciocompraproducto.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out preciocompra))
             {
@@ -160,7 +145,7 @@ namespace MaxiKiosco
                 return;
             }
 
-            // precio venta
+            // 3. VALIDACIÓN DE FORMATO DE PRECIO VENTA
             if (!decimal.TryParse(txtprecioventaproducto.Text, NumberStyles.Any, CultureInfo.CurrentCulture, out precioventa) &&
                 !decimal.TryParse(txtprecioventaproducto.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out precioventa))
             {
@@ -169,41 +154,54 @@ namespace MaxiKiosco
                 return;
             }
 
-            // duplicado
+            // 4. VALIDACIÓN DE CANTIDAD (Debe ser > 0)
+            int cant = (int)txtcantidad.Value; // Asumiendo que txtcantidad es un NumericUpDown
+            if (cant <= 0)
+            {
+                MessageBox.Show("La cantidad debe ser mayor a cero.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                txtcantidad.Select();
+                return;
+            }
+
+            // 5. VALIDACIÓN DE DUPLICADO
             foreach (DataGridViewRow fila in dgvdata.Rows)
             {
                 if (fila.IsNewRow) continue;
                 var val = fila.Cells["idproducto"]?.Value?.ToString();
                 if (val == txtidproducto.Text) { producto_existe = true; break; }
             }
-            if (producto_existe) return;
+            if (producto_existe)
+            {
+                MessageBox.Show("El producto ya fue agregado a la compra.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
 
-            // cantidad y subtotal
-            int cant = (int)txtcantidad.Value;
+            // 6. CÁLCULO Y ADICIÓN A LA TABLA
             decimal subtotal = cant * preciocompra;
 
             // cargar NUMÉRICOS (no strings formateados)
             dgvdata.Rows.Add(new object[]
             {
-                txtidproducto.Text,   // idproducto  (Name de la columna)
-                "Eliminar",           // btneliminar
-                txtcodproducto.Text,  // Codigo (o como se llame esa col)
-                preciocompra,         // PrecioCompra  (decimal)
-                precioventa,          // PrecioVenta   (decimal)
-                cant,                 // Cantidad      (int)
-                subtotal              // SubTotal      (decimal)
+                txtidproducto.Text,        // idproducto  (Name de la columna)
+                "Eliminar",                // btneliminar
+                txtnomproducto.Text,       // Nombre del Producto
+                preciocompra,              // PrecioCompra  (decimal)
+                precioventa,               // PrecioVenta   (decimal)
+                cant,                      // Cantidad      (int)
+                subtotal                   // SubTotal      (decimal)
             });
 
+            // 7. FIN DE LA OPERACIÓN
             calcularTotal();
             limpiarProducto();
-            txtcodproducto.Select();
+            txtnomproducto.Select(); // Enfocar el campo de búsqueda de código/nombre
         }
 
         private void limpiarProducto()
         {
             txtidproducto.Text = "0";
-            txtcodproducto.Text = "0";
-            txtcodproducto.BackColor = Color.White;
+            txtnomproducto.Text = "0";
+            txtnomproducto.BackColor = Color.White;
             txtnombreproducto.Text = "";
             txtpreciocompraproducto.Text = "";
             txtprecioventaproducto.Text = "";
@@ -212,8 +210,9 @@ namespace MaxiKiosco
 
         private void calcularTotal()
         {
-            decimal total = 0m;
+            decimal totalSubtotal = 0m;
 
+            // 1. RECALCULAR EL SUBTOTAL ACUMULADO
             foreach (DataGridViewRow row in dgvdata.Rows)
             {
                 if (row.IsNewRow) continue;
@@ -232,10 +231,16 @@ namespace MaxiKiosco
                     }
                 }
 
-                total += sub;
+                totalSubtotal += sub; // Renombrado a totalSubtotal
             }
 
-            txttotalpagar.Text = total.ToString("0.00");
+            // 2. APLICAR EL IVA (21%)
+            decimal IVA_PERCENTAJE = 0.21m; // Asegúrate de que esta constante esté disponible aquí o sea global
+            decimal totalIVA = totalSubtotal * IVA_PERCENTAJE;
+            decimal totalFinal = totalSubtotal + totalIVA;
+
+            // 3. ASIGNAR EL TOTAL FINAL
+            txttotalpagar.Text = totalFinal.ToString("0.00");
         }
 
         private void dgvdata_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -285,6 +290,65 @@ namespace MaxiKiosco
             e.Handled = true;
         }
 
+        // EN frmCompras.cs (dentro de la clase)
+
+        private void CargarDatosProducto(Producto oProducto)
+        {
+            // --- 1. Carga de Datos Básicos y Precios Base ---
+            txtidproducto.Text = oProducto.Id.ToString();
+            textcodproducto.Text = oProducto.codigo; // Campo de CÓDIGO (anteriormente textcodproducto2)
+            txtnomproducto.Text = oProducto.nombre;   // Campo de Búsqueda por Nombre (ahora con el nombre encontrado)
+
+            txtnombreproducto.Text = oProducto.nombre; // Campo de visualización de nombre
+
+            decimal precioCompraActual = oProducto.preciocompra;
+            decimal porcentajeAumento = oProducto.ocategoria.porcentaje_aumento;
+            // --- 2. CÁLCULO DEL PRECIO DE VENTA SUGERIDO (Margen de Categoría) ---
+            decimal precioVentaCalculado = oProducto.precioventa; // Valor por defecto: el que viene de la BD
+
+            // Asignar el Precio Compra que viene de la BD
+            txtpreciocompraproducto.Text = precioCompraActual.ToString("0.00");
+
+            // --- 2. CÁLCULO DEL PRECIO DE VENTA SUGERIDO (Margen de Categoría) ---
+            // La lógica: SÓLO CALCULO Y SUGIERO EL PRECIO VENTA SI EL VALOR DE LA BD ES CERO O INVÁLIDO.
+            if (porcentajeAumento > 0 && precioVentaCalculado <= precioCompraActual)
+            {
+                // Si el precio de venta es menor o igual al precio de compra, lo forzamos con el margen.
+                decimal multiplicador = 1 + (porcentajeAumento / 100.0m);
+                precioVentaCalculado = precioCompraActual * multiplicador;
+            }
+            // Si el precio de venta de la BD es 3000.00, NO entra a este IF y respeta el 3000.00.
+
+            // Asignar el Precio Venta sugerido (o el valor original de la BD)
+            txtprecioventaproducto.Text = precioVentaCalculado.ToString("0.00");
+
+            // --- 3. CÁLCULO DEL IVA ---
+            // El IVA se calcula SOBRE el precio de venta (el que se usará para vender).
+            decimal montoIVA = precioVentaCalculado * IVA_PERCENTAJE;
+
+            // Asignar el monto del IVA (462,02 si usa 2200.11, o 630.00 si usa 3000.00)
+            // Asumiendo que ahora tu TextBox es txtivaMonto o txtivaProducto
+            txtivaProducto.Text = montoIVA.ToString("0.00");
+
+            // --- 4. Finalización ---
+            txtcantidad.Value = 1; // Resetea cantidad a 1
+            txtcantidad.Select(); // Mover foco
+        }
+
+        private void LimpiarCamposProducto()
+        {
+            txtidproducto.Text = "0";
+            textcodproducto.Text = "";
+            txtnomproducto.Text = "";
+            txtnombreproducto.Text = "";
+            txtpreciocompraproducto.Text = "";
+            txtprecioventaproducto.Text = "";
+            txtcantidad.Value = 1;
+
+            // Mover foco
+            textcodproducto.Select();
+        }
+
         // ================== Registrar compra (SP con JSON_TABLE) ==================
         private void btnregistrarcompra_Click(object sender, EventArgs e)
         {
@@ -299,6 +363,13 @@ namespace MaxiKiosco
             if (!hayFilas)
             {
                 MessageBox.Show("Debe ingresar productos en la compra", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            // Validar y obtener el Monto Total de la Compra
+            if (!decimal.TryParse(txttotalpagar.Text, out decimal montoTotalCompra) || montoTotalCompra <= 0)
+            {
+                MessageBox.Show("El Monto Total de la compra no es válido o es cero.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
@@ -361,6 +432,9 @@ namespace MaxiKiosco
                 tipodocumento = tipoDoc,
                 numerodocumento = numeroDocumento,
 
+                // ¡PASO CRÍTICO: AGREGAR EL MONTO TOTAL!
+                montototal = montoTotalCompra,
+
                 // compat con código viejo:
                 ousuario = new Usuario { idusuario = (_Usuario?.idusuario ?? 0) },
                 oproveedor = new Proveedor { id = proveedorId }
@@ -392,7 +466,7 @@ namespace MaxiKiosco
                 dgvdata.Rows.Clear();
                 calcularTotal();
                 limpiarProducto();
-                txtcodproducto.Select();
+                txtnomproducto.Select();
 
                 var result = MessageBox.Show("Número de compra:\n" + numeroDocumento + "\n\n¿Copiar al portapapeles?", "Mensaje", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                 if (result == DialogResult.Yes)
@@ -424,5 +498,95 @@ namespace MaxiKiosco
                    || int.TryParse(v, NumberStyles.Integer, CultureInfo.CurrentCulture, out i)
                 ? i : 0;
         }
+
+        private void txtnombreproveedor_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                string nombre = txtnombreproveedor.Text.Trim();
+                if (!string.IsNullOrEmpty(nombre))
+                {
+                    // Llamar a la Capa de Negocio para buscar el proveedor por nombre
+                    // Se asume que CN_Proveedor.ObtenerPorNombreExacto devuelve 1 proveedor o null
+                    Proveedor objProveedor = new CN_Proveedor().ObtenerPorNombreExacto(nombre);
+
+                    if (objProveedor != null)
+                    {
+                        // Cargar datos
+                        txtidproveedor.Text = objProveedor.id.ToString();
+                        txtrazonsocial.Text = objProveedor.razonsocial;
+                        // Mover al siguiente paso
+                        txtnomproducto.Focus();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Proveedor no encontrado. Use la lupa para buscar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        txtnombreproveedor.SelectAll();
+                    }
+                }
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private void txtnombreproducto_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textcodproducto_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                string busqueda = textcodproducto.Text.Trim();
+                Producto oProducto = null;
+
+                // 1. Busqueda EXACTA por Código
+                // Asumiendo que CN_Producto().Listar() trae la lista completa
+                oProducto = new CN_Producto().Listar()
+                    .Where(p => p.codigo == busqueda && p.estado == true)
+                    .FirstOrDefault();
+
+                if (oProducto != null)
+                {
+                    // 2. Éxito: Cargar campos de producto
+                    CargarDatosProducto(oProducto);
+                }
+                else
+                {
+                    // 3. Fracaso: Limpiar y notificar
+                    LimpiarCamposProducto();
+                    MessageBox.Show("Código de producto no encontrado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                e.SuppressKeyPress = true; // Evita el sonido de "ding" al presionar Enter
+            }
+        }
+
+        private void txtnomproducto_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                string busqueda = txtnomproducto.Text.Trim().ToUpper();
+                Producto oProducto = null;
+
+                // 1. Búsqueda PARCIAL por Nombre (ToUpper para insensibilidad a mayúsculas/minúsculas)
+                oProducto = new CN_Producto().Listar()
+                    .Where(p => p.nombre.ToUpper().Contains(busqueda) && p.estado == true)
+                    .FirstOrDefault();
+
+                if (oProducto != null)
+                {
+                    // 2. Éxito: Cargar campos de producto
+                    CargarDatosProducto(oProducto);
+                }
+                else
+                {
+                    // 3. Fracaso: Limpiar y notificar
+                    LimpiarCamposProducto();
+                    MessageBox.Show("Producto no encontrado por Nombre.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                e.SuppressKeyPress = true;
+            }
+        }
+    
     }
 }

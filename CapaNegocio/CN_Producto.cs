@@ -17,12 +17,6 @@ namespace CapaNegocio
             return object_producto.Listar();
         }
 
-        // 1 [AGREGADO] Método para generar código interno (delegado a CapaDatos)
-        private string GenerarCodigoInterno()
-        {
-            return object_producto.GenerarCodigoInternoUnico(); // Esto separamos la lógica de cómo se genera el código
-        }
-
         // [MODIFICADO] Método Registrar
         //traemos registrar de CN_Producto
         public int Registrar(Producto obj, out string Mensaje)

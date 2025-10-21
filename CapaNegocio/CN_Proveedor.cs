@@ -49,7 +49,6 @@ namespace CapaNegocio
             }
         }
 
-
         //traemos editar de CN_Proveedor
         public bool Editar(Proveedor obj, out string Mensaje)
         {
@@ -86,5 +85,15 @@ namespace CapaNegocio
         {
             return object_proveedor.Eliminar(obj, out Mensaje);
         }
+
+        //Metodo para buscar los proveedores para la compra
+        public Proveedor ObtenerPorNombreExacto(string nombre)
+        {
+            // Llama al método de la Capa de Datos y devuelve el resultado
+            // Asumiendo que 'object_proveedor' es tu instancia de CD_Proveedor
+            return object_proveedor.ObtenerPorNombreExacto(nombre);
+        }
+
+
     }
 }

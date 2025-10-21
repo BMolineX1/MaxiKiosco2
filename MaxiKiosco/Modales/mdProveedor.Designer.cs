@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             btnlimpiarbuscador = new FontAwesome.Sharp.IconButton();
             btnbuscar = new FontAwesome.Sharp.IconButton();
             txtbusqueda = new TextBox();
@@ -55,9 +55,10 @@
             btnlimpiarbuscador.IconColor = Color.Black;
             btnlimpiarbuscador.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnlimpiarbuscador.IconSize = 16;
-            btnlimpiarbuscador.Location = new Point(816, 65);
+            btnlimpiarbuscador.Location = new Point(714, 49);
+            btnlimpiarbuscador.Margin = new Padding(3, 2, 3, 2);
             btnlimpiarbuscador.Name = "btnlimpiarbuscador";
-            btnlimpiarbuscador.Size = new Size(38, 29);
+            btnlimpiarbuscador.Size = new Size(33, 22);
             btnlimpiarbuscador.TabIndex = 101;
             btnlimpiarbuscador.TextAlign = ContentAlignment.MiddleRight;
             btnlimpiarbuscador.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -75,9 +76,10 @@
             btnbuscar.IconColor = Color.Black;
             btnbuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnbuscar.IconSize = 16;
-            btnbuscar.Location = new Point(772, 66);
+            btnbuscar.Location = new Point(676, 50);
+            btnbuscar.Margin = new Padding(3, 2, 3, 2);
             btnbuscar.Name = "btnbuscar";
-            btnbuscar.Size = new Size(38, 29);
+            btnbuscar.Size = new Size(33, 22);
             btnbuscar.TabIndex = 100;
             btnbuscar.TextAlign = ContentAlignment.MiddleRight;
             btnbuscar.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -86,27 +88,30 @@
             // 
             // txtbusqueda
             // 
-            txtbusqueda.Location = new Point(553, 67);
+            txtbusqueda.Location = new Point(484, 50);
+            txtbusqueda.Margin = new Padding(3, 2, 3, 2);
             txtbusqueda.Name = "txtbusqueda";
-            txtbusqueda.Size = new Size(203, 27);
+            txtbusqueda.Size = new Size(178, 23);
             txtbusqueda.TabIndex = 99;
+            txtbusqueda.TextChanged += txtbusqueda_TextChanged_1;
             // 
             // cbobusqueda
             // 
             cbobusqueda.DropDownStyle = ComboBoxStyle.DropDownList;
             cbobusqueda.FormattingEnabled = true;
-            cbobusqueda.Location = new Point(343, 66);
+            cbobusqueda.Location = new Point(300, 50);
+            cbobusqueda.Margin = new Padding(3, 2, 3, 2);
             cbobusqueda.Name = "cbobusqueda";
-            cbobusqueda.Size = new Size(204, 28);
+            cbobusqueda.Size = new Size(179, 23);
             cbobusqueda.TabIndex = 98;
             // 
             // label13
             // 
             label13.AutoSize = true;
             label13.BackColor = SystemColors.ButtonHighlight;
-            label13.Location = new Point(257, 74);
+            label13.Location = new Point(225, 56);
             label13.Name = "label13";
-            label13.Size = new Size(80, 20);
+            label13.Size = new Size(66, 15);
             label13.TabIndex = 97;
             label13.Text = "Buscar Por:";
             // 
@@ -114,9 +119,9 @@
             // 
             label12.BackColor = SystemColors.ControlLightLight;
             label12.Font = new Font("Segoe UI", 15F);
-            label12.Location = new Point(-1, 9);
+            label12.Location = new Point(-1, 7);
             label12.Name = "label12";
-            label12.Size = new Size(903, 140);
+            label12.Size = new Size(790, 105);
             label12.TabIndex = 96;
             label12.Text = "Lista de Proveedores";
             label12.TextAlign = ContentAlignment.MiddleLeft;
@@ -125,30 +130,31 @@
             // 
             dgvdata.AllowUserToAddRows = false;
             dgvdata.BackgroundColor = SystemColors.ButtonHighlight;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Control;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle3.Padding = new Padding(2);
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dgvdata.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.Padding = new Padding(2);
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvdata.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvdata.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvdata.Columns.AddRange(new DataGridViewColumn[] { btnseleccionar, id, Nombre, RazonSocial });
             dgvdata.GridColor = SystemColors.HighlightText;
-            dgvdata.Location = new Point(284, 161);
+            dgvdata.Location = new Point(248, 121);
+            dgvdata.Margin = new Padding(3, 2, 3, 2);
             dgvdata.MultiSelect = false;
             dgvdata.Name = "dgvdata";
             dgvdata.ReadOnly = true;
             dgvdata.RowHeadersWidth = 51;
-            dataGridViewCellStyle4.SelectionBackColor = Color.White;
-            dataGridViewCellStyle4.SelectionForeColor = Color.Black;
-            dgvdata.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.SelectionBackColor = Color.White;
+            dataGridViewCellStyle2.SelectionForeColor = Color.Black;
+            dgvdata.RowsDefaultCellStyle = dataGridViewCellStyle2;
             dgvdata.RowTemplate.DefaultCellStyle.SelectionBackColor = Color.Silver;
             dgvdata.RowTemplate.DefaultCellStyle.SelectionForeColor = Color.Black;
             dgvdata.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvdata.Size = new Size(375, 491);
+            dgvdata.Size = new Size(328, 368);
             dgvdata.TabIndex = 95;
             dgvdata.CellDoubleClick += dgvdata_CellDoubleClick;
             // 
@@ -187,9 +193,9 @@
             // 
             // mdProveedor
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(902, 605);
+            ClientSize = new Size(789, 454);
             Controls.Add(btnlimpiarbuscador);
             Controls.Add(btnbuscar);
             Controls.Add(txtbusqueda);
@@ -197,6 +203,7 @@
             Controls.Add(label13);
             Controls.Add(label12);
             Controls.Add(dgvdata);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "mdProveedor";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "mdProveedor";

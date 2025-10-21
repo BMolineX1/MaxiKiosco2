@@ -65,7 +65,8 @@
             dgvdata.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvdata.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvdata.Columns.AddRange(new DataGridViewColumn[] { btnseleccionar, id, Nombre, Codigo, Categoria, PrecioDeCompra, PrecioDeVenta, idcategoria, Stock });
-            dgvdata.Location = new Point(12, 126);
+            dgvdata.Location = new Point(10, 94);
+            dgvdata.Margin = new Padding(3, 2, 3, 2);
             dgvdata.MultiSelect = false;
             dgvdata.Name = "dgvdata";
             dgvdata.ReadOnly = true;
@@ -73,7 +74,7 @@
             dataGridViewCellStyle2.SelectionBackColor = Color.White;
             dataGridViewCellStyle2.SelectionForeColor = Color.Black;
             dgvdata.RowsDefaultCellStyle = dataGridViewCellStyle2;
-            dgvdata.Size = new Size(897, 554);
+            dgvdata.Size = new Size(785, 416);
             dgvdata.TabIndex = 90;
             dgvdata.CellDoubleClick += dgvdata_CellDoubleClick;
             // 
@@ -156,9 +157,10 @@
             btnlimpiarbuscador.IconColor = Color.Black;
             btnlimpiarbuscador.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnlimpiarbuscador.IconSize = 16;
-            btnlimpiarbuscador.Location = new Point(850, 56);
+            btnlimpiarbuscador.Location = new Point(744, 42);
+            btnlimpiarbuscador.Margin = new Padding(3, 2, 3, 2);
             btnlimpiarbuscador.Name = "btnlimpiarbuscador";
-            btnlimpiarbuscador.Size = new Size(38, 29);
+            btnlimpiarbuscador.Size = new Size(33, 22);
             btnlimpiarbuscador.TabIndex = 100;
             btnlimpiarbuscador.TextAlign = ContentAlignment.MiddleRight;
             btnlimpiarbuscador.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -176,9 +178,10 @@
             btnbuscar.IconColor = Color.Black;
             btnbuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnbuscar.IconSize = 16;
-            btnbuscar.Location = new Point(806, 56);
+            btnbuscar.Location = new Point(705, 42);
+            btnbuscar.Margin = new Padding(3, 2, 3, 2);
             btnbuscar.Name = "btnbuscar";
-            btnbuscar.Size = new Size(38, 29);
+            btnbuscar.Size = new Size(33, 22);
             btnbuscar.TabIndex = 99;
             btnbuscar.TextAlign = ContentAlignment.MiddleRight;
             btnbuscar.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -187,27 +190,30 @@
             // 
             // txtbusqueda
             // 
-            txtbusqueda.Location = new Point(589, 58);
+            txtbusqueda.Location = new Point(515, 44);
+            txtbusqueda.Margin = new Padding(3, 2, 3, 2);
             txtbusqueda.Name = "txtbusqueda";
-            txtbusqueda.Size = new Size(203, 27);
+            txtbusqueda.Size = new Size(178, 23);
             txtbusqueda.TabIndex = 98;
+            txtbusqueda.TextChanged += txtbusqueda_TextChanged;
             // 
             // cbobusqueda
             // 
             cbobusqueda.DropDownStyle = ComboBoxStyle.DropDownList;
             cbobusqueda.FormattingEnabled = true;
-            cbobusqueda.Location = new Point(367, 58);
+            cbobusqueda.Location = new Point(321, 44);
+            cbobusqueda.Margin = new Padding(3, 2, 3, 2);
             cbobusqueda.Name = "cbobusqueda";
-            cbobusqueda.Size = new Size(204, 28);
+            cbobusqueda.Size = new Size(179, 23);
             cbobusqueda.TabIndex = 97;
             // 
             // label13
             // 
             label13.AutoSize = true;
             label13.BackColor = SystemColors.ButtonHighlight;
-            label13.Location = new Point(281, 62);
+            label13.Location = new Point(246, 46);
             label13.Name = "label13";
-            label13.Size = new Size(80, 20);
+            label13.Size = new Size(66, 15);
             label13.TabIndex = 96;
             label13.Text = "Buscar Por:";
             // 
@@ -215,18 +221,18 @@
             // 
             label12.BackColor = SystemColors.ControlLightLight;
             label12.Font = new Font("Segoe UI", 15F);
-            label12.Location = new Point(12, 27);
+            label12.Location = new Point(10, 20);
             label12.Name = "label12";
-            label12.Size = new Size(897, 79);
+            label12.Size = new Size(785, 59);
             label12.TabIndex = 95;
             label12.Text = "Lista de Productos";
             label12.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // mdProducto
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1111, 640);
+            ClientSize = new Size(972, 480);
             Controls.Add(btnlimpiarbuscador);
             Controls.Add(btnbuscar);
             Controls.Add(txtbusqueda);
@@ -234,6 +240,7 @@
             Controls.Add(label13);
             Controls.Add(label12);
             Controls.Add(dgvdata);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "mdProducto";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "mdProducto";

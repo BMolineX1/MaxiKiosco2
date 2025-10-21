@@ -126,7 +126,7 @@ CREATE TABLE `compra` (
   KEY `proveedor_id` (`proveedor_id`),
   CONSTRAINT `compra_ibfk_1` FOREIGN KEY (`empleado_id`) REFERENCES `usuario` (`idusuario`),
   CONSTRAINT `compra_ibfk_2` FOREIGN KEY (`proveedor_id`) REFERENCES `proveedor` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -135,7 +135,7 @@ CREATE TABLE `compra` (
 
 LOCK TABLES `compra` WRITE;
 /*!40000 ALTER TABLE `compra` DISABLE KEYS */;
-INSERT INTO `compra` VALUES (3,'2025-09-30 22:57:38',4500000.00,1,3,'Boleta','0001-00000001'),(4,'2025-09-30 23:25:14',30000.00,1,3,'Boleta','0001-00000002'),(5,'2025-10-07 14:30:48',38600.00,1,3,'Boleta','0001-00000003');
+INSERT INTO `compra` VALUES (10,'2025-10-20 21:26:47',5449.96,12,8,'Boleta','0001-00000001');
 /*!40000 ALTER TABLE `compra` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -160,7 +160,7 @@ CREATE TABLE `detalle_compra` (
   KEY `producto_id` (`producto_id`),
   CONSTRAINT `detalle_compra_ibfk_1` FOREIGN KEY (`compra_id`) REFERENCES `compra` (`id_compra`),
   CONSTRAINT `detalle_compra_ibfk_2` FOREIGN KEY (`producto_id`) REFERENCES `producto` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -169,7 +169,7 @@ CREATE TABLE `detalle_compra` (
 
 LOCK TABLES `detalle_compra` WRITE;
 /*!40000 ALTER TABLE `detalle_compra` DISABLE KEYS */;
-INSERT INTO `detalle_compra` VALUES (1,3,3,30,4500000.00,150000.00,0.00,'2025-09-30 22:57:38'),(2,4,8,20,30000.00,1500.00,2000.00,'2025-09-30 23:25:14'),(3,5,8,20,32000.00,1600.00,1400.00,'2025-10-07 14:30:48'),(4,5,4,6,6600.00,1100.00,1000.00,'2025-10-07 14:30:48');
+INSERT INTO `detalle_compra` VALUES (12,10,41,2,2504.00,1252.00,1852.00,'2025-10-20 21:26:47'),(13,10,3,1,2000.10,2000.10,3000.00,'2025-10-20 21:26:47');
 /*!40000 ALTER TABLE `detalle_compra` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -317,7 +317,7 @@ CREATE TABLE `producto` (
 
 LOCK TABLES `producto` WRITE;
 /*!40000 ALTER TABLE `producto` DISABLE KEYS */;
-INSERT INTO `producto` VALUES (2,'secco',30,1500.00,2,1200.00,'3 litros4','2025-10-11 11:42:00',1,'10011010'),(3,'Coca-cola',70,0.00,2,150000.00,'2.25 litros','2025-10-11 12:25:55',1,'11101101'),(4,'pan',22,1000.00,3,1100.00,'20 kilos','2025-10-11 00:53:04',1,'2002202'),(8,'Gaseosa',30,1400.00,2,1600.00,'1 litro','2025-10-09 12:42:08',1,'1010100'),(12,'yerba',20,1600.00,9,1400.00,'1 kg','2025-10-10 20:21:29',0,'21212121'),(15,'Pure de tomate',10,130.99,2,900.69,'nada','2025-10-11 12:25:38',1,'125125'),(22,'Masita diversion',5,25000.00,21,2000.00,'dwd','2025-10-11 01:28:00',1,'1241556'),(31,'Sidra',16,2500.00,2,2000.00,'12','2025-10-08 00:22:34',1,'491915051051'),(38,'borra',2,12321233.00,21,123.00,'dd','2025-10-11 12:01:28',1,'INT-3'),(40,'Ravioles',3,279999.00,9,249999.00,'nadad','2025-10-11 00:54:08',1,'INT-4'),(41,'Lavandina',5,1852.00,2,1252.00,'nada','2025-10-11 12:07:17',1,'INT-5'),(43,'Detergente ariel',13,1000.60,2,650.90,'adadd','2025-10-11 12:25:16',1,'INT-6'),(44,'Queso Roquefort',5,620.20,9,480.00,'adad','2025-10-11 12:27:33',1,'INT-7');
+INSERT INTO `producto` VALUES (2,'secco',30,2000.00,2,1600.00,'3 litros4','2025-10-20 16:33:08',1,'10011010'),(3,'Coca-cola',86,3000.00,2,2000.10,'2.25 litros','2025-10-20 16:30:17',1,'11101101'),(4,'pan',22,1800.00,2,1200.00,'20 kilos','2025-10-20 16:33:22',1,'2002202'),(8,'Gaseosa',30,1400.00,2,1600.00,'1 litro','2025-10-09 12:42:08',1,'1010100'),(12,'yerba',20,1600.00,9,1400.00,'1 kg','2025-10-10 20:21:29',0,'21212121'),(15,'Pure de tomate',10,130.99,2,900.69,'nada','2025-10-11 12:25:38',1,'125125'),(22,'Masita diversion',5,25000.00,21,2000.00,'dwd','2025-10-11 01:28:00',1,'1241556'),(31,'Sidra',17,2500.00,2,2000.00,'12','2025-10-08 00:22:34',1,'491915051051'),(38,'borra',2,12321233.00,21,123.00,'dd','2025-10-11 12:01:28',1,'INT-3'),(40,'Ravioles',3,279999.00,9,249999.00,'nadad','2025-10-11 00:54:08',1,'INT-4'),(41,'Lavandina',7,1852.00,2,1252.00,'nada','2025-10-11 12:07:17',1,'INT-5'),(43,'Detergente ariel',13,1000.60,2,650.90,'adadd','2025-10-11 12:25:16',1,'INT-6'),(44,'Queso Roquefort',5,620.20,9,480.00,'adad','2025-10-11 12:27:33',1,'INT-7');
 /*!40000 ALTER TABLE `producto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1093,143 +1093,143 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegistrarCompra`(
-  IN  p_empleado_id     INT,
-  IN  p_proveedor_id    INT,
-  IN  p_tipodocumento   VARCHAR(45),
-  IN  p_numerodocumento VARCHAR(45),
-  IN  p_detallecompra   JSON,       
-  OUT resultado         TINYINT,
-  OUT mensaje           VARCHAR(250)
+    IN p_empleado_id       INT,
+    IN p_proveedor_id      INT,
+    IN p_tipodocumento     VARCHAR(45),
+    IN p_numerodocumento   VARCHAR(45),
+    IN p_montototal        DECIMAL(10, 2),  -- <-- NUEVO PARÁMETRO
+    IN p_detallecompra     JSON,        
+    OUT resultado          TINYINT,
+    OUT mensaje            VARCHAR(250)
 )
 BEGIN
-  DECLARE v_compra_id BIGINT;
-  DECLARE v_rows INT DEFAULT 0;
-  DECLARE v_missing INT DEFAULT 0;
-  DECLARE v_first_missing INT DEFAULT NULL;
-  DECLARE v_msg TEXT;
-  DECLARE v_sqlstate CHAR(5);
-
-  
-  DECLARE EXIT HANDLER FOR SQLEXCEPTION
-  BEGIN
-    GET DIAGNOSTICS CONDITION 1 v_msg = MESSAGE_TEXT, v_sqlstate = RETURNED_SQLSTATE;
-    ROLLBACK;
-    SET resultado = 0;
-    SET mensaje = CONCAT('Error al registrar la compra: ', COALESCE(v_msg,'?'), ' [SQLSTATE ', COALESCE(v_sqlstate,'00000'), ']');
-  END;
-
-  proc: BEGIN
+    DECLARE v_compra_id BIGINT;
+    DECLARE v_rows INT DEFAULT 0;
+    DECLARE v_missing INT DEFAULT 0;
+    DECLARE v_first_missing INT DEFAULT NULL;
+    DECLARE v_msg TEXT;
+    DECLARE v_sqlstate CHAR(5);
     
-    IF JSON_TYPE(p_detallecompra) <> 'ARRAY' THEN
-      SET resultado = 0;
-      SET mensaje = 'p_detallecompra debe ser un arreglo JSON';
-      LEAVE proc;
-    END IF;
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        GET DIAGNOSTICS CONDITION 1 v_msg = MESSAGE_TEXT, v_sqlstate = RETURNED_SQLSTATE;
+        ROLLBACK;
+        SET resultado = 0;
+        SET mensaje = CONCAT('Error al registrar la compra: ', COALESCE(v_msg,'?'), ' [SQLSTATE ', COALESCE(v_sqlstate,'00000'), ']');
+    END;
 
-    
-    CREATE TEMPORARY TABLE IF NOT EXISTS det_tmp (
-      producto_id  INT NOT NULL,
-      preciocompra DECIMAL(10,2) NOT NULL,
-      precioventa  DECIMAL(10,2) NOT NULL,
-      cantidad     INT NOT NULL
-    ) ENGINE=Memory;
+    proc: BEGIN
+        
+        IF JSON_TYPE(p_detallecompra) <> 'ARRAY' THEN
+            SET resultado = 0;
+            SET mensaje = 'p_detallecompra debe ser un arreglo JSON';
+            LEAVE proc;
+        END IF;
 
-    TRUNCATE det_tmp;
+        
+        CREATE TEMPORARY TABLE IF NOT EXISTS det_tmp (
+            producto_id  INT NOT NULL,
+            preciocompra DECIMAL(10,2) NOT NULL,
+            precioventa  DECIMAL(10,2) NOT NULL,
+            cantidad     INT NOT NULL
+        ) ENGINE=Memory;
 
-    INSERT INTO det_tmp (producto_id, preciocompra, precioventa, cantidad)
-    SELECT
-      j.producto_id,
-      j.preciocompra,
-      j.precioventa,
-      j.cantidad
-    FROM JSON_TABLE(
-           p_detallecompra, '$[*]'
-           COLUMNS(
-             producto_id  INT            PATH '$.producto_id',
-             preciocompra DECIMAL(10,2)  PATH '$.preciocompra',
-             precioventa  DECIMAL(10,2)  PATH '$.precioventa',
-             cantidad     INT            PATH '$.cantidad'
-           )
-         ) AS j;
+        TRUNCATE det_tmp;
 
-    
-    SELECT COUNT(*) INTO v_rows FROM det_tmp;
-    IF v_rows = 0 THEN
-      SET resultado = 0;
-      SET mensaje = 'El detalle está vacío';
-      LEAVE proc;
-    END IF;
+        INSERT INTO det_tmp (producto_id, preciocompra, precioventa, cantidad)
+        SELECT
+            j.producto_id,
+            j.preciocompra,
+            j.precioventa,
+            j.cantidad
+        FROM JSON_TABLE(
+                    p_detallecompra, '$[*]'
+                    COLUMNS(
+                        producto_id  INT             PATH '$.producto_id',
+                        preciocompra DECIMAL(10,2)   PATH '$.preciocompra',
+                        precioventa  DECIMAL(10,2)   PATH '$.precioventa',
+                        cantidad     INT             PATH '$.cantidad'
+                    )
+                ) AS j;
 
-    
-    SELECT COUNT(*)
-      INTO v_missing
-    FROM (SELECT DISTINCT producto_id FROM det_tmp) x
-    LEFT JOIN producto p ON p.id = x.producto_id
-    WHERE p.id IS NULL;
+        
+        SELECT COUNT(*) INTO v_rows FROM det_tmp;
+        IF v_rows = 0 THEN
+            SET resultado = 0;
+            SET mensaje = 'El detalle está vacío';
+            LEAVE proc;
+        END IF;
 
-    IF v_missing > 0 THEN
-      SELECT x.producto_id
-        INTO v_first_missing
-      FROM (SELECT DISTINCT producto_id FROM det_tmp) x
-      LEFT JOIN producto p ON p.id = x.producto_id
-      WHERE p.id IS NULL
-      LIMIT 1;
+        
+        SELECT COUNT(*)
+          INTO v_missing
+        FROM (SELECT DISTINCT producto_id FROM det_tmp) x
+        LEFT JOIN producto p ON p.id = x.producto_id
+        WHERE p.id IS NULL;
 
-      SET resultado = 0;
-      SET mensaje = CONCAT('Producto inexistente: ', v_first_missing);
-      LEAVE proc;
-    END IF;
+        IF v_missing > 0 THEN
+            SELECT x.producto_id
+              INTO v_first_missing
+            FROM (SELECT DISTINCT producto_id FROM det_tmp) x
+            LEFT JOIN producto p ON p.id = x.producto_id
+            WHERE p.id IS NULL
+            LIMIT 1;
 
-    START TRANSACTION;
+            SET resultado = 0;
+            SET mensaje = CONCAT('Producto inexistente: ', v_first_missing);
+            LEAVE proc;
+        END IF;
 
-    
-    INSERT INTO compra (fecharegistro, montototal, empleado_id, proveedor_id, tipodocumento, numerodocumento)
-    SELECT
-      NOW(),
-      IFNULL(SUM(cantidad * preciocompra), 0),
-      p_empleado_id,
-      p_proveedor_id,
-      p_tipodocumento,
-      p_numerodocumento
-    FROM det_tmp;
+        START TRANSACTION;
 
-    SET v_compra_id = LAST_INSERT_ID();
+        
+        INSERT INTO compra (fecharegistro, montototal, empleado_id, proveedor_id, tipodocumento, numerodocumento)
+        VALUES (
+            NOW(),
+            p_montototal,         -- USAMOS EL PARÁMETRO FINAL CON IVA
+            p_empleado_id,
+            p_proveedor_id,
+            p_tipodocumento,
+            p_numerodocumento
+        );
 
-    
-    INSERT INTO detalle_compra (compra_id, producto_id, cantidad, montototal, preciocompra, precioventa, fecharegistro)
-    SELECT
-      v_compra_id,
-      producto_id,
-      cantidad,
-      cantidad * preciocompra,
-      preciocompra,
-      precioventa,
-      NOW()
-    FROM det_tmp;
+        SET v_compra_id = LAST_INSERT_ID();
 
-    
-    UPDATE producto p
-    JOIN (
-      SELECT
-        producto_id,
-        SUM(cantidad)     AS qty,
-        MAX(preciocompra) AS pc,
-        MAX(precioventa)  AS pv
-      FROM det_tmp
-      GROUP BY producto_id
-    ) dc ON dc.producto_id = p.id
-    SET p.stock        = p.stock + dc.qty,
-        p.preciocompra = dc.pc,
-        p.precioventa  = dc.pv;
+        
+        INSERT INTO detalle_compra (compra_id, producto_id, cantidad, montototal, preciocompra, precioventa, fecharegistro)
+        SELECT
+            v_compra_id,
+            producto_id,
+            cantidad,
+            cantidad * preciocompra,
+            preciocompra,
+            precioventa,
+            NOW()
+        FROM det_tmp;
 
-    COMMIT;
+        
+        UPDATE producto p
+        JOIN (
+            SELECT
+                producto_id,
+                SUM(cantidad)      AS qty,
+                MAX(preciocompra) AS pc,
+                MAX(precioventa)  AS pv
+            FROM det_tmp
+            GROUP BY producto_id
+        ) dc ON dc.producto_id = p.id
+        SET p.stock          = p.stock + dc.qty,
+            p.preciocompra = dc.pc,
+            p.precioventa  = dc.pv;
 
-    SET resultado = 1;
-    SET mensaje   = 'Compra registrada correctamente';
+        COMMIT;
 
-    
-    DROP TEMPORARY TABLE IF EXISTS det_tmp;
-  END proc;
+        SET resultado = 1;
+        SET mensaje    = 'Compra registrada correctamente';
+
+        
+        DROP TEMPORARY TABLE IF EXISTS det_tmp;
+    END proc;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1552,4 +1552,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-10-11 12:50:18
+-- Dump completed on 2025-10-20 22:45:27

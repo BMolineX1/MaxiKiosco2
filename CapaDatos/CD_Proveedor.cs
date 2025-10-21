@@ -158,5 +158,57 @@ namespace CapaDatos
             return respuesta;
 
         }
+
+        //[AGREGADO]Buscar en la BD los proveedores en tiempo real
+        public Proveedor ObtenerPorNombreExacto(string nombre)
+        {
+            Proveedor proveedor = null;
+
+            // Usamos el objeto de conexión de tu proyecto
+            using (MySqlConnection oconexion = new MySqlConnection(Conexion.cadena))
+            {
+                try
+                {
+                    // Consulta SQL: buscamos el proveedor que coincida exactamente con el nombre y esté activo
+                    string query = "SELECT p.id, p.nombre, p.cuit, p.telefono, p.direccion, p.estado, p.email, p.razonsocial " +
+                       "FROM proveedor p WHERE LOWER(p.nombre) = LOWER(@nombre) AND p.estado = 1";
+
+                    MySqlCommand cmd = new MySqlCommand(query, oconexion);
+                    // Usar parámetros para evitar inyección SQL
+                    cmd.Parameters.AddWithValue("@nombre", nombre);
+                    cmd.CommandType = CommandType.Text;
+
+                    oconexion.Open();
+
+                    using (MySqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        // Si encontramos un registro...
+                        if (dr.Read())
+                        {
+                            // Crear y popular el objeto Proveedor
+                            proveedor = new Proveedor()
+                            {
+                                id = Convert.ToInt32(dr["id"]),
+                                cuit = dr["cuit"].ToString(),
+                                nombre = dr["nombre"].ToString(),
+                                direccion = dr["direccion"].ToString(),
+                                razonsocial = dr["razonsocial"].ToString(),
+                                telefono = dr["telefono"].ToString(),
+                                estado = Convert.ToBoolean(dr["estado"]),
+                                email = dr["email"].ToString(),
+                            };
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Si hay un error, devolvemos null
+                    Console.WriteLine($"Error al buscar proveedor por nombre: {ex.Message}");
+                    proveedor = null;
+                }
+            }
+            return proveedor;
+        }
+    
     }
 }

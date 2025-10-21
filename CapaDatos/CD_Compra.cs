@@ -59,6 +59,8 @@ namespace CapaDatos
                 cmd.Parameters.AddWithValue("p_proveedor_id", obj.proveedorid);
                 cmd.Parameters.AddWithValue("p_tipodocumento", obj.tipodocumento);
                 cmd.Parameters.AddWithValue("p_numerodocumento", obj.numerodocumento);
+                // AGREGAR EL PARÁMETRO MONTO TOTAL
+                cmd.Parameters.AddWithValue("p_montototal", obj.montototal);
 
                 // JSON (si tu server/conector no soporta JSON, usar LongText)
                 var pJson = new MySqlParameter("p_detallecompra", MySqlDbType.JSON) { Value = jsonDetalle };

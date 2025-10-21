@@ -20,19 +20,20 @@ namespace CapaDatos
                 try
                 {
                     string query = "SELECT p.id, " +
-               "categoria.id AS cate_id, " +
-               "p.nombre, " +
-               "p.stock, " +
-               "p.precioventa, " +
-               "p.categoria_id, " +
-               "p.preciocompra, " +
-               "p.descripcion, " +
-               "p.fecharegistro, " +
-               "p.estado, " +
-               "p.codigo, " +
-               "categoria.nombre_categoria AS nom_categoria " +
-               "FROM producto p " +
-               "INNER JOIN categoria ON categoria.id = p.categoria_id";
+                       "categoria.id AS cate_id, " +
+                       "p.nombre, " +
+                       "p.stock, " +
+                       "p.precioventa, " +
+                       "p.categoria_id, " +
+                       "p.preciocompra, " +
+                       "p.descripcion, " +
+                       "p.fecharegistro, " +
+                       "p.estado, " +
+                       "p.codigo, " +
+                       "categoria.nombre_categoria AS nom_categoria, " +
+                       "categoria.porcentaje_aumento AS porc_aumento " +
+                       "FROM producto p " +
+                       "INNER JOIN categoria ON categoria.id = p.categoria_id";
                     MySqlCommand cmd = new MySqlCommand(query, oconexion);
                     cmd.CommandType = CommandType.Text;
                     oconexion.Open();
@@ -46,7 +47,18 @@ namespace CapaDatos
                                 nombre = dr["nombre"].ToString(),
                                 stock = Convert.ToInt32(dr["stock"]),
                                 precioventa = Convert.ToDecimal(dr["precioventa"]),
-                                ocategoria = new Categoria() { Id = Convert.ToInt32(dr["cate_id"]), nombre_categoria = dr["nom_categoria"].ToString() }, 
+
+                                ocategoria = new Categoria()
+                                {
+                                    Id = Convert.ToInt32(dr["cate_id"]),
+                                    nombre_categoria = dr["nom_categoria"].ToString(),
+
+                                    //LÓGICA REFORZADA: Verificar si es DBNull, sino, intentar convertir.
+                                    porcentaje_aumento = dr["porc_aumento"] is DBNull ?
+                             0m :
+                             Convert.ToDecimal(dr["porc_aumento"])
+                                },
+
                                 preciocompra = Convert.ToDecimal(dr["preciocompra"]),
                                 descripcion = dr["descripcion"].ToString(),
                                 fecharegistro = Convert.ToString(dr["fecharegistro"]),
@@ -60,6 +72,7 @@ namespace CapaDatos
                 catch (Exception ex)
                 {
                     lista = new List<Producto>();
+                    //aca poner una variable y mostrar por consola
                 }
 
             }
