@@ -1,0 +1,16 @@
+2025-10-28T14:40:29.8773083+00:00 Microsoft.Testing.Platform.Builder.TestApplication INFORMATION Version: 1.4.3+c252b64ad913ea9411fc5d17bfd5580d2d061497
+2025-10-28T14:40:29.9086745+00:00 Microsoft.Testing.Platform.Builder.TestApplication INFORMATION Logging mode: asynchronous
+2025-10-28T14:40:29.9138056+00:00 Microsoft.Testing.Platform.Builder.TestApplication INFORMATION Logging level: Information
+2025-10-28T14:40:29.9138246+00:00 Microsoft.Testing.Platform.Builder.TestApplication INFORMATION CreateBuilderAsync entry time: 14:40:29.813
+2025-10-28T14:40:29.9191763+00:00 Microsoft.Testing.Platform.Builder.TestApplication INFORMATION PID: 7356
+2025-10-28T14:40:29.9195726+00:00 Microsoft.Testing.Platform.Builder.TestApplication INFORMATION Runtime information: win-x64 - .NET 8.0.19
+2025-10-28T14:40:29.9196136+00:00 Microsoft.Testing.Platform.Builder.TestApplication INFORMATION Runtime location: C:\Program Files\dotnet\shared\Microsoft.NETCore.App\8.0.19\System.Private.CoreLib.dll
+2025-10-28T14:40:29.9196459+00:00 Microsoft.Testing.Platform.Builder.TestApplication INFORMATION IsDynamicCodeSupported: True
+2025-10-28T14:40:29.9196639+00:00 Microsoft.Testing.Platform.Builder.TestApplication INFORMATION Test module: C:\Users\ramirez\Documents\MaxiKiosco_Pruebas\MaxiKiosco.UnitTests\bin\Debug\net8.0-windows\MaxiKiosco.UnitTests.dll
+2025-10-28T14:40:29.9209763+00:00 Microsoft.Testing.Platform.Builder.TestApplication INFORMATION Command line arguments: '--server --diagnostic --diagnostic-verbosity Information --diagnostic-output-directory C:\Users\ramirez\Documents\MaxiKiosco_Pruebas\MaxiKiosco.UnitTests\bin\Debug\net8.0-windows\Log --results-directory C:\Users\ramirez\Documents\MaxiKiosco_Pruebas\TestResults --client-port 34795'
+2025-10-28T14:40:29.9251748+00:00 Microsoft.Testing.Platform.Builder.TestApplication INFORMATION TESTINGPLATFORM_DEFAULT_HANG_TIMEOUT: ''
+2025-10-28T14:40:30.0015488+00:00 Microsoft.Testing.Platform.Hosts.TestHostBuilder INFORMATION Setting RegisterEnvironmentVariablesConfigurationSource: 'True'
+2025-10-28T14:40:30.0108229+00:00 Microsoft.Testing.Platform.Configurations.JsonConfigurationSource+JsonConfigurationProvider INFORMATION Config file 'C:\Users\ramirez\Documents\MaxiKiosco_Pruebas\MaxiKiosco.UnitTests\bin\Debug\net8.0-windows\MaxiKiosco.UnitTests.testconfig.json' not found.
+2025-10-28T14:40:30.0143526+00:00 Microsoft.Testing.Platform.Hosts.TestHostBuilder INFORMATION Setting PlatformExitProcessOnUnhandledException: 'False', config file: False environment variable:  VSTest mode: False
+2025-10-28T14:40:30.4024496+00:00 Microsoft.Testing.Platform.Requests.TestHostTestFrameworkInvoker INFORMATION Test framework UID: 'MSTestExtension' Version: '3.6.4' DisplayName: 'MSTest' Description: 'MSTest Framework for Microsoft Testing Platform'
+2025-10-28T14:40:30.4416363+00:00 Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.MessageLoggerAdapter WARNING Microsoft.Testing.Platform no admite el atributo "MaxCpuCount" de Runsettings y se omitirá

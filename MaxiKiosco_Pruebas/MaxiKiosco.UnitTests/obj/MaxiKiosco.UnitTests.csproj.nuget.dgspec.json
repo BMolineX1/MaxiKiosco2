@@ -1,0 +1,416 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\ramirez\\Documents\\Raiz_Testing\\MaxiKiosco_Pruebas\\MaxiKiosco.UnitTests\\MaxiKiosco.UnitTests.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\ramirez\\Documents\\Raiz_Testing\\MaxiKiosco2-ramirez-dev\\CapaDatos\\CapaDatos.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\ramirez\\Documents\\Raiz_Testing\\MaxiKiosco2-ramirez-dev\\CapaDatos\\CapaDatos.csproj",
+        "projectName": "CapaDatos",
+        "projectPath": "C:\\Users\\ramirez\\Documents\\Raiz_Testing\\MaxiKiosco2-ramirez-dev\\CapaDatos\\CapaDatos.csproj",
+        "packagesPath": "C:\\Users\\ramirez\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ramirez\\Documents\\Raiz_Testing\\MaxiKiosco2-ramirez-dev\\CapaDatos\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\ramirez\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\ramirez\\Documents\\Raiz_Testing\\MaxiKiosco2-ramirez-dev\\CapaEntidad\\CapaEntidad.csproj": {
+                "projectPath": "C:\\Users\\ramirez\\Documents\\Raiz_Testing\\MaxiKiosco2-ramirez-dev\\CapaEntidad\\CapaEntidad.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "MySql.Data": {
+              "target": "Package",
+              "version": "[9.3.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.4, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\ramirez\\Documents\\Raiz_Testing\\MaxiKiosco2-ramirez-dev\\CapaEntidad\\CapaEntidad.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\ramirez\\Documents\\Raiz_Testing\\MaxiKiosco2-ramirez-dev\\CapaEntidad\\CapaEntidad.csproj",
+        "projectName": "CapaEntidad",
+        "projectPath": "C:\\Users\\ramirez\\Documents\\Raiz_Testing\\MaxiKiosco2-ramirez-dev\\CapaEntidad\\CapaEntidad.csproj",
+        "packagesPath": "C:\\Users\\ramirez\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ramirez\\Documents\\Raiz_Testing\\MaxiKiosco2-ramirez-dev\\CapaEntidad\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\ramirez\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.4, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\ramirez\\Documents\\Raiz_Testing\\MaxiKiosco2-ramirez-dev\\CapaNegocio\\CapaNegocio.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\ramirez\\Documents\\Raiz_Testing\\MaxiKiosco2-ramirez-dev\\CapaNegocio\\CapaNegocio.csproj",
+        "projectName": "CapaNegocio",
+        "projectPath": "C:\\Users\\ramirez\\Documents\\Raiz_Testing\\MaxiKiosco2-ramirez-dev\\CapaNegocio\\CapaNegocio.csproj",
+        "packagesPath": "C:\\Users\\ramirez\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ramirez\\Documents\\Raiz_Testing\\MaxiKiosco2-ramirez-dev\\CapaNegocio\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\ramirez\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\ramirez\\Documents\\Raiz_Testing\\MaxiKiosco2-ramirez-dev\\CapaDatos\\CapaDatos.csproj": {
+                "projectPath": "C:\\Users\\ramirez\\Documents\\Raiz_Testing\\MaxiKiosco2-ramirez-dev\\CapaDatos\\CapaDatos.csproj"
+              },
+              "C:\\Users\\ramirez\\Documents\\Raiz_Testing\\MaxiKiosco2-ramirez-dev\\CapaEntidad\\CapaEntidad.csproj": {
+                "projectPath": "C:\\Users\\ramirez\\Documents\\Raiz_Testing\\MaxiKiosco2-ramirez-dev\\CapaEntidad\\CapaEntidad.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.4, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\ramirez\\Documents\\Raiz_Testing\\MaxiKiosco2-ramirez-dev\\MaxiKiosco\\MaxiKiosco.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\ramirez\\Documents\\Raiz_Testing\\MaxiKiosco2-ramirez-dev\\MaxiKiosco\\MaxiKiosco.csproj",
+        "projectName": "MaxiKiosco",
+        "projectPath": "C:\\Users\\ramirez\\Documents\\Raiz_Testing\\MaxiKiosco2-ramirez-dev\\MaxiKiosco\\MaxiKiosco.csproj",
+        "packagesPath": "C:\\Users\\ramirez\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ramirez\\Documents\\Raiz_Testing\\MaxiKiosco2-ramirez-dev\\MaxiKiosco\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\ramirez\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0-windows"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0-windows7.0": {
+            "targetAlias": "net8.0-windows",
+            "projectReferences": {
+              "C:\\Users\\ramirez\\Documents\\Raiz_Testing\\MaxiKiosco2-ramirez-dev\\CapaEntidad\\CapaEntidad.csproj": {
+                "projectPath": "C:\\Users\\ramirez\\Documents\\Raiz_Testing\\MaxiKiosco2-ramirez-dev\\CapaEntidad\\CapaEntidad.csproj"
+              },
+              "C:\\Users\\ramirez\\Documents\\Raiz_Testing\\MaxiKiosco2-ramirez-dev\\CapaNegocio\\CapaNegocio.csproj": {
+                "projectPath": "C:\\Users\\ramirez\\Documents\\Raiz_Testing\\MaxiKiosco2-ramirez-dev\\CapaNegocio\\CapaNegocio.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net8.0-windows7.0": {
+          "targetAlias": "net8.0-windows",
+          "dependencies": {
+            "ClosedXML": {
+              "target": "Package",
+              "version": "[0.105.0, )"
+            },
+            "FontAwesome.Sharp": {
+              "target": "Package",
+              "version": "[6.6.0, )"
+            },
+            "MySql.Data": {
+              "target": "Package",
+              "version": "[9.3.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.4, )"
+            },
+            "iTextSharp": {
+              "target": "Package",
+              "version": "[5.5.13.4, )"
+            },
+            "itextsharp.xmlworker": {
+              "target": "Package",
+              "version": "[5.5.13.4, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            },
+            "Microsoft.WindowsDesktop.App.WindowsForms": {
+              "privateAssets": "none"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\ramirez\\Documents\\Raiz_Testing\\MaxiKiosco_Pruebas\\MaxiKiosco.UnitTests\\MaxiKiosco.UnitTests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\ramirez\\Documents\\Raiz_Testing\\MaxiKiosco_Pruebas\\MaxiKiosco.UnitTests\\MaxiKiosco.UnitTests.csproj",
+        "projectName": "MaxiKiosco.UnitTests",
+        "projectPath": "C:\\Users\\ramirez\\Documents\\Raiz_Testing\\MaxiKiosco_Pruebas\\MaxiKiosco.UnitTests\\MaxiKiosco.UnitTests.csproj",
+        "packagesPath": "C:\\Users\\ramirez\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ramirez\\Documents\\Raiz_Testing\\MaxiKiosco_Pruebas\\MaxiKiosco.UnitTests\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\ramirez\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0-windows"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0-windows7.0": {
+            "targetAlias": "net8.0-windows",
+            "projectReferences": {
+              "C:\\Users\\ramirez\\Documents\\Raiz_Testing\\MaxiKiosco2-ramirez-dev\\CapaDatos\\CapaDatos.csproj": {
+                "projectPath": "C:\\Users\\ramirez\\Documents\\Raiz_Testing\\MaxiKiosco2-ramirez-dev\\CapaDatos\\CapaDatos.csproj"
+              },
+              "C:\\Users\\ramirez\\Documents\\Raiz_Testing\\MaxiKiosco2-ramirez-dev\\CapaEntidad\\CapaEntidad.csproj": {
+                "projectPath": "C:\\Users\\ramirez\\Documents\\Raiz_Testing\\MaxiKiosco2-ramirez-dev\\CapaEntidad\\CapaEntidad.csproj"
+              },
+              "C:\\Users\\ramirez\\Documents\\Raiz_Testing\\MaxiKiosco2-ramirez-dev\\CapaNegocio\\CapaNegocio.csproj": {
+                "projectPath": "C:\\Users\\ramirez\\Documents\\Raiz_Testing\\MaxiKiosco2-ramirez-dev\\CapaNegocio\\CapaNegocio.csproj"
+              },
+              "C:\\Users\\ramirez\\Documents\\Raiz_Testing\\MaxiKiosco2-ramirez-dev\\MaxiKiosco\\MaxiKiosco.csproj": {
+                "projectPath": "C:\\Users\\ramirez\\Documents\\Raiz_Testing\\MaxiKiosco2-ramirez-dev\\MaxiKiosco\\MaxiKiosco.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net8.0-windows7.0": {
+          "targetAlias": "net8.0-windows",
+          "dependencies": {
+            "MSTest": {
+              "target": "Package",
+              "version": "[3.6.4, )"
+            },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[17.12.0, )"
+            },
+            "Microsoft.Testing.Extensions.CodeCoverage": {
+              "target": "Package",
+              "version": "[17.12.6, )"
+            },
+            "Microsoft.Testing.Extensions.TrxReport": {
+              "target": "Package",
+              "version": "[1.4.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            },
+            "Microsoft.WindowsDesktop.App.WindowsForms": {
+              "privateAssets": "none"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
