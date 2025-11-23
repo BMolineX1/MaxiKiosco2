@@ -176,9 +176,28 @@ namespace MaxiKiosco
                 dgvdata.Columns["precioventa"].DefaultCellStyle.Format = "N2";
             }
 
-        
+            CargarCategoriasCombo();
+
             // [MODIFICADO] Aquí has llamado a CargarProductos()
             CargarProductos();
+        }
+        private void CargarCategoriasCombo()
+        {
+            cbocategoria.Items.Clear();
+
+            // ❌ CORRECCIÓN: Usar ListarActivos() en lugar de Listar()
+            List<Categoria> listaCategoria = new CN_Categoria().ListarActivos();
+
+            foreach (Categoria item in listaCategoria)
+            {
+                cbocategoria.Items.Add(new OpcionCombo() { Valor = item.Id, texto = item.nombre_categoria });
+            }
+            cbocategoria.DisplayMember = "Texto";
+            cbocategoria.ValueMember = "Valor";
+            if (cbocategoria.Items.Count > 0)
+            {
+                cbocategoria.SelectedIndex = 0;
+            }
         }
 
         private void Limpiar()
