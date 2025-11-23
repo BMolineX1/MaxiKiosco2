@@ -1,0 +1,24 @@
+Solucionar 
+* En categoria tiene que tener la imagen check que tiene los demas modulos. (HECHO)
+* No funciona al seleccionar un registro (HECHO)
+
+* En Producto precio de compra hay que sacar. (HECHO)
+* Agregar stock minimo en producto. (HECHO)
+* Luego de una modificacion u insercion se debe mostrar en el datagrid solo ese registro. (HECHO)
+
+* En compra quitar nombre de razon social dejar solo "Nombre Proveedor". (HECHO)
+* En el textbox que muestra el precio de la venta se debe actualizar en tiempo real segun el producto que ingresa y su cantidad. (HECHO)
+* En compra se debe agregar porcentaje que tiene la categoria en el precio de la compra.(HECHO)
+
+* Agregar Factura A o B dependiendo del cliente. (HECHO)
+* En venta solucionar el error que rompe el programa. (HECHO)
+
+* En proveedor validar todos los campos. (HECHO)
+* Al editar se debe mostrar el proveedor editado unicamente en la tabla. (HECHO)
+
+* Sacar Razon social de cliente.  (HECHO)
+* En cliente Validar todos los campos, al insertar y editar.(HECHO)
+* Al editar se debe mostrar el cliente editado unicamente en la tabla.  (HECHO)
+
+* En reporte mostrar el total de la busqueda o filtro, es decir lo que hay en la tabla en ese momento. (HECHO)
+* Agregar cuanto se va vendiendo en el mes y cuanto se va comprando
